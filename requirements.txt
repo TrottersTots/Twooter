@@ -1,0 +1,6 @@
+Flask
+Flask-Session
+requests
+SQLAlchemy
+sqlparse
+termcolor
