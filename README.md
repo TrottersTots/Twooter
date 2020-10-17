@@ -14,3 +14,9 @@ Developed By Nathan Inbar && Justin Stitt
   * db = SQL("sqlite///databse.db")
   * db.execute("SELECT * FROM table")
 
+
+
+## Dev Environment Setup 
+npm start (front-end)
+cd api
+python api.py (back-end)
