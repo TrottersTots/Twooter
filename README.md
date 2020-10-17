@@ -20,6 +20,9 @@ Developed By Nathan Inbar && Justin Stitt
 
 
 ## Dev Environment Setup 
-1) npm start (front-end)
-2) cd api
-3) python api.py(back-end)
+1) Clone repo
+2) add node-modules dir from npx create-react-app some-dummy
+3) add Pip modules from /requirements.txt, add npm modules from /requirements.txt
+4) npm start (front-end)
+5) cd api
+6) python api.py(back-end)
