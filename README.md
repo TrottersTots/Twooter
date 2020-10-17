@@ -14,9 +14,7 @@ Developed By Nathan Inbar && Justin Stitt
 * Flask w/ RESTful Api
 * sqlite3 w/ SQLAlchemy python toolkit
 
-![](/media/full-stack_outline.png)
-
-
+<img src="/media/full-stack_outline.png/" width="240">
 
 
 ## Dev Environment Setup 
