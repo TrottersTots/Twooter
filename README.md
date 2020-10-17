@@ -17,6 +17,6 @@ Developed By Nathan Inbar && Justin Stitt
 
 
 ## Dev Environment Setup 
-npm start (front-end)
-cd api
-python api.py (back-end)
+1) npm start (front-end)
+2) cd api
+3) python api.py(back-end)
