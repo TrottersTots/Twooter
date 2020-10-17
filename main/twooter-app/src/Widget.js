@@ -13,7 +13,7 @@ function Widget({widgetType, topic, sub_topic, text, thumbnail, flavor_data, dis
                 </div>
                 <div className="widget__content">
                     <p>{text}</p>
-                    <Avatar src={thumbnail} alt="" variant="rounded"/>
+                    <Avatar src={thumbnail} alt="" variant="rounded" className="widget__content__Avatar"/>
                 </div>
                 <div className="widget__topic">
                     <p>{flavor_data}</p>
@@ -33,7 +33,7 @@ function Widget({widgetType, topic, sub_topic, text, thumbnail, flavor_data, dis
                     
                     <h4>{displayName} {verified && <CheckCircleIcon className="post__badge" />}</h4>
                         
-                    <p>{userName}</p>
+                    <p>@{userName}</p>
                 </div>
                 <div>
                     <Button className="widget__followButton">Follow</Button>

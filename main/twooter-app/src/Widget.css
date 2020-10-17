@@ -1,12 +1,12 @@
 .widget {
-    border-top: 1px solid var(--twitter-background);
-    border-bottom: 1px solid var(--twitter-background);
+    border-top: 1px solid var(--white);
+    border-bottom: 1px solid var(--white);
     padding: 10px 0;
 }
 
 .widget__topic > p {
     font-size: 8;
-    color: gray;
+    color: var(--white);
 }
 .widget__content {
     display: flex;
@@ -14,14 +14,10 @@
 .widget__content > p {
     font-weight: bolder;
 }
-
-/* who to follow */
-
-/*
-.widget__avatar {
-    
+.widget__content__Avatar {
+    border: 2px solid var(--blue);
 }
-*/
+
 .widget__follow {
     display: flex;
     flex-direction: row;
@@ -36,13 +32,13 @@
 
 .widget__followText > p {
     font-size: 12px;
-    color: gray;
+    color: var(--white);
 }
 
 .widget__followButton {
-    background-color: var(--twitter-background) !important;
-    border: 1px solid var(--twitter-color) !important;
-    color: var(--twitter-color) !important;
+    background-color: var(--main-background) !important;
+    border: 2px solid var(--blue) !important;
+    color: var(--blue) !important;
     text-transform: inherit !important;
     border-radius: 30px !important;
     width: 80px;

@@ -1,8 +1,21 @@
 body {
-    --twitter-color: #88c0d0;
-    --twitter-background: #e6ecf0;
-    background-color: #2e3440;
-    color: #eceff4;
+    --main-background: #2f3541;
+    --highlight: #4c566a;
+    --white: #eceff4;
+    --offwhite: #d8dee9;
+    --blue: #5e81ac;
+    --frost: #8fbcbb;
+    --red: #bf616a;
+    --orange: #d08770;
+    --yellow: #ebcb8b;
+    --green: #a3be8c;
+    --purple: #b48ead;
+
+
+
+    /* end vars */
+    background-color: var(--main-background); /* main bkg color */
+    color: var(--white);/* sets default text color */
 }
 
 .app {

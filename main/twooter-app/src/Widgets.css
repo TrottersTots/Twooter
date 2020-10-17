@@ -5,7 +5,7 @@
 .widgets__input {
     display: flex;
     align-items: center;
-    background-color: var(--twitter-background);
+    background-color: var(--highlight);
     padding: 10px;
     border-radius: 20px;
     margin-top: 10px;
@@ -14,19 +14,29 @@
 
 .widgets__input > input {
     border: none;
-    background-color: var(--twitter-background);
+    color: var(--offwhite);
+    background-color: var(--highlight);
 }
 
 .widgets__searchIcon {
-    color: gray;
+    color: var(--offwhite);
 }
 
 .widgets__widgetContainer {
     margin-top: 15px;
     margin-left: 20px;
-    padding: 20px;
-    background-color: #f5f8fa;
+    padding: 10px;
+    background-color: var(--highlight);
+    border: 4px solid;
     border-radius: 20px;
+}
+
+.w1 {
+    border-color: var(--red) !important;
+}
+
+.w2 {
+    border-color: var(--orange);
 }
 
 .widgets__widgetContainer > h2 {

@@ -1,24 +1,27 @@
 import React from 'react'
 import "./TweetBox.css"
 import { Avatar, Button } from "@material-ui/core";
+//import ImageIcon from '@material-ui/icons/Image';
 
 function TweetBox() {
     return (
         <div className="tweetBox">
             <form action="/api/postTweet">
                 <div className="tweetBox__input">
-                    <Avatar src="https://png.pngtree.com/png-vector/20191009/ourmid/pngtree-user-icon-png-image_1796659.jpg" />
-                    <input placeholder="What's Happening" name="message" type="text"></input>
+                    <Avatar src="" />
+                    <input placeholder="What's happening, User?" name="message" type="text"></input>
 
                 </div>
-                <input 
-                    className= "tweetBox__imageInput"
-                    placeholder="[temp] Enter Img URL" 
-                    type="text"
-                    name="imgURL">
-                </input>
+                <div className="tweetBox__imageDiv">
+                    <input 
+                        className= "tweetBox__imageInput"
+                        placeholder="Image URL" 
+                        type="text"
+                        name="imgURL">
+                    </input>
+                </div>
 
-                <Button className="tweetBox__tweetButton" type="submit">Tweet</Button>
+                <Button className="tweetBox__tweetButton" type="submit">Twoot</Button>
             </form>
         </div>
     );

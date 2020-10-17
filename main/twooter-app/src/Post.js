@@ -45,10 +45,10 @@ function Post({displayName, username, verified, timestamp, text, image, avatar, 
                 <img src={image} alt=""/>
                 
                 <div className="post__footer">
-                    <ChatBubbleOutlineIcon fontSize="small" />
-                    <RepeatIcon fontSize="small" />
-                    <FavoriteBorderIcon fontSize="small" />
-                    <PublishIcon fontSize="small" />
+                    <ChatBubbleOutlineIcon id="chatIcon" fontSize="small" />
+                    <RepeatIcon id="repeatIcon" fontSize="small" />
+                    <FavoriteBorderIcon id="favoriteIcon" fontSize="small" />
+                    <PublishIcon id="publishIcon" fontSize="small" />
                 </div>
             </div>
         </div>

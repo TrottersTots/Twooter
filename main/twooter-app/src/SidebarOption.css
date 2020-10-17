@@ -6,9 +6,9 @@
 }
 
 .sidebarOption:hover {
-    background-color: #e8f5fe;
+    background-color: var(--offwhite);
     border-radius: 30px;
-    color: var(--twitter-color);
+    color: var(--blue);
     transition: color 100ms ease-out;
 }
 
@@ -23,5 +23,5 @@
 }
 
 .sidebarOption--active {
-    color: var(--twitter-color);
+    color: var(--blue);
 }
