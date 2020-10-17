@@ -1,6 +1,12 @@
+pip--
+
 Flask
 Flask-Session
 requests
 SQLAlchemy
 sqlparse
 termcolor
+
+npm--
+
+npm install @material-ui/core

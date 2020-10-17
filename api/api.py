@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
 
 app = Flask(__name__)
@@ -6,7 +6,7 @@ api = Api(app)
 
 class HelloWorld(Resource):
     def get(self):
-        return {'test-get': 'Hello, World!'}
+        return jsonify({"test": "hello, world!"})
 
     def post(self):
         some_json = request.get_json()

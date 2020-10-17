@@ -1,9 +1,19 @@
-import React from 'react'
+import React, {useState} from 'react'
 import "./TweetBox.css"
 import { Avatar, Button } from "@material-ui/core";
 //import ImageIcon from '@material-ui/icons/Image';
 
 function TweetBox() {
+
+    function test_request() {
+        fetch("/api/hello").then(response =>
+          response.json().then(data => {
+            console.log(data['test']);
+          })
+        );
+      }
+    
+
     return (
         <div className="tweetBox">
             <form action="/api/postTweet">
@@ -21,10 +31,14 @@ function TweetBox() {
                     </input>
                 </div>
 
-                <Button className="tweetBox__tweetButton" type="submit">Twoot</Button>
+                <Button 
+                className="tweetBox__tweetButton" 
+                onClick={test_request}
+                >
+                
+                Twoot</Button>
             </form>
         </div>
     );
 }
-
 export default TweetBox
