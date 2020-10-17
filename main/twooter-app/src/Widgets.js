@@ -8,10 +8,10 @@ function Widgets() {
         <div className="widgets">
             <div className="widgets__input">
                 <SearchIcon pclassName="widgets__searchIcon" />
-                <input placeholder="Search Twitter" type="text" />
+                <input placeholder="Search Twooter" type="text" />
             </div>
 
-            <div className="widgets__widgetContainer">
+            <div className="widgets__widgetContainer w1">
                 <h2>What's Happening</h2>
                 <Widget 
                     widgetType="whatsHappening"
@@ -19,11 +19,11 @@ function Widgets() {
                     sub_topic="Trending"
                     text="Pistol Shrimp 9000 decimates entire Highschool"
                     thumbnail="https://qph.fs.quoracdn.net/main-qimg-5d695f84719ea6f50f542426a5765cb5.webp"
-                    flavor_data="69,420 Tweets"
+                    flavor_data="69,420 Twoots"
                 />
             </div>
 
-            <div className="widgets__widgetContainer">
+            <div className="widgets__widgetContainer w2">
                 <h2>Who to Follow</h2>
                 <Widget 
                     widgetType="whoToFollow"
