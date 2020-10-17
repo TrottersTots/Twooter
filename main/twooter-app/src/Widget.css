@@ -1,0 +1,50 @@
+.widget {
+    border-top: 1px solid var(--twitter-background);
+    border-bottom: 1px solid var(--twitter-background);
+    padding: 10px 0;
+}
+
+.widget__topic > p {
+    font-size: 8;
+    color: gray;
+}
+.widget__content {
+    display: flex;
+}
+.widget__content > p {
+    font-weight: bolder;
+}
+
+/* who to follow */
+
+/*
+.widget__avatar {
+    
+}
+*/
+.widget__follow {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.widget__followText > h4 {
+    font-weight: bold;
+}
+
+.widget__followText > p {
+    font-size: 12px;
+    color: gray;
+}
+
+.widget__followButton {
+    background-color: var(--twitter-background) !important;
+    border: 1px solid var(--twitter-color) !important;
+    color: var(--twitter-color) !important;
+    text-transform: inherit !important;
+    border-radius: 30px !important;
+    width: 80px;
+    height: 30px !important;
+}
