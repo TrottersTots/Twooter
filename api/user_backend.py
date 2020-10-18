@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_restful import Resource
 from models import User
-
 """
 user_backend.py-
 manages the User base backend integration.

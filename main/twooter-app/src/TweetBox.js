@@ -44,7 +44,8 @@ function TweetBox() {
                     value = {message}
                     name="message" 
                     type="text"
-                    onChange={e => setMessage(e.target.value)}></input>
+                    onChange={e => setMessage(e.target.value)}>   
+                    </input>
 
                 </div>
                 <div className="tweetBox__imageDiv">
