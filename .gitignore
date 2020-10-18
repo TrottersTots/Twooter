@@ -137,4 +137,4 @@ dmypy.json
 ##--custom
 *.db-journal
 *.db
-main/api/data/database
+database/
