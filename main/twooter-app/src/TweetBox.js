@@ -5,13 +5,35 @@ import { Avatar, Button } from "@material-ui/core";
 
 function TweetBox() {
 
-    function test_request() {
-        fetch("/api/hello").then(response =>
-          response.json().then(data => {
-            console.log(data['test']);
-          })
-        );
-      }
+    const [owner, setOwner] = useState(-1);
+    const [message, setMessage] = useState('');
+    const [image, setImage] = useState('no-image-data');
+
+    async function post_twoot()
+    {
+        const twoot = {owner, message, image}
+        const response = await fetch('/api/post_twoot/',
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(twoot)
+        });
+        if(response.ok){
+            console.log('Twoot sent to db!');
+            setMessage('')
+        }
+    }
+
+    function get_most_recent()
+    {
+        fetch('api/get_twoot/').then(response =>
+            response.json().then(data =>
+                {
+                    console.log(data['message']);
+                }));
+    }
     
 
     return (
@@ -19,7 +41,12 @@ function TweetBox() {
             <form action="/api/postTweet">
                 <div className="tweetBox__input">
                     <Avatar src="" />
-                    <input placeholder="What's happening, User?" name="message" type="text"></input>
+                    <input 
+                    placeholder="What's happening, User?" 
+                    value = {message}
+                    name="message" 
+                    type="text"
+                    onChange={e => setMessage(e.target.value)}></input>
 
                 </div>
                 <div className="tweetBox__imageDiv">
@@ -33,10 +60,15 @@ function TweetBox() {
 
                 <Button 
                 className="tweetBox__tweetButton" 
-                onClick={test_request}
+                onClick={post_twoot}
                 >
-                
                 Twoot</Button>
+                <Button 
+                variant='contained'
+                color='secondary'
+                onClick={get_most_recent}
+                >
+                 (DEBUG) Get Most Recent Twoot</Button>
             </form>
         </div>
     );
