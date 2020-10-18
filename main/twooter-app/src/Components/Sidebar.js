@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import '../styles/Sidebar.css'
 import SidebarOption from './SidebarOption';
 
