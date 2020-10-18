@@ -17,7 +17,7 @@ class CreateUser(Resource):
     def post(self):
         user_info_json = request.get_json()
         #constructs a new user model with username and password supplied from front-end in JSON format
-        new_user = User(user_info_json['username'], user_info_json['password'])
+        new_user = User(user_info_json['username'], user_info_json['password'], user_info_json['email'])
         #insert new user into db here
         #...db stuff...
         db.execute("INSERT INTO users (username, displayname, password, email) VALUES (:username, :displayname, :password, :email)",
@@ -25,7 +25,7 @@ class CreateUser(Resource):
                     displayname=new_user.displayname,
                     password=generate_password_hash(new_user.password),
                     email=new_user.email)
-        q = db.execute("SELECT * FROM users WHERE username=:username", username="")
+        q = db.execute("SELECT * FROM users WHERE username=:username", username=new_user.username)
 
         if q is None:
             return 'user-creation-failed', 500

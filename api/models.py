@@ -6,11 +6,11 @@ Describes the attributes that certain objects possess.
 """
 
 class User():
-    def __init__(self, _username, _displayname, _password):
+    def __init__(self, _username, _password, _email):
         self.username = _username
-        self.password = _password #how do we store this
-        self.displayname = _displayname
-        self.email    = ''
+        self.password = _password 
+        self.displayname = _username
+        self.email    = _email
         self.avatar   = '' #store as image type then conv to BLOB? idk whats best tbh
         self.posts    = [] #array of post models
         self.replies  = [] #array of comments replied to 
