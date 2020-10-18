@@ -1,5 +1,5 @@
 import React from 'react'
-import './Widget.css';
+import '../styles/Widget.css';
 import { Avatar, Button } from "@material-ui/core";
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
