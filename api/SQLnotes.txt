@@ -1,0 +1,9 @@
+different sql queries we will need to use:
+
+retrieve user information:
+"SELECT * FROM users WHERE id=:user_id", useri_id=session["user_id"]
+(1, 'Justin_Stitt', 'JustinStitt', pass123 ,'example@gmail.com', '01/01/2001', 'hello world', 'twooter.com/avatars/1.png', False)
+id , username, displayname, password, email, dob, bio, avatar, verified
+
+---
+
