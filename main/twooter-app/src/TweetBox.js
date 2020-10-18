@@ -26,13 +26,11 @@ function TweetBox() {
         }
     }
 
-    function get_most_recent()
+    async function get_most_recent()
     {
-        fetch('api/get_twoot/').then(response =>
-            response.json().then(data =>
-                {
-                    console.log(data['message']);
-                }));
+        await fetch('api/get_twoot/')
+        .then(response => response.json())
+        .then(data =>console.log(data['message']));
     }
     
 
