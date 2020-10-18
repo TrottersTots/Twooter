@@ -12,8 +12,7 @@ function TweetBox() {
     async function post_twoot()
     {
         const twoot = {owner, message, image}
-        const response = await fetch('/api/post_twoot/',
-        {
+        const response = await fetch('/api/post_twoot/',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
