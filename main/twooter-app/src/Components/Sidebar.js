@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {useState, Component} from "react";
 import '../styles/Sidebar.css'
 import SidebarOption from './SidebarOption';
 import {Modal} from 'react-bootstrap'
@@ -14,60 +14,38 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { Button } from "@material-ui/core";
 
 
-class Sidebar extends Component{
+function Sidebar(){
 
-    constructor(props){
-      super(props)
-      this.state = {
-        show_signup: false,
-        show_login: false,
-        username: '',
-        password: '',
-        email: '',
-      }
-    }
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [show_login, setLogin] = useState(false);
+    const [show_signup, setSignup] = useState(false);
 
-    onOpenSignup = () => {
-      console.log('opened signup')
-      this.setState({show_signup: true});
-    }
-    onOpenLogin = () => {
-      this.setState({show_login: true});
-    }
-    onCloseSignup = () => {
-      console.log('closed signup')
-      this.setState({show_signup: false});
-    }
-    onCloseLogin = () => {
-      this.setState({show_login: false});
-    }
 
-    submitSignup = async () =>{
-      //const user_info = {username, password, email};
-      const {username, password, email} = this.state;
+    async function submitSignup() {
+      const user_info = {username, password, email};
       const response = await fetch('/api/create_user/',{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({username,password,email})
+        body: JSON.stringify(user_info)
       });
       if(response.ok){
         console.log('user-created-successfuly');
-        this.setState({show_signup: false})
-        this.setState({username: ''});
-        this.setState({password: ''});
-        this.setState({email: ''});
+        setSignup(false);
+        setUsername('');
+        setPassword('');
+        setEmail('');
       }
     }
 
-    submitLogin = async () =>{
+    async function submitLogin() {
       console.log('submitting login request')
     }
 
-    render()
-    {
-      const {show_login, show_signup, username, password, email} = this.state;
+
       return (
         <>
         
@@ -76,12 +54,12 @@ class Sidebar extends Component{
               {/* Button -> Sign Up */}
               <Button
                   className="tweetBox__tweetButton"
-                  onClick={this.onOpenSignup}  >
+                  onClick={() => setSignup(true)}  >
                   Sign Up</Button>
               {/* Button -> Login */}
               <Button
                   className="tweetBox__tweetButton"
-                  onClick={this.onOpenLogin}>
+                  onClick={() => setLogin(true)}>
                   Login</Button>
   
               <SidebarOption active Icon={HomeIcon} text="Home" />
@@ -91,7 +69,7 @@ class Sidebar extends Component{
               <SidebarOption Icon={MoreHorizIcon} text="More" />
         </div>
         
-        <Modal show={show_signup} onHide={this.onCloseSignup} backdrop='static' keyboard={false} >
+        <Modal show={show_signup} onHide={() => setSignup(false)} backdrop='static' keyboard={false} >
             <Modal.Header closeButton> 
             <h3>Sign Up</h3>
             </Modal.Header>
@@ -102,7 +80,7 @@ class Sidebar extends Component{
                       name="message"
                       type="text"
                       value={username}
-                      onChange={e => this.setState({username: e.target.value})}
+                      onChange={e => setUsername(e.target.value)}
                       >
                       </input>
           </div>
@@ -112,7 +90,7 @@ class Sidebar extends Component{
                       name="message"
                       type="password"
                       value={password}
-                      onChange={e => this.setState({password: e.target.value})}
+                      onChange={e => setPassword(e.target.value)}
                       >
                       </input>
           </div>
@@ -122,7 +100,7 @@ class Sidebar extends Component{
                       name="message"
                       type="text"
                       value={email}
-                      onChange={e => this.setState({email: e.target.value})}
+                      onChange={e => setEmail(e.target.value)}
                       >
                       </input>
           </div>
@@ -131,11 +109,11 @@ class Sidebar extends Component{
             {/* Button -> submit Sign Up */}
             <Button
                   className="tweetBox__tweetButton"
-                  onClick={this.submitSignup}>
+                  onClick={submitSignup}>
                   Sign Up</Button>
           </Modal.Footer>
         </Modal>
-        <Modal show={show_login} onHide={this.onCloseLogin} backdrop='static' keyboard={false} >
+        <Modal show={show_login} onHide={() => setLogin(false)} backdrop='static' keyboard={false} >
             <Modal.Header closeButton> 
             <h3>Login</h3>
             </Modal.Header>
@@ -146,7 +124,7 @@ class Sidebar extends Component{
                       name="message"
                       type="text"
                       value={username}
-                      onChange={e => this.setState({username: e.target.value})}
+                      onChange={e => setUsername(e.target.value)}
                       >
                       </input>
           </div>
@@ -156,7 +134,7 @@ class Sidebar extends Component{
                       name="message"
                       type="password"
                       value={password}
-                      onChange={e => this.setState({password: e.target.value})}
+                      onChange={e => setPassword(e.target.value)}
                       >
                       </input>
           </div>
@@ -165,7 +143,7 @@ class Sidebar extends Component{
             {/* Button -> submit Sign Up */}
             <Button
                   className="tweetBox__tweetButton"
-                  onClick={this.submitLogin}>
+                  onClick={submitLogin}>
                   Login</Button>
           </Modal.Footer>
         </Modal>
@@ -173,7 +151,7 @@ class Sidebar extends Component{
   
       );
 
-    }
+    
 
     
 }
