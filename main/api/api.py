@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
 
-from user_backend import  CreateUser, DeleteUser
+from user_backend import  CreateUser, DeleteUser, CheckUsernameAvailability
 from twoot_backend import PostTwoot, DeleteTwoot, LikeTwoot, Retwoot, GetTwoot
 
 
@@ -24,6 +24,7 @@ path = '/api' #local api path
 #- User
 api.add_resource(CreateUser, path +  '/create_user/') #methods:['POST']
 api.add_resource(DeleteUser, path +  '/delete_user/') #methods:['POST']
+api.add_resource(CheckUsernameAvailability, path + '/check_username/') #methods:['POST']
 #- Twoot
 api.add_resource(PostTwoot, path +   '/post_twoot/'  ) #methods:['POST']
 api.add_resource(DeleteTwoot, path +   '/delete_twoot/') #methods:['POST']

@@ -27,10 +27,6 @@ class CreateUser(Resource):
                     email=new_user.email)
         q = db.execute("SELECT * FROM users WHERE username=:username", username=new_user.username)
 
-        if q is None:
-            return 'user-creation-failed', 500
-
-        return 'user-created', 201 #return 201 if valid POST request.
 
 class DeleteUser(Resource):
     """
@@ -38,3 +34,24 @@ class DeleteUser(Resource):
     as well as dropping the follow status from their followers database's (both to and fro)
     """
     pass
+
+
+class CheckUsernameAvailability(Resource):
+    """
+    Query the database to check if a username is already in use.
+    For use in front-end form validity checking.
+    return 200 if available, and 500 if not available
+    """
+    def post(self):
+        username_to_query = request.get_json()
+        q = db.execute("SELECT * FROM users WHERE username=:username", username=username_to_query['username'])
+        exists = q.fetchone() 
+        valid = True if (exists is None) else False
+        if(not valid):
+            return 'username taken', 400
+        else:
+            print('username available!')
+            return 'username available', 200
+        
+
+    

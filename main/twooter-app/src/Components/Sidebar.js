@@ -25,11 +25,13 @@ function Sidebar()
             {/* Button -> Sign Up */}
             <Button
               className="tweetBox__tweetButton"
+              style={{outline: 0}}
               onClick={() => setSignup(true)}>
               Sign Up</Button>
               {/* Button -> Login */} 
               <Button
                 className="tweetBox__tweetButton"
+                style={{outline: 0}}
                 onClick={() => setLogin(true)}>
                 Login</Button>
               </div>

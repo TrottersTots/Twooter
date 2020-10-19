@@ -15,6 +15,23 @@ function UserModals({show_login, show_signup, setLogin, setSignup}){
     const [err_message, setErrMessage] = useState('');
     const [form_err, setFormErr] = useState(false);
 
+    async function checkUsername(){
+      const username_to_check = {username};
+      const response = await fetch('/api/check_username/',{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(username_to_check)
+      });
+      if(response.ok ){
+        return true;
+      }else{
+        return false;
+      }
+
+    }
+
     async function submitSignup() {
       //validate front-end input
       if(password_match == false || password.length < 1 || repeat_password.length < 1){//passwords do not match
@@ -26,6 +43,14 @@ function UserModals({show_login, show_signup, setLogin, setSignup}){
         setErrMessage('invalid email address!');
         return;
       }
+      if(await checkUsername() == false){
+        setFormErr(true);
+        setErrMessage('username taken!');
+        return;
+      }
+      await create_user()
+    }
+    async function create_user(){
       setFormErr(false);//succesful form entry
       const user_info = {username, password, email};
       const response = await fetch('/api/create_user/',{
@@ -36,7 +61,6 @@ function UserModals({show_login, show_signup, setLogin, setSignup}){
         body: JSON.stringify(user_info)
       });
       if(response.ok){
-        console.log('user-created-successfuly');
         setSignup(false);
         setUsername('');
         setPassword('');
@@ -45,8 +69,9 @@ function UserModals({show_login, show_signup, setLogin, setSignup}){
       }
     }
 
+    
+
     async function submitLogin() {
-      
       console.log('submitting login request')
     }
 
@@ -127,6 +152,7 @@ function UserModals({show_login, show_signup, setLogin, setSignup}){
             {/* Button -> submit Sign Up */}
             <Button
               className="tweetBox__tweetButton"
+              style={{outline: 0}}
               onClick={submitSignup}>
               Sign Up
             </Button>
@@ -134,7 +160,7 @@ function UserModals({show_login, show_signup, setLogin, setSignup}){
         </Modal>
         {/*Modal -> LOGIN*/}
         <Modal show={show_login} onHide={() => setLogin(false)} backdrop='static' keyboard={false} >
-          <Modal.Header closeButton> 
+          <Modal.Header closeButton > 
             <h3>Login</h3>
           </Modal.Header>
         <Modal.Body>
@@ -161,6 +187,7 @@ function UserModals({show_login, show_signup, setLogin, setSignup}){
             {/* Button -> submit Sign Up */}
             <Button
               className="tweetBox__tweetButton"
+              style={{outline: 0}}
               onClick={submitLogin}>
               Login
               </Button>
