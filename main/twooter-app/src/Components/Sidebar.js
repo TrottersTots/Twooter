@@ -61,7 +61,6 @@ function Sidebar(){
                   className="tweetBox__tweetButton"
                   onClick={() => setLogin(true)}>
                   Login</Button>
-  
               <SidebarOption active Icon={HomeIcon} text="Home" />
               <SidebarOption Icon={SearchIcon} text="Explore" />
               <SidebarOption Icon={NotificationsNoneIcon} text="Notifications" />

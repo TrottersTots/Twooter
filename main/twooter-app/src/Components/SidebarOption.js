@@ -5,12 +5,12 @@ import '../styles/SidebarOption.css';
 function SidebarOption({active, text, Icon}) {
     return (
         
-        <div className={`sidebarOption ${active && 'sidebarOption--active'}`}>
+        <div className='sidebarOption'>
             <Icon />
             <h2>{text}</h2>
         </div>
         
     );
 }
-
+//<div className={`sidebarOption ${active && 'sidebarOption--active'}`}>
 export default SidebarOption;
