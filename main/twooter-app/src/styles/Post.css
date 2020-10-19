@@ -28,6 +28,7 @@
 }
 
 .post__headerText > h3 {
+    font-weight: 600;
     font-size: 15px;
     margin-bottom: 5px;
 }
@@ -38,8 +39,8 @@
 }
 
 .post__headerSpecial {
-    font-weight: 600;
-    font-size: 12px;
+    font-weight: 400;
+    font-size: 13px;
     color: var(--offwhite);
 }
 
