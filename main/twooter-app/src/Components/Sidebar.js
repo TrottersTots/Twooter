@@ -21,14 +21,13 @@ function Sidebar()
       <>
         <div className="sidebar">
           <TwitterIcon className="sidebar__twitterIcon" />
-            <div>
+            <div className='modal-buttons'>
             {/* Button -> Sign Up */}
             <Button
               className="tweetBox__tweetButton"
               onClick={() => setSignup(true)}>
               Sign Up</Button>
-              {/* Button -> Login */}
-              <a className='modal-buttons'></a>         
+              {/* Button -> Login */} 
               <Button
                 className="tweetBox__tweetButton"
                 onClick={() => setLogin(true)}>

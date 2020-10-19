@@ -25,7 +25,9 @@
 }
 
 .modal-buttons{
-  padding: 0px 25px 0px 25px;
+  display: flex;
+  padding: 5px 45px 5px 0px;
+  margin-right: 10%;
 }
 
 .modal {
