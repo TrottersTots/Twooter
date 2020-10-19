@@ -23,3 +23,40 @@
     height: 50px !important;
     margin-top: 20px !important;
 }
+
+
+.modal {
+    text-align: center;
+    padding: 0!important;
+  }
+
+.modal-header{
+  border-bottom: 0 none;
+  background-color: #b48ead;
+}
+
+.modal-body
+{
+  background-color: #2e3440;
+}
+  .modal:before {
+    content: '';
+    display: inline-block;
+    height: 65%;
+    vertical-align: middle;
+    margin-right: -4px; /* Adjusts for spacing */
+  }
+
+.modal-footer
+{
+  border-top: 0 none;
+  background-color: #2e3440;
+}
+  
+  .modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+
+}
+

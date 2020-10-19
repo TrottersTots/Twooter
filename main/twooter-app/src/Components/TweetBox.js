@@ -25,14 +25,7 @@ function TweetBox() {
         }
     }
 
-    async function get_most_recent()
-    {
-        await fetch('api/get_twoot/')
-        .then(response => response.json())
-        .then(data =>console.log(data['message']));
-    }
     
-
     return (
         <div className="tweetBox">
             <form action="/api/postTweet">
@@ -61,12 +54,6 @@ function TweetBox() {
                 onClick={post_twoot}
                 >
                 Twoot</Button>
-                <Button 
-                variant='contained'
-                color='secondary'
-                onClick={get_most_recent}
-                >
-                 (DEBUG) Get Most Recent Twoot</Button>
             </form>
         </div>
     );
