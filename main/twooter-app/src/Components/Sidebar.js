@@ -50,48 +50,7 @@ const Sidebar = () => {
 
           {/* Button -> Tweet */}
           <Button variant="outlined" className="sidebar__tweet" fullWidth>Twoot</Button>
-
-                <h1>Sign Up</h1>
-                <div className="tweetBox__input">
-                    <input
-                    placeholder="username"
-                    name="message"
-                    type="text"
-                    value={username}
-                    onChange={e => setUsername(e.target.value)}
-                    >
-                    </input>
-                </div>
-                <div className="tweetBox__input">
-                    <input
-                    placeholder="password"
-                    name="password"
-                    type="password"
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                    >
-                    </input>
-                 </div>
-                 <div className="tweetBox__input">
-                    <input
-                    placeholder="email"
-                    name="email"
-                    type="email"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    >
-                    </input>
-                  </div>
-
-                <Button
-                className="tweetBox__tweetButton"
-                onClick={submit_signup}
-                >
-                Sign Up</Button>
       </div>
-
-
-
     );
 }
 
