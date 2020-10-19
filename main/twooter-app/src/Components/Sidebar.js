@@ -70,6 +70,7 @@ class Sidebar extends Component{
       const {show_login, show_signup, username, password, email} = this.state;
       return (
         <>
+        
         <div className="sidebar">
               <TwitterIcon className="sidebar__twitterIcon" />
               {/* Button -> Sign Up */}
@@ -88,13 +89,13 @@ class Sidebar extends Component{
               <SidebarOption Icon={NotificationsNoneIcon} text="Notifications" />
               <SidebarOption Icon={MailOutlineIcon} text="Messages" />
               <SidebarOption Icon={MoreHorizIcon} text="More" />
-
         </div>
+        
         <Modal show={show_signup} onHide={this.onCloseSignup} backdrop='static' keyboard={false} >
             <Modal.Header closeButton> 
             <h3>Sign Up</h3>
             </Modal.Header>
-            <Modal.Body>
+        <Modal.Body>
         <div className="tweetBox__input">
                       <input
                       placeholder="username"
@@ -178,25 +179,3 @@ class Sidebar extends Component{
 }
 //<Button variant="outlined" className="sidebar__tweet" fullWidth>Twoot</Button>
 export default Sidebar;
-
-
-/*
-
-    async function submit_signup()//POST
-    {
-        const user_info = {username, password, email};
-        const response = await fetch('/api/create_user/',{
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(user_info)
-        });
-        if(response.ok){
-          console.log('user-created-successfuly');
-          setUsername('');
-          setPassword('');
-          setEmail('');
-        }
-    }
-*/
