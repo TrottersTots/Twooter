@@ -51,16 +51,21 @@ function Sidebar(){
         
         <div className="sidebar">
               <TwitterIcon className="sidebar__twitterIcon" />
+              <div>
               {/* Button -> Sign Up */}
               <Button
                   className="tweetBox__tweetButton"
                   onClick={() => setSignup(true)}  >
                   Sign Up</Button>
               {/* Button -> Login */}
+              <a className='modal-buttons'></a>
+              
               <Button
                   className="tweetBox__tweetButton"
                   onClick={() => setLogin(true)}>
                   Login</Button>
+              </div>
+              <br></br>
               <SidebarOption active Icon={HomeIcon} text="Home" />
               <SidebarOption Icon={SearchIcon} text="Explore" />
               <SidebarOption Icon={NotificationsNoneIcon} text="Notifications" />

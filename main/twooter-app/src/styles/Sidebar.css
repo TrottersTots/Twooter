@@ -8,7 +8,7 @@
 }
 .sidebar__twitterIcon {
     color: var(--purple);
-    font-size: 30px !important; /* An icon is a font! */
+    font-size: 90px !important; /* An icon is a font! */
     margin-left: 20px;
     margin-bottom: 20px;
 }
@@ -24,6 +24,9 @@
     margin-top: 20px !important;
 }
 
+.modal-buttons{
+  padding: 0px 25px 0px 25px;
+}
 
 .modal {
     text-align: center;
