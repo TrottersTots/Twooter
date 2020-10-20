@@ -56,7 +56,7 @@ const Sidebar = () => {
             variant="outlined" 
             className="sidebar__tweet" 
             fullWidth
-            Onclick= {() => show_makeTwoot(setMakeTwoot)}>
+            onClick= {() => setMakeTwoot(true)}>
               Twoot
           </Button>
           <TwootModal 

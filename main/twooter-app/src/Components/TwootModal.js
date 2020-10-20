@@ -1,50 +1,44 @@
-import { Modal } from 'react-bootstrap';
 import React, {useState} from 'react'
+import { Modal } from 'react-bootstrap';
 import { Button } from "@material-ui/core";
 import '../styles/TwootModal.css';
 
 function TwootModal ({show_makeTwoot, setMakeTwoot}) {
+
+    const [message, setMessage] = useState('');
+    const [imgURL, setImgURL] = useState('');
+
     return (
         <>
             <Modal 
-                show={show_signup} 
+                show={show_makeTwoot} 
                 onHide={() => setMakeTwoot(false)}
-                aria-labelledby="modal__title"            
+                aria-labelledby="modal__title"
+                backdrop='static'
+                keyboard={false}               
             >
 
             <Modal.Header closeButton>
-                        <Modal.Title id="modal__title">Welcome to Twooter</Modal.Title>
-                    </Modal.Header>
+            </Modal.Header>
                     <Modal.Body>
                         <form className="modal__form">
                             <input
-                                placeholder="Username"
+                                placeholder="What's Happening?"
                                 name="message"
                                 type="text"
-                                value={username}
+                                value={message}
                             />
                             <input
-                                placeholder="Password"
+                                className="imgInput"
+                                placeholder="[Optional] Image URL"
                                 name="message"
-                                type="password"
-                                value={username}
-                            />
-                            <input
-                                placeholder="Confirm Password"
-                                name="message"
-                                type="password"
-                                value={username}
-                            />                  
-                            <input
-                            placeholder="Email"
-                            name="message"
-                            type="text"
-                            value={username}
+                                type="text"
+                                value={imgURL}
                             />
 
                             <div className="modal__buttons">
-                                <Button onClick={() => setSignup(false)}>Cancel</Button>
-                                <Button>Register</Button>
+                                <Button onClick={() => setMakeTwoot(false)}>Cancel</Button>
+                                <Button>Twoot</Button>
                             </div>
 
                         </form>
