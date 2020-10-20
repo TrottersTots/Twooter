@@ -16,6 +16,7 @@ function App() {
 
       {/* Widgets */}
       <Widgets />
+
     </div>
 
   );

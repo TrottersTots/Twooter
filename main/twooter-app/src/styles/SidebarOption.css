@@ -13,7 +13,7 @@
 }
 
 .sidebarOption > .MuiSvgIcon-root {
-    padding: 20px;
+    padding: 20px !important;
 }
 
 .sidebarOption > h2 {

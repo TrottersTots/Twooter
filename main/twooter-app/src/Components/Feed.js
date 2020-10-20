@@ -1,16 +1,45 @@
-import React from 'react';
+import React, {useState} from 'react';
 import '../styles/Feed.css';
 import TweetBox from './TweetBox';
 import Post from './Post';
+import { Button } from "@material-ui/core";
+import UserModal from './UserModal';
 
 function Feed() {
 
+    const [show_signup, setSignup] = useState(false);
+    const [show_login, setLogin] = useState(false);
+
     return (
         <div className="feed">
+            
             <div className="feed__header">
                 <h2>Home</h2>
             </div>
 
+            {/* feed content if not logged in: */}
+            <div className="feed__signIn">
+                <Button 
+                    variant="outlined" 
+                    className="feed__signIn__button" 
+                    onClick={() => setSignup(true)}>
+                        Sign Up
+                </Button>
+
+                <Button 
+                    variant="outlined" 
+                    className="feed__signIn__button" 
+                    onClick={() => setLogin(true)}>
+                        Log In
+                </Button>
+
+            </div>
+            <UserModal 
+                show_signup = {show_signup}
+                setSignup = {setSignup}
+            />
+
+            {/* feed content if logged in: */}
             <TweetBox />
 
             <Post 

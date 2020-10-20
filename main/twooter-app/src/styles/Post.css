@@ -44,6 +44,10 @@
     color: var(--offwhite);
 }
 
+.post__headerSpecial > svg {
+    padding-bottom: 3px;
+}
+
 .post__avatar {
     padding: 20px;
 }

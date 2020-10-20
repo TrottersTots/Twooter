@@ -58,15 +58,17 @@ function TweetBox() {
 
                 <Button 
                 className="tweetBox__tweetButton" 
-                onClick={post_twoot}
-                >
-                Twoot</Button>
-                <Button 
+                onClick={post_twoot}>
+                Twoot
+                </Button>
+
+                {/*<Button 
                 variant='contained'
                 color='secondary'
-                onClick={get_most_recent}
-                >
-                 (DEBUG) Get Most Recent Twoot</Button>
+                onClick={get_most_recent}>
+                 (DEBUG) Get Most Recent Twoot
+                </Button>*/}
+                
             </form>
         </div>
     );
