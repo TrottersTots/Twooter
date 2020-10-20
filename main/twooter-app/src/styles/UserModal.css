@@ -29,13 +29,15 @@
     margin: 10px 0 0 20px;
 }
 
-/*      inherit classses          */
+/*      inherent classses  - PERSISTS ACROSS INSTANCES        */
 
-.modal-header {
+.modal__header {
     border-bottom: 0 none;
     background-color: var(--purple);
 }
-  
+#modal__title {
+    padding-left: 8px !important;
+}
 .modal-content {
     background-color: var(--polarNight1);
     border-radius: 10px;

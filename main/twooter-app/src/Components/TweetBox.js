@@ -3,7 +3,7 @@ import "../styles/TweetBox.css"
 import { Avatar, Button } from "@material-ui/core";
 //import ImageIcon from '@material-ui/icons/Image';
 
-function TweetBox() {
+function TweetBox({inModal}) {
 
     const [owner, setOwner] = useState(-1);
     const [message, setMessage] = useState('');
@@ -34,7 +34,7 @@ function TweetBox() {
     
 
     return (
-        <div className="tweetBox">
+        <div className={"tweetBox " + (inModal ? '' : 'notInModal')}>
             <form action="/api/postTweet">
                 <div className="tweetBox__input">
                     <Avatar src="" />
@@ -73,4 +73,9 @@ function TweetBox() {
         </div>
     );
 }
+
+TweetBox.defaultProps = {
+     inModal: false 
+}
+
 export default TweetBox

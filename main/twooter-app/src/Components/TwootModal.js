@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { Modal } from 'react-bootstrap';
 import { Avatar,Button } from "@material-ui/core";
+import TweetBox from './TweetBox';
 import '../styles/TwootModal.css';
 
 function TwootModal ({show_makeTwoot, setMakeTwoot}) {
@@ -19,35 +20,7 @@ function TwootModal ({show_makeTwoot, setMakeTwoot}) {
             <Modal.Header closeButton>
             </Modal.Header>
                     <Modal.Body>
-                        <div className="modal__content">
-                            <div className="modal__content__userContainer">
-                                <Avatar src="" />
-                            </div>
-                            <div className="modal__content__formContainer">
-                                <form className="modal__form">
-                                    <input
-                                        className="modal__twootMsg"
-                                        placeholder="What's Happening?"
-                                        name="message"
-                                        type="text"
-                                        value={message}
-                                    />
-                                    <input
-                                        className="modal__imgInput"
-                                        placeholder="Image URL"
-                                        name="message"
-                                        type="text"
-                                        value={imgURL}
-                                    />
-
-                                    <div className="modal__buttons">
-                                        <Button onClick={() => setMakeTwoot(false)}>Cancel</Button>
-                                        <Button>Twoot</Button>
-                                    </div>
-                            
-                                </form>
-                            </div>
-                        </div>
+                        <TweetBox inModal={true}/>
                     </Modal.Body>
             </Modal>            
         </>

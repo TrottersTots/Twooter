@@ -3,7 +3,7 @@ import { Modal } from 'react-bootstrap';
 import { Button } from "@material-ui/core";
 import '../styles/UserModal.css';
 
-function UserModal({show_signup, setSignup}) {
+function UserModal({show_condition, setShow, modalTitle, registering}) {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -14,20 +14,20 @@ function UserModal({show_signup, setSignup}) {
         <>
   
         <Modal 
-            show={show_signup} 
-            onHide={() => setSignup(false)}
+            show={show_condition} 
+            onHide={() => setShow(false)}
             aria-labelledby="modal__title"
             backdrop='static'
             keyboard={false}            
         >
 
-          <Modal.Header closeButton>
-            <Modal.Title id="modal__title">Welcome to Twooter</Modal.Title>
+          <Modal.Header closeButton className="modal__header">
+            <Modal.Title id="modal__title">{modalTitle}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
               <form className="modal__form">
                   <input
-                    placeholder="Username"
+                    placeholder={"Username" + (registering ? ('') : (' / Email') )}
                     name="message"
                     type="text"
                     value={username}
@@ -38,22 +38,24 @@ function UserModal({show_signup, setSignup}) {
                     type="password"
                     value={username}
                   />
-                  <input
-                    placeholder="Confirm Password"
-                    name="message"
-                    type="password"
-                    value={username}
-                  />                  
-                  <input
-                  placeholder="Email"
-                  name="message"
-                  type="text"
-                  value={username}
-                />
+                  {registering ? (
+                    <><input
+                      placeholder="Confirm Password"
+                      name="message"
+                      type="password"
+                      value={username}
+                    />                  
+                    <input
+                      placeholder="Email"
+                      name="message"
+                      type="text"
+                      value={username}
+                    /></>
+                  ) : ('')}
 
                 <div className="modal__buttons">
-                    <Button onClick={() => setSignup(false)}>Cancel</Button>
-                    <Button>Register</Button>
+                    <Button onClick={() => setShow(false)}>Cancel</Button>
+                    <Button>{registering ? ("Register") : ("Login")}</Button>
                 </div>
 
               </form>
@@ -63,5 +65,10 @@ function UserModal({show_signup, setSignup}) {
       </>
     )
 }
+
+UserModal.defaultProps = {
+  modalTitle : "Welcome to Twooter",
+  registering : false
+ }
 
 export default UserModal

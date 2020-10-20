@@ -14,7 +14,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { Button } from "@material-ui/core";
 
 
-const Sidebar = () => {
+function Sidebar({logged_in}) {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -47,24 +47,29 @@ const Sidebar = () => {
 
             <SidebarOption active Icon={HomeIcon} text="Home" />
             <SidebarOption Icon={SearchIcon} text="Explore" />
-            <SidebarOption Icon={NotificationsNoneIcon} text="Notifications" />
-            <SidebarOption Icon={MailOutlineIcon} text="Messages" />
-            <SidebarOption Icon={MoreHorizIcon} text="More" />
+            {logged_in ? (
+                <>
+                <SidebarOption Icon={NotificationsNoneIcon} text="Notifications" />
+                <SidebarOption Icon={MailOutlineIcon} text="Messages" />
+                <SidebarOption Icon={MoreHorizIcon} text="More" />
 
-          {/* Button -> Tweet */}
-          <Button 
-            variant="outlined" 
-            className="sidebar__tweet" 
-            fullWidth
-            onClick= {() => setMakeTwoot(true)}>
-              Twoot
-          </Button>
-          <TwootModal 
-            show_makeTwoot={show_makeTwoot}
-            setMakeTwoot={setMakeTwoot}
-          />
+                <Button 
+                  variant="outlined" 
+                  className="sidebar__tweet" 
+                  fullWidth
+                  onClick= {() => setMakeTwoot(true)}>
+                    Twoot
+                </Button>
+                <TwootModal 
+                  show_makeTwoot={show_makeTwoot}
+                  setMakeTwoot={setMakeTwoot}
+                />
+              </>)
+            :('')}
       </div>
     );
 }
-
+Sidebar.defaultProps = {
+  logged_in : false
+}
 export default Sidebar;

@@ -1,31 +1,13 @@
-
-.modal__content{
-    display: flex;
-    flex-direction: row;
-}
-
-.modal__content__userContainer{
-    margin-top: 15px;
-}
-
-.modal__content__formContainer{
-    flex-grow: 1;
-}
-.modal__form > input.modal__twootMsg {
-    border: none !important;
-}
-.modal__form > input.modal__imgInput {
-    padding-top: 0 !important;
-    border: 1px dotted var(--highlight);
-}
-
 .modal-header {
     justify-content: left !important;
     padding: 8px !important;
-    background-color: var(--polarNight1) !important;
+    background-color: var(--polarNight1);
     border-bottom: 1px solid var(--highlight) !important;
 }
 .modal-header > button {
     color: white;
-    margin: -1rem !important;
+    margin: -1rem;
+}
+.modal-header > button:hover{
+    color: white;
 }
