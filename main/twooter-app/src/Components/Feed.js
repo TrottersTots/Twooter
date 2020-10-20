@@ -46,10 +46,10 @@ function Feed({logged_in}) {
                     modalTitle="Log in to Twooter"
                 />
 
-                <div>
+                <div className="feed__signInPrompt">
                     <span>
                         <h4><strong>Don’t miss what’s happening</strong></h4>
-                        <h4>People on Twitter are the first to know.</h4>
+                        <h4>People on Twooter are the first to know.</h4>
                     </span>
                 </div>
 

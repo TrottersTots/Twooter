@@ -52,3 +52,10 @@
     width: 110px !important;
 
 }
+
+.feed__signInPrompt {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding-top: 20px;
+}

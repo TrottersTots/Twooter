@@ -3,7 +3,7 @@ import '../styles/Widgets.css';
 import SearchIcon from "@material-ui/icons/Search"
 import Widget from './Widget';
 
-function Widgets() {
+function Widgets({logged_in}) {
     return (
         <div className="widgets">
             <div className="widgets__input">
@@ -22,20 +22,25 @@ function Widgets() {
                     flavor_data="69,420 Twoots"
                 />
             </div>
-
-            <div className="widgets__widgetContainer w2">
-                <h2>Who to Follow</h2>
-                <Widget 
-                    widgetType="whoToFollow"
-                    displayName="Justin Stitt"
-                    userName="Justin_Stitt"
-                    verified={true}
-                    avatar="https://avatars3.githubusercontent.com/u/24460581?s=460&u=5beb1c69055ba1e6977ac011cb8110f28e5a5f2c&v=4"
-                />
-            </div>
-
+            {logged_in ? (
+                <div className="widgets__widgetContainer w2">
+                    <h2>Who to Follow</h2>
+                    <Widget 
+                        widgetType="whoToFollow"
+                        displayName="Justin Stitt"
+                        userName="Justin_Stitt"
+                        verified={true}
+                        avatar="https://avatars3.githubusercontent.com/u/24460581?s=460&u=5beb1c69055ba1e6977ac011cb8110f28e5a5f2c&v=4"
+                    />
+                </div>
+                )
+            : ('')}
         </div>
     );
 }
+
+Widgets.defaultProps = {
+     logged_in : false 
+    }
 
 export default Widgets
