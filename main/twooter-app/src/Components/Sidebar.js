@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import '../styles/Sidebar.css'
 import SidebarOption from './SidebarOption';
+import TwootModal from './TwootModal';
 
 // Icons
 import TwitterIcon from '@material-ui/icons/Twitter';
@@ -18,6 +19,8 @@ const Sidebar = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail]       = useState('');
+
+    const [show_makeTwoot, setMakeTwoot] = useState(false);
 
     async function submit_signup()//POST
     {
@@ -49,8 +52,17 @@ const Sidebar = () => {
             <SidebarOption Icon={MoreHorizIcon} text="More" />
 
           {/* Button -> Tweet */}
-          <Button variant="outlined" className="sidebar__tweet" fullWidth>Twoot</Button>
-
+          <Button 
+            variant="outlined" 
+            className="sidebar__tweet" 
+            fullWidth
+            Onclick= {() => show_makeTwoot(setMakeTwoot)}>
+              Twoot
+          </Button>
+          <TwootModal 
+            show_makeTwoot={show_makeTwoot}
+            setMakeTwoot={setMakeTwoot}
+          />
       </div>
     );
 }

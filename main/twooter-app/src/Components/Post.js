@@ -32,10 +32,11 @@ function Post({displayName, username, verified, timestamp, text, image, avatar, 
                 <div className="post__header">
                     <div className="post__headerText">
                         <h3>
-                            {displayName}{" "}
+                            <span>{displayName}</span>
                             <span className="post__headerSpecial">
-                                {verified && <CheckCircleIcon className="post__badge" />} @{username}
+                                {verified && <CheckCircleIcon className="post__badge" />}
                             </span>
+                            <span>@{username}</span>
                         </h3>
                     </div>
                     <div className="post__headerDescription">

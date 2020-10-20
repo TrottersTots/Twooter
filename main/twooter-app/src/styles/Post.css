@@ -28,14 +28,26 @@
     max-width: 500px;
 }
 
+.post__headerDescription > p {
+    overflow-wrap: break-word;
+}
+
 .post__headerText > h3 {
     font-size: 15px;
     margin-bottom: 5px;
 }
 
+.post__headerText h3 > span {
+    display: inline-block;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: clip;
+}
+
 .post__badge {
     font-size: 14px !important;
     color: var(--blue);
+    padding: 0px 5px;
 }
 
 .post__headerSpecial {
@@ -45,7 +57,7 @@
 }
 
 .post__headerSpecial > svg {
-    padding-bottom: 3px;
+    padding-bottom: 2px;
 }
 
 .post__avatar {

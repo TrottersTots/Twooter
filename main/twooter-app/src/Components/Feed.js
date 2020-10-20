@@ -68,6 +68,14 @@ function Feed() {
                 image="https://media.giphy.com/media/60352fWaV5s8Ti8ZnZ/source.gif"
                 avatar="https://avatars2.githubusercontent.com/u/24463357?s=60&v=4"
             />
+            <Post 
+                displayName="OverflowOverflowOverflowOverflowOverflowOverflowOverflowOverflow"
+                username="OverflowOverflowOverflowOverflowOverflowOverflowOverflowOverflow"
+                verified={true}
+                text="Overflow Overflow Overflow Overflow Overflow Overflow Overflow Overflow Overflow Overflow Overflow Overflow Overflow Overflow Overflow Overflow Overflow -- OverflowOverflowOverflowOverflowOverflowOverflowOverflowOverflowOverflowOverflowOverflow"
+                image="https://media.giphy.com/media/OGzFu4KQuZ2/giphy.gif"
+                avatar=""
+            />
             <Post />
             <Post />
             <Post />
