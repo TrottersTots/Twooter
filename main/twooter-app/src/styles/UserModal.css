@@ -36,6 +36,7 @@
     background-color: var(--purple);
 }
   
-.modal-body {
+.modal-content {
     background-color: var(--polarNight1);
+    border-radius: 10px;
 }

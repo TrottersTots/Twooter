@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { Modal } from 'react-bootstrap';
-import { Button } from "@material-ui/core";
+import { Avatar,Button } from "@material-ui/core";
 import '../styles/TwootModal.css';
 
 function TwootModal ({show_makeTwoot, setMakeTwoot}) {
@@ -13,35 +13,41 @@ function TwootModal ({show_makeTwoot, setMakeTwoot}) {
             <Modal 
                 show={show_makeTwoot} 
                 onHide={() => setMakeTwoot(false)}
-                aria-labelledby="modal__title"
-                backdrop='static'
-                keyboard={false}               
+                aria-labelledby="modal__title"             
             >
 
             <Modal.Header closeButton>
             </Modal.Header>
                     <Modal.Body>
-                        <form className="modal__form">
-                            <input
-                                placeholder="What's Happening?"
-                                name="message"
-                                type="text"
-                                value={message}
-                            />
-                            <input
-                                className="imgInput"
-                                placeholder="[Optional] Image URL"
-                                name="message"
-                                type="text"
-                                value={imgURL}
-                            />
-
-                            <div className="modal__buttons">
-                                <Button onClick={() => setMakeTwoot(false)}>Cancel</Button>
-                                <Button>Twoot</Button>
+                        <div className="modal__content">
+                            <div className="modal__content__userContainer">
+                                <Avatar src="" />
                             </div>
+                            <div className="modal__content__formContainer">
+                                <form className="modal__form">
+                                    <input
+                                        className="modal__twootMsg"
+                                        placeholder="What's Happening?"
+                                        name="message"
+                                        type="text"
+                                        value={message}
+                                    />
+                                    <input
+                                        className="modal__imgInput"
+                                        placeholder="Image URL"
+                                        name="message"
+                                        type="text"
+                                        value={imgURL}
+                                    />
 
-                        </form>
+                                    <div className="modal__buttons">
+                                        <Button onClick={() => setMakeTwoot(false)}>Cancel</Button>
+                                        <Button>Twoot</Button>
+                                    </div>
+                            
+                                </form>
+                            </div>
+                        </div>
                     </Modal.Body>
             </Modal>            
         </>
