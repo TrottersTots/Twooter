@@ -1,18 +1,99 @@
 import React, {useState} from 'react'
-import { Modal } from 'react-bootstrap';
+import { Alert, Modal } from 'react-bootstrap';
 import { Button } from "@material-ui/core";
+import ErrorAlert from './ErrorAlert';
 import '../styles/UserModal.css';
 
 function UserModal({show_condition, setShow, modalTitle, registering}) {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [password_confirm, setPasswordConfirm] = useState('')
+    const [passwordConfirm, setPasswordConfirm] = useState('')
     const [email, setEmail] = useState('')
+    const [errMsg, setErr] = useState('')
+
+    async function submit_signup()//POST
+    {
+        const user_info = {username, password, passwordConfirm, email};
+        const response = await fetch('/api/create_user/',{
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(user_info)
+        });
+        if(response.ok){
+          console.log('user-created-successfuly');
+          setUsername('');
+          setPassword('');
+          setPasswordConfirm('');
+          setEmail('');
+        }else {
+            console.log('login-failed, '+ response.status)
+            {/* re-toggle alert after dismissing it  */}
+
+            switch (response.status){
+              case (200):
+                break;
+              case (459):
+                setErr('form incomplete');
+                break;
+              case (460):
+                setErr('invalid email');
+                break;
+              case (461):
+                setErr('passwords must match');
+                break;
+              case (462):
+                setErr('username is taken');
+                break;
+              default:
+                return;
+            }
+          }
+    }
+
+    async function submit_login()
+    {
+      const user_info = {username, password, email};
+      const response = await fetch('api/login_user/',{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user_info)
+      });
+      if(response.ok){
+        console.log('user-logged-in-successfully');
+        setUsername('');
+        setPassword('');
+        setPasswordConfirm('');
+        setEmail('');
+      }
+      else {
+            console.log('login-failed, '+ response.status)
+
+            {/* re-toggle alert after dismissing it  */}
+
+            switch (response.status){
+              case (200):
+                break;
+              case (403):
+                setErr('incorrect password');
+                break;
+              case (404):
+                setErr('user not found');
+                break;
+              default:
+                return;
+            }
+        }
+    }
 
     return (
+      
         <>
-  
+
         <Modal 
             show={show_condition} 
             onHide={() => setShow(false)}
@@ -31,37 +112,42 @@ function UserModal({show_condition, setShow, modalTitle, registering}) {
                     name="message"
                     type="text"
                     value={username}
+                    onChange={e => setUsername(e.target.value)}
                   />
                   <input
                     placeholder="Password"
                     name="message"
                     type="password"
-                    value={username}
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
                   />
                   {registering ? (
                     <><input
                       placeholder="Confirm Password"
                       name="message"
                       type="password"
-                      value={username}
+                      value={passwordConfirm}
+                      onChange={e => setPasswordConfirm(e.target.value)}
                     />                  
                     <input
                       placeholder="Email"
                       name="message"
                       type="text"
-                      value={username}
+                      value={email}
+                      onChange={e => setEmail(e.target.value)}
                     /></>
                   ) : ('')}
 
                 <div className="modal__buttons">
                     <Button onClick={() => setShow(false)}>Cancel</Button>
-                    <Button>{registering ? ("Register") : ("Login")}</Button>
+                    <Button onClick={registering ? submit_signup:submit_login}>{registering ? ("Register") : ("Login")}</Button>
                 </div>
 
               </form>
           </Modal.Body>
+          <ErrorAlert errMsg={errMsg}/>
         </Modal>
-        
+
       </>
     )
 }

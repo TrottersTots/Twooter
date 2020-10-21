@@ -17,30 +17,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 function Sidebar({logged_in}) {
 
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [email, setEmail]       = useState('');
-
     const [show_makeTwoot, setMakeTwoot] = useState(false);
-
-    async function submit_signup()//POST
-    {
-        const user_info = {username, password, email};
-        const response = await fetch('/api/create_user/',{
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(user_info)
-        });
-        if(response.ok){
-          console.log('user-created-successfuly');
-          setUsername('');
-          setPassword('');
-          setEmail('');
-        }
-    }
-
 
     return (
       <div className="sidebar">

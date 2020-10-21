@@ -7,7 +7,7 @@ function TweetBox({inModal}) {
 
     const [owner, setOwner] = useState(-1);
     const [message, setMessage] = useState('');
-    const [image, setImage] = useState('no-image-data');
+    const [image, setImage] = useState('');
 
     async function post_twoot()
     {
@@ -39,11 +39,11 @@ function TweetBox({inModal}) {
                 <div className="tweetBox__input">
                     <Avatar src="" />
                     <input 
-                    placeholder="What's happening, User?" 
-                    value = {message}
-                    name="message" 
-                    type="text"
-                    onChange={e => setMessage(e.target.value)}>   
+                        placeholder="What's happening, User?" 
+                        value = {message}
+                        name="message" 
+                        type="text"
+                        onChange={e => setMessage(e.target.value)}>   
                     </input>
 
                 </div>
@@ -52,7 +52,9 @@ function TweetBox({inModal}) {
                         className= "tweetBox__imageInput"
                         placeholder="Image URL" 
                         type="text"
-                        name="imgURL">
+                        name="image"
+                        value={image}
+                        onChange={e => setImage(e.target.value)}>
                     </input>
                 </div>
 

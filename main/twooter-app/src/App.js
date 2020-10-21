@@ -22,6 +22,6 @@ function App({logged_in}) {
   );
 }
 App.defaultProps = {
-  logged_in : true
+  logged_in : false
 }
 export default App;

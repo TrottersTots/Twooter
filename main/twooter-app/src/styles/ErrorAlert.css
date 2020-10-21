@@ -1,0 +1,8 @@
+.alert-danger {
+    color: var(--white);
+    background-color: var(--red);
+    border: none;
+    border-radius: 30px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
