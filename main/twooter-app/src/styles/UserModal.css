@@ -1,0 +1,44 @@
+
+.modal__form {
+    display: flex;
+    flex-direction: column;
+}
+.modal__form > input {
+    background-color: var(--polarNight1);
+    border: 3px dotted var(--highlight);
+    border-radius: 30px;
+    margin: 10px 0px;
+    font-size: 20px;
+    color: var(--white);
+    padding: 10px 20px;
+}
+
+.modal__buttons {
+    display: flex;
+    justify-content: right;
+}
+.modal__buttons > Button {
+    background-color: var(--blue) !important;
+    border: none !important;
+    color: var(--white) !important;
+    font-weight: 900 !important;
+    text-transform: inherit !important;
+    border-radius: 30px !important;
+    height: 35px;
+    padding: 0px 20px;
+    margin: 10px 0 0 20px;
+}
+
+/*      inherent classses  - PERSISTS ACROSS INSTANCES        */
+
+.modal__header {
+    border-bottom: 0 none;
+    background-color: var(--purple);
+}
+#modal__title {
+    padding-left: 8px !important;
+}
+.modal-content {
+    background-color: var(--polarNight1);
+    border-radius: 10px;
+}

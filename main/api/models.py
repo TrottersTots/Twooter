@@ -6,7 +6,7 @@ Describes the attributes that certain objects possess.
 """
 
 class User():
-    def __init__(self, _username, _password, _email):
+    def __init__(self, _username, _password, _email=''):
         self.username = _username
         self.password = _password 
         self.displayname = _username

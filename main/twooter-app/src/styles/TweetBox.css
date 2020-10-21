@@ -1,7 +1,10 @@
 .tweetBox {
     padding-bottom: 10px;
-    border-bottom: 8px solid var(--highlight);
     padding-right: 10px;
+}
+
+.notInModal {
+    border-bottom: 8px solid var(--highlight);
 }
 
 .tweetBox > form {

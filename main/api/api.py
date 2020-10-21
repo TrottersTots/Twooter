@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
 
-from user_backend import  CreateUser, DeleteUser, CheckUsernameAvailability
+from user_backend import  CreateUser, LoginUser, DeleteUser
 from twoot_backend import PostTwoot, DeleteTwoot, LikeTwoot, Retwoot, GetTwoot
 
 
@@ -23,15 +23,15 @@ path = '/api' #local api path
 #ROUTING:
 #- User
 api.add_resource(CreateUser, path +  '/create_user/') #methods:['POST']
+api.add_resource(LoginUser, path + '/login_user/') #methods:['POST']
 api.add_resource(DeleteUser, path +  '/delete_user/') #methods:['POST']
-api.add_resource(CheckUsernameAvailability, path + '/check_username/') #methods:['POST']
 #- Twoot
 api.add_resource(PostTwoot, path +   '/post_twoot/'  ) #methods:['POST']
 api.add_resource(DeleteTwoot, path +   '/delete_twoot/') #methods:['POST']
 api.add_resource(LikeTwoot, path +   '/like_twoot/'  ) #methods:['POST']
 api.add_resource(Retwoot, path +     '/retwoot/'     ) #methods:['POST']
-api.add_resource(GetTwoot, path +     '/get_twoot/'  ) #methods:['Get']
-
+api.add_resource(GetTwoot, path +     '/get_twoot/'  ) #methods:['GET']
+#api.add_resource(ShareTwoot), path + '/share_twoot/') #methods: ['GET']
 
 
 if __name__ == "__main__":

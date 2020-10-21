@@ -1,0 +1,13 @@
+.modal-header {
+    justify-content: left !important;
+    padding: 8px !important;
+    background-color: var(--polarNight1);
+    border-bottom: 1px solid var(--highlight) !important;
+}
+.modal-header > button {
+    color: white;
+    margin: -1rem;
+}
+.modal-header > button:hover{
+    color: white;
+}
