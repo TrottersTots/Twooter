@@ -22,6 +22,7 @@ class CreateUser(Resource):
             for field in formList:
                 if field is '' or None:
                     return False
+            return True
 
         def validateEmail (email):
             """
@@ -77,10 +78,17 @@ class LoginUser(Resource):
     Attempts to log-in a user given the credentials submitted from the login modal.
     """
     def post(self):
+        def formCompletion (formList):
+            for field in formList:
+                if field is '' or None:
+                    return False
+            return True
+
         user_info_json = request.get_json()
 
         user_info = User(user_info_json['username'], user_info_json['password'])
-
+        if not formCompletion([user_info.username, user_info.password]):
+            return 'form incomplete', 459
         #print(f"{user_info_json['username']}, {user_info_json['password']}")
 
         q = db.execute("SELECT password FROM users WHERE (username=:username OR email=:username)",

@@ -78,6 +78,9 @@ function UserModal({show_condition, setShow, modalTitle, registering}) {
             switch (response.status){
               case (200):
                 break;
+              case (459):
+                setErr('form incomplete');
+                break;
               case (403):
                 setErr('incorrect password');
                 break;
