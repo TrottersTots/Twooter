@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import '../styles/Sidebar.css'
 import SidebarOption from './SidebarOption';
 import TwootModal from './TwootModal';
+import UserProfile from "./UserProfile";
+import { Button } from "@material-ui/core";
 
 // Icons
 import TwitterIcon from '@material-ui/icons/Twitter';
@@ -11,7 +13,6 @@ import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 // - - -
-import { Button } from "@material-ui/core";
 
 
 function Sidebar({logged_in}) {
@@ -64,6 +65,12 @@ function Sidebar({logged_in}) {
                   show_makeTwoot={show_makeTwoot}
                   setMakeTwoot={setMakeTwoot}
                 />
+                
+                <UserProfile 
+                  displayName='Justin Stitt'
+                  userName='Justin_Stitt'
+                  verified={true}/>
+
               </>)
             :('')}
       </div>

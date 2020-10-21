@@ -4,22 +4,24 @@ import Feed from './Components/Feed';
 import Widgets from './Components/Widgets';
 import "./styles/App.css";
 
-function App() {
+function App({logged_in}) {
   return (
     // BEM convention
     <div className="app">
 
-      <Sidebar />
+      <Sidebar logged_in={logged_in}/>
 
       {/* Feed */}
-      <Feed />
+      <Feed logged_in={logged_in}/>
 
       {/* Widgets */}
-      <Widgets />
+      <Widgets logged_in={logged_in}/>
 
     </div>
 
   );
 }
-
+App.defaultProps = {
+  logged_in : true
+}
 export default App;
