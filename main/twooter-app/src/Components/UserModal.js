@@ -29,7 +29,7 @@ function UserModal({show_condition, setShow, modalTitle, registering}) {
           setPasswordConfirm('');
           setEmail('');
         }else {
-            console.log('login-failed, '+ response.status)
+            console.log('signup-failed, '+ response.status)
             {/* re-toggle alert after dismissing it  */}
 
             switch (response.status){

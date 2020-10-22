@@ -1,14 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Sidebar from './Components/Sidebar';
 import Feed from './Components/Feed';
 import Widgets from './Components/Widgets';
 import "./styles/App.css";
 
-function App({logged_in}) {
+function App() {
+
+  const [logged_in, setLoggedIn] = useState(false)
+
   return (
     // BEM convention
     <div className="app">
-
       <Sidebar logged_in={logged_in}/>
 
       {/* Feed */}
@@ -22,6 +24,5 @@ function App({logged_in}) {
   );
 }
 App.defaultProps = {
-  logged_in : false
 }
 export default App;
