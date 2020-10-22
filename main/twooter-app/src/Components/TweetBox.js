@@ -3,11 +3,13 @@ import "../styles/TweetBox.css"
 import { Avatar, Button } from "@material-ui/core";
 //import ImageIcon from '@material-ui/icons/Image';
 
-function TweetBox({inModal}) {
+function TweetBox({inModal, twoots, setTwoots}) {
 
     const [owner, setOwner] = useState(-1);
     const [message, setMessage] = useState('');
     const [image, setImage] = useState('');
+
+    
 
     async function post_twoot()
     {
@@ -20,17 +22,33 @@ function TweetBox({inModal}) {
             body: JSON.stringify(twoot)
         });
         if(response.ok){
-            console.log('Twoot sent to db!');
+            console.log('twoot-sent-successfully');
             setMessage('')
             setImage('')
         }
     }
 
-    async function get_most_recent()
+    async function get_twoot()
     {
+
+        //const response = await fetch('api/get_twoot/')
+        
+        //setTwoots(response['twoots']);
+
+        //console.log(twoots);
+        //console.log('THIS IS THE TWOOTS',twoots)
+        //const response = await fetch('api/get_twoot/');
+        //const json = await response.json();
         await fetch('api/get_twoot/')
         .then(response => response.json())
-        .then(data =>console.log(data['message']));
+        .then(data => setTwoots({'twoots': data['twoots']}));
+  
+        console.log(twoots);
+        
+        //setTwoots(JSON.stringify(json));
+        //console.log('twoots: ');
+        //console.log(twoots);
+
     }
     
 
@@ -61,7 +79,7 @@ function TweetBox({inModal}) {
 
                 <Button 
                 className="tweetBox__tweetButton" 
-                onClick={post_twoot}>
+                onClick={get_twoot}>
                 Twoot
                 </Button>
 

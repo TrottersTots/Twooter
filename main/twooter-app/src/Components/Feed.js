@@ -10,6 +10,9 @@ function Feed({logged_in, setLoggedIn}) {
     const [show_signup, setSignup] = useState(false);
     const [show_login, setLogin] = useState(false);
 
+    const [twoots, setTwoots] = useState({});
+
+
     return (
         <div className="feed">
             
@@ -59,9 +62,30 @@ function Feed({logged_in, setLoggedIn}) {
 
                 </>):
                 (<>
-                    {/* feed content if logged in: */}
-                    <TweetBox />
 
+                    
+                    
+                    <TweetBox twoots={twoots} setTwoots={setTwoots}/>
+                    {/* feed content if logged in:
+                    <Post/>
+                    {console.log(twoots)}
+                    {twoots.map(postinfo => {
+                        return (
+                            <Post
+                                displayName="test_displayname"
+                                username="test_username"
+                                verified={true}
+                                text="test_text"
+                                image="test_image"
+                                avatar=""
+                            />
+                            )
+                        }
+                    )}*/}
+                    <Post/>
+                    
+
+                    {/* SAMPLE POSTS 
                     <Post 
                         displayName="JustinStitt"
                         username="Justin_Stitt"
@@ -79,7 +103,6 @@ function Feed({logged_in, setLoggedIn}) {
                         image="https://media.giphy.com/media/5hTNG4XpBRDBC/source.gif"
                         avatar="https://avatars1.githubusercontent.com/u/23346068?s=460&u=56b1fa5b8a548010185263e2a12ec3e3b77018f7&v=4"
                     />
-                    {/* le empty posts, for now */}
                     <Post 
                         displayName="ChadTrotter"
                         username="cdTrots"
@@ -100,6 +123,7 @@ function Feed({logged_in, setLoggedIn}) {
                     <Post />
                     <Post />
                     <Post />
+                    */}
                 </>)
             }
 

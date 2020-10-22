@@ -3,14 +3,13 @@ from flask_restful import Resource
 from models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from db import db
+from helpers import query_to_dict
 from re import match
 """
 user_backend.py-
 manages the User base backend integration.
 """
 
-def query_to_dict (query):
-    return [dict(row) for row in query.fetchall()]
 
 class CreateUser(Resource):
     """

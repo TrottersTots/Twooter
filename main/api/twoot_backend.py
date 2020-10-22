@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request, session
 from flask_restful import Resource
 from models import Twoot
 from db import db
+from helpers import query_to_dict
 """
 twoot_backend.py-
 manages the backend of twoot creation, deletion, and editing
@@ -56,11 +57,16 @@ class Retwoot(Resource):
 
 class GetTwoot(Resource):
     """
-    Currently returns the most recent twoot (for testing)
+    Currently returns list of all twoots that the user posted themselves
     """
     def get(self):
-        most_recent_twoot = twoots[-1]
-        return jsonify({'message': most_recent_twoot.message,
-                        'likes': most_recent_twoot.likes})
+        
+        q = db.execute("SELECT * FROM posts WHERE user_id=:user_id", user_id=session['user_id'])
+        q = query_to_dict(q)
+
+        for dictionary in q:
+            dictionary = jsonify(dictionary)
+
+        return jsonify({'twoots': q})
 
 
