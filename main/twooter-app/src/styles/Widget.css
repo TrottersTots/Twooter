@@ -25,6 +25,7 @@
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
+    text-overflow: ellipsis;
 }
 
 .widget__followText > h4 {
@@ -48,6 +49,6 @@
     color: var(--blue) !important;
     text-transform: inherit !important;
     border-radius: 30px !important;
-    width: 250px;
+    width: 100px;
     height: 35px !important;
 }
