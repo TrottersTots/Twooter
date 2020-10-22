@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, session
 from flask_restful import Resource
 from models import User
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -70,7 +70,7 @@ class CreateUser(Resource):
 
         if q is None:
             return 'user-creation-failed', 500
-
+        
         return 'user-created', 200 #return 201 if valid POST request.
 
 class LoginUser(Resource):
@@ -83,7 +83,7 @@ class LoginUser(Resource):
                 if field is '' or None:
                     return False
             return True
-
+        session.pop('user_id')#clears the user id
         user_info_json = request.get_json()
 
         user_info = User(user_info_json['username'], user_info_json['password'])
@@ -103,6 +103,7 @@ class LoginUser(Resource):
         
         if not loginValid:
             return 'incorrect-user-or-password', 403
+        session['user_id'] = query_to_dict(db.execute('SELECT * FROM users WHERE username=:username', username=user_info.username))['id']
         return 'login-success', 200
         
 class DeleteUser(Resource):

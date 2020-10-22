@@ -14,6 +14,8 @@ app = Flask(__name__)
 api = Api(app)
 isProd = False #is this a production build?
 
+app.config['SECRET_KEY'] = 'poggers'
+
 path = '/api' #local api path
 
 #database init.
