@@ -14,7 +14,7 @@ function App() {
       <Sidebar logged_in={logged_in}/>
 
       {/* Feed */}
-      <Feed logged_in={logged_in}/>
+      <Feed logged_in={logged_in} setLoggedIn={setLoggedIn}/>
 
       {/* Widgets */}
       <Widgets logged_in={logged_in}/>

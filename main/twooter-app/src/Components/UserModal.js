@@ -2,9 +2,10 @@ import React, {useState} from 'react'
 import { Alert, Modal } from 'react-bootstrap';
 import { Button } from "@material-ui/core";
 import ErrorAlert from './ErrorAlert';
+import {logged_in, setLoggedIn} from '../App';
 import '../styles/UserModal.css';
 
-function UserModal({show_condition, setShow, modalTitle, registering}) {
+function UserModal({show_condition, setShow, modalTitle, registering, logged_in, setLoggedIn}) {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -52,7 +53,16 @@ function UserModal({show_condition, setShow, modalTitle, registering}) {
             }
           }
     }
-
+    
+    async function getID()
+    {
+        let id;
+        await fetch('api/get_session_id/')
+        .then(response => response.json())
+        .then(data =>id = data['id']);
+        return id;
+    }
+    
     async function submit_login()
     {
       const user_info = {username, password, email};
@@ -67,8 +77,10 @@ function UserModal({show_condition, setShow, modalTitle, registering}) {
         console.log('user-logged-in-successfully');
         setUsername('');
         setPassword('');
-        setPasswordConfirm('');
-        setEmail('');
+        
+        let id_response = await getID();
+        setLoggedIn(true);
+        console.log(id_response);
       }
       else {
             console.log('login-failed, '+ response.status)

@@ -1,9 +1,11 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, session
+from flask_session import Session
 from flask_restful import Resource, Api
 
-from user_backend import  CreateUser, LoginUser, DeleteUser
+from user_backend import  CreateUser, LoginUser, DeleteUser, GetSessionID
 from twoot_backend import PostTwoot, DeleteTwoot, LikeTwoot, Retwoot, GetTwoot
 
+from tempfile import mkdtemp
 
 """
 api.py-
@@ -11,8 +13,13 @@ backend to handle the RESTful api routing.
 """
 
 app = Flask(__name__)
+app.secret_key = 'poggers'
+app.config["SESSION_TYPE"]='filesystem'
 api = Api(app)
 isProd = False #is this a production build?
+
+Session(app)
+
 
 path = '/api' #local api path
 
@@ -32,7 +39,8 @@ api.add_resource(LikeTwoot, path +   '/like_twoot/'  ) #methods:['POST']
 api.add_resource(Retwoot, path +     '/retwoot/'     ) #methods:['POST']
 api.add_resource(GetTwoot, path +     '/get_twoot/'  ) #methods:['GET']
 #api.add_resource(ShareTwoot), path + '/share_twoot/') #methods: ['GET']
-
+#- Other
+api.add_resource(GetSessionID, path + '/get_session_id/') #methods: ['GET']
 
 if __name__ == "__main__":
     app.run(debug=not isProd) #run app and start debug status
