@@ -1,15 +1,11 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, session
 from flask_restful import Resource
 from models import Twoot
-
+from db import db
 """
 twoot_backend.py-
 manages the backend of twoot creation, deletion, and editing
 """
-
-#testing
-twoots = []
-#end testing
 
 class PostTwoot(Resource):
     """
@@ -17,13 +13,18 @@ class PostTwoot(Resource):
     """
     def post(self):
         twoot_info_json = request.get_json()
-        new_twoot = Twoot(twoot_info_json['owner'],
+        new_twoot = Twoot(session['user_id'],
                           twoot_info_json['message'],
                           twoot_info_json['image'])
         #insert twoot to db's
         #...db stuff...
-        twoots.append(new_twoot)
-        return 'twoot-created', 201
+        
+        db.execute("INSERT INTO posts (user_id, message, image) VALUES (:user_id, :message, :image)",
+                    user_id=new_twoot.owner,
+                    message=new_twoot.message,
+                    image=new_twoot.image)
+
+        return 'twoot-created', 200
 
 class DeleteTwoot(Resource):
     """

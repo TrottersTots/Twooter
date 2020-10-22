@@ -11,7 +11,7 @@ function TweetBox({inModal}) {
 
     async function post_twoot()
     {
-        const twoot = {owner, message, image}
+        const twoot = {message, image}
         const response = await fetch('/api/post_twoot/',{
             method: 'POST',
             headers: {
@@ -22,6 +22,7 @@ function TweetBox({inModal}) {
         if(response.ok){
             console.log('Twoot sent to db!');
             setMessage('')
+            setImage('')
         }
     }
 
