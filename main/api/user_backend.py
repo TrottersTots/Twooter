@@ -115,3 +115,10 @@ class DeleteUser(Resource):
     as well as dropping the follow status from their followers database's (both to and fro)
     """
     pass
+
+class GetSessionID(Resource):
+    """
+    returns the user_id stored in the session
+    """
+    def get(self):
+        return jsonify({'id': session['id']})

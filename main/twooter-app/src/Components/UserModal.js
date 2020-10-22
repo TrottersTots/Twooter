@@ -67,8 +67,11 @@ function UserModal({show_condition, setShow, modalTitle, registering}) {
         console.log('user-logged-in-successfully');
         setUsername('');
         setPassword('');
-        setPasswordConfirm('');
-        setEmail('');
+        let id_response = await fetch('api/get_session_id', {
+          method: 'GET'
+        })
+        let id = JSON.parse(id_response)
+        console.log(id.id)
       }
       else {
             console.log('login-failed, '+ response.status)
