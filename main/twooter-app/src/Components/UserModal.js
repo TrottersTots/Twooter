@@ -52,7 +52,16 @@ function UserModal({show_condition, setShow, modalTitle, registering}) {
             }
           }
     }
-
+    
+    async function getID()
+    {
+        let id;
+        await fetch('api/get_session_id/')
+        .then(response => response.json())
+        .then(data =>id = data['id']);
+        return id;
+    }
+    
     async function submit_login()
     {
       const user_info = {username, password, email};
@@ -67,11 +76,9 @@ function UserModal({show_condition, setShow, modalTitle, registering}) {
         console.log('user-logged-in-successfully');
         setUsername('');
         setPassword('');
-        let id_response = await fetch('api/get_session_id', {
-          method: 'GET'
-        })
-        let id = JSON.parse(id_response)
-        console.log(id.id)
+        
+        let id_response = await getID();
+        console.log(id_response);
       }
       else {
             console.log('login-failed, '+ response.status)

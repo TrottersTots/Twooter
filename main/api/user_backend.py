@@ -121,4 +121,4 @@ class GetSessionID(Resource):
     returns the user_id stored in the session
     """
     def get(self):
-        return jsonify({'id': session['id']})
+        return jsonify({'id': session['user_id'] })
