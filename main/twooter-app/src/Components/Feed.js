@@ -5,7 +5,7 @@ import Post from './Post';
 import { Button } from "@material-ui/core";
 import UserModal from './UserModal';
 
-function Feed({logged_in}) {
+function Feed({logged_in, setLoggedIn}) {
 
     const [show_signup, setSignup] = useState(false);
     const [show_login, setLogin] = useState(false);
@@ -39,11 +39,15 @@ function Feed({logged_in}) {
                     show_condition = {show_signup}
                     setShow = {setSignup}
                     registering = {true}
+                    logged_in = {logged_in}
+                    setLoggedIn = {setLoggedIn}
                 />
                 <UserModal 
                     show_condition = {show_login}
                     setShow = {setLogin}
                     modalTitle="Log in to Twooter"
+                    logged_in = {logged_in}
+                    setLoggedIn = {setLoggedIn}
                 />
 
                 <div className="feed__signInPrompt">
