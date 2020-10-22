@@ -83,7 +83,10 @@ class LoginUser(Resource):
                 if field is '' or None:
                     return False
             return True
-        session.pop('user_id')#clears the user id
+        try:
+            session.pop('user_id')#clears the user id
+        except KeyError:
+            pass
         user_info_json = request.get_json()
 
         user_info = User(user_info_json['username'], user_info_json['password'])
@@ -103,7 +106,7 @@ class LoginUser(Resource):
         
         if not loginValid:
             return 'incorrect-user-or-password', 403
-        session['user_id'] = query_to_dict(db.execute('SELECT * FROM users WHERE username=:username', username=user_info.username))['id']
+        session['user_id'] = query_to_dict(db.execute('SELECT * FROM users WHERE username=:username', username=user_info.username))[0]['user_id']
         return 'login-success', 200
         
 class DeleteUser(Resource):

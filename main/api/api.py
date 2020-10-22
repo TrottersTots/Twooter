@@ -1,9 +1,11 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, session
+from flask_session import Session
 from flask_restful import Resource, Api
 
 from user_backend import  CreateUser, LoginUser, DeleteUser
 from twoot_backend import PostTwoot, DeleteTwoot, LikeTwoot, Retwoot, GetTwoot
 
+from tempfile import mkdtemp
 
 """
 api.py-
@@ -11,10 +13,13 @@ backend to handle the RESTful api routing.
 """
 
 app = Flask(__name__)
+app.secret_key = 'poggers'
+app.config["SESSION_TYPE"]='filesystem'
 api = Api(app)
 isProd = False #is this a production build?
 
-app.config['SECRET_KEY'] = 'poggers'
+Session(app)
+
 
 path = '/api' #local api path
 
