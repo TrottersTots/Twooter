@@ -2,12 +2,19 @@
 A full-stack Twitter clone
 Developed By Nathan Inbar && Justin Stitt
 
-Current Featurs:
+Current Features:
 * Sign-up/Login verification
 * Backend User creation
 * Scrolling feed
 * Modals
 * Encrypted session id
+
+To-do:
+* Curated content based on user id
+* Upload avatar, crop, compress and store it (backend)
+* Profile page. (change username, displayname, password, avatar)
+* Check followers on profile page
+* notifications? DM's maybe?
 
 [Project Writeup](https://docs.google.com/document/d/1-x0CJ0XkVqaihelHrf26Tq9Y-lgkB2f94qzkBu0FE0o/edit?usp=sharing)
 
