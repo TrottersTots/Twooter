@@ -64,9 +64,12 @@ class GetTwoot(Resource):
         q = db.execute("SELECT * FROM posts WHERE user_id=:user_id", user_id=session['user_id'])
         q = query_to_dict(q)
 
-        for dictionary in q:
-            dictionary = jsonify(dictionary)
+        twoots = {}
+        for d in q:
+            twoots[d['post_id']] = d
+        return jsonify(twoots)
 
-        return jsonify({'twoots': q})
+
+# = jsonify(message = dictionary['message'])
 
 

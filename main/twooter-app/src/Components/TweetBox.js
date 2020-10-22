@@ -30,25 +30,11 @@ function TweetBox({inModal, twoots, setTwoots}) {
 
     async function get_twoot()
     {
-
-        //const response = await fetch('api/get_twoot/')
-        
-        //setTwoots(response['twoots']);
-
-        //console.log(twoots);
-        //console.log('THIS IS THE TWOOTS',twoots)
-        //const response = await fetch('api/get_twoot/');
-        //const json = await response.json();
         await fetch('api/get_twoot/')
         .then(response => response.json())
-        .then(data => setTwoots({'twoots': data['twoots']}));
-  
-        console.log(twoots);
+        .then(data => setTwoots(data));
+        console.log(twoots)
         
-        //setTwoots(JSON.stringify(json));
-        //console.log('twoots: ');
-        //console.log(twoots);
-
     }
     
 
@@ -76,13 +62,17 @@ function TweetBox({inModal, twoots, setTwoots}) {
                         onChange={e => setImage(e.target.value)}>
                     </input>
                 </div>
-
+                
+                <Button 
+                className="tweetBox__tweetButton" 
+                onClick={post_twoot}>
+                Twoot
+                </Button>
                 <Button 
                 className="tweetBox__tweetButton" 
                 onClick={get_twoot}>
-                Twoot
+                Get Twoots
                 </Button>
-
                 {/*<Button 
                 variant='contained'
                 color='secondary'

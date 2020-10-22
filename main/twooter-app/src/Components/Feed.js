@@ -64,7 +64,6 @@ function Feed({logged_in, setLoggedIn}) {
                 (<>
 
                     
-                    
                     <TweetBox twoots={twoots} setTwoots={setTwoots}/>
                     {/* feed content if logged in:
                     <Post/>
