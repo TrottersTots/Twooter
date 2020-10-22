@@ -2,6 +2,13 @@
 A full-stack Twitter clone
 Developed By Nathan Inbar && Justin Stitt
 
+Current Featurs:
+* Sign-up/Login verification
+* Backend User creation
+* Scrolling feed
+* Modals
+* Encrypted session id
+
 [Project Writeup](https://docs.google.com/document/d/1-x0CJ0XkVqaihelHrf26Tq9Y-lgkB2f94qzkBu0FE0o/edit?usp=sharing)
 
 ## Full Stack
