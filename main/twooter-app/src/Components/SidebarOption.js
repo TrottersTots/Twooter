@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/SidebarOption.css';
-import {Link} from 'react-router-dom';
+//import {Link} from 'react-router-dom';
 /* components start with a capital */
 function SidebarOption({active, text, Icon}) {
     return (

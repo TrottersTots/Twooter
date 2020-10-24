@@ -4,7 +4,7 @@ import SidebarOption from './SidebarOption';
 import TwootModal from './TwootModal';
 import UserProfile from "./UserProfile";
 import { Button } from "@material-ui/core";
-import {Route} from "react-router-dom";
+import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 // Icons
 import TwitterIcon from '@material-ui/icons/Twitter';
 import HomeIcon from '@material-ui/icons/Home';
@@ -22,34 +22,49 @@ function Sidebar({logged_in}) {
     return (
       <div className="sidebar">
             <TwitterIcon className="sidebar__twitterIcon" />
+            <Router>
+            
+              <Link to='/'>
+                <SidebarOption active Icon={HomeIcon} text="Home" />
+              </Link>
+              <Link to='/explore'>
+                <SidebarOption Icon={SearchIcon} text="Explore" />
+              </Link>
 
-            <SidebarOption active Icon={HomeIcon} text="Home" />
-            <SidebarOption Icon={SearchIcon} text="Explore" />
-            {logged_in ? (
-                <>
-                <SidebarOption Icon={NotificationsNoneIcon} text="Notifications" />
-                <SidebarOption Icon={MailOutlineIcon} text="Messages" />
-                <SidebarOption Icon={MoreHorizIcon} text="More" />
+              {logged_in ? (
+                  <>
+                  
+                  <Link to="/notifications">
+                    <SidebarOption Icon={NotificationsNoneIcon} text="Notifications" />
+                  </Link>
+                  <Link to='/messages'>
+                    <SidebarOption Icon={MailOutlineIcon} text="Messages" />
+                  </Link>
+                  <Link to='/more'>
+                    <SidebarOption Icon={MoreHorizIcon} text="More" />
+                  </Link>
 
-                <Button 
-                  variant="outlined" 
-                  className="sidebar__tweet" 
-                  fullWidth
-                  onClick= {() => setMakeTwoot(true)}>
-                    Twoot
-                </Button>
-                <TwootModal 
-                  show_makeTwoot={show_makeTwoot}
-                  setMakeTwoot={setMakeTwoot}
-                />
-                
-                <UserProfile 
-                  displayName='Justin Stitt'
-                  userName='Justin_Stitt'
-                  verified={true}/>
+                  <Button 
+                    variant="outlined" 
+                    className="sidebar__tweet" 
+                    fullWidth
+                    onClick= {() => setMakeTwoot(true)}>
+                      Twoot
+                  </Button>
+                  <TwootModal 
+                    show_makeTwoot={show_makeTwoot}
+                    setMakeTwoot={setMakeTwoot}
+                  />
+                  
+                  <UserProfile 
+                    displayName='Justin Stitt'
+                    userName='Justin_Stitt'
+                    verified={true}/>
 
-              </>)
-            :('')}
+                </>)
+              :('')}
+
+            </Router>
       </div>
     );
 }

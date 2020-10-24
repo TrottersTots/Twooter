@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, session
 from flask_session import Session
 from flask_restful import Resource, Api
 
-from user_backend import  CreateUser, LoginUser, DeleteUser, GetSessionID
+from user_backend import  CreateUser, LoginUser, DeleteUser
 from twoot_backend import PostTwoot, DeleteTwoot, LikeTwoot, Retwoot, GetTwoot
 
 from tempfile import mkdtemp
