@@ -4,7 +4,7 @@ import SidebarOption from './SidebarOption';
 import TwootModal from './TwootModal';
 import UserProfile from "./UserProfile";
 import { Button } from "@material-ui/core";
-
+import {Route} from "react-router-dom";
 // Icons
 import TwitterIcon from '@material-ui/icons/Twitter';
 import HomeIcon from '@material-ui/icons/Home';
