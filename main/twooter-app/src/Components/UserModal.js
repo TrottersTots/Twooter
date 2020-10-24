@@ -54,14 +54,6 @@ function UserModal({show_condition, setShow, modalTitle, registering, logged_in,
           }
     }
     
-    async function getID()
-    {
-        let id;
-        await fetch('api/get_session_id/')
-        .then(response => response.json())
-        .then(data =>id = data['id']);
-        return id;
-    }
     
     async function submit_login()
     {
@@ -78,9 +70,7 @@ function UserModal({show_condition, setShow, modalTitle, registering, logged_in,
         setUsername('');
         setPassword('');
         
-        let id_response = await getID();
         setLoggedIn(true);
-        console.log(id_response);
       }
       else {
             console.log('login-failed, '+ response.status)

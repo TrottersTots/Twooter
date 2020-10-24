@@ -5,7 +5,6 @@ import { Avatar, Button } from "@material-ui/core";
 
 function TweetBox({inModal, twoots, setTwoots}) {
 
-    const [owner, setOwner] = useState(-1);
     const [message, setMessage] = useState('');
     const [image, setImage] = useState('');
 
