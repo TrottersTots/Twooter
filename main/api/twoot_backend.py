@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request, session
 from flask_restful import Resource
 from models import Twoot
 from db import db
+from helpers import query_to_dict
 """
 twoot_backend.py-
 manages the backend of twoot creation, deletion, and editing
@@ -19,6 +20,12 @@ class PostTwoot(Resource):
         #insert twoot to db's
         #...db stuff...
         
+        # REGEX TO DETECT A URL
+        #if twoot_info_json['image'] :
+        #    return 'invalid-image', 462
+
+        #STORE IMAGE FROM URL IN FILE DIR
+
         db.execute("INSERT INTO posts (user_id, message, image) VALUES (:user_id, :message, :image)",
                     user_id=new_twoot.owner,
                     message=new_twoot.message,
@@ -56,11 +63,17 @@ class Retwoot(Resource):
 
 class GetTwoot(Resource):
     """
-    Currently returns the most recent twoot (for testing)
+    Currently returns list of all twoots that the user posted themselves
     """
     def get(self):
-        most_recent_twoot = twoots[-1]
-        return jsonify({'message': most_recent_twoot.message,
-                        'likes': most_recent_twoot.likes})
+        q = db.execute("SELECT * FROM posts JOIN follows ON follows.other_id=posts.user_id OR user_id=:user_id", user_id=session['user_id'])
+        q = query_to_dict(q)
 
+        twoots = {}
+        for d in q:
+            twoots[d['post_id']] = d
+        return jsonify(twoots)
+
+
+# = jsonify(message = dictionary['message'])
 

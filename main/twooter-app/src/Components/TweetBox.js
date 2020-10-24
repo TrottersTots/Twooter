@@ -1,13 +1,17 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import "../styles/TweetBox.css"
 import { Avatar, Button } from "@material-ui/core";
 //import ImageIcon from '@material-ui/icons/Image';
 
-function TweetBox({inModal}) {
+function TweetBox({inModal, twoots, setTwoots}) {
 
     const [owner, setOwner] = useState(-1);
     const [message, setMessage] = useState('');
     const [image, setImage] = useState('');
+
+    useEffect(() => {  
+        get_twoot();
+    }, []);
 
     async function post_twoot()
     {
@@ -20,19 +24,20 @@ function TweetBox({inModal}) {
             body: JSON.stringify(twoot)
         });
         if(response.ok){
-            console.log('Twoot sent to db!');
+            console.log('twoot-sent-successfully');
             setMessage('')
             setImage('')
         }
     }
 
-    async function get_most_recent()
+    async function get_twoot()
     {
         await fetch('api/get_twoot/')
         .then(response => response.json())
-        .then(data =>console.log(data['message']));
+        .then(data => setTwoots(data));
+        console.log(twoots)
+        
     }
-    
 
     return (
         <div className={"tweetBox " + (inModal ? '' : 'notInModal')}>
@@ -58,13 +63,17 @@ function TweetBox({inModal}) {
                         onChange={e => setImage(e.target.value)}>
                     </input>
                 </div>
-
+                
                 <Button 
                 className="tweetBox__tweetButton" 
                 onClick={post_twoot}>
                 Twoot
                 </Button>
-
+                <Button 
+                className="tweetBox__tweetButton" 
+                onClick={get_twoot}>
+                Get Twoots
+                </Button>
                 {/*<Button 
                 variant='contained'
                 color='secondary'
