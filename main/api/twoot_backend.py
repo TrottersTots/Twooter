@@ -20,6 +20,12 @@ class PostTwoot(Resource):
         #insert twoot to db's
         #...db stuff...
         
+        # REGEX TO DETECT A URL
+        #if twoot_info_json['image'] :
+        #    return 'invalid-image', 462
+
+        #STORE IMAGE FROM URL IN FILE DIR
+
         db.execute("INSERT INTO posts (user_id, message, image) VALUES (:user_id, :message, :image)",
                     user_id=new_twoot.owner,
                     message=new_twoot.message,
@@ -61,7 +67,7 @@ class GetTwoot(Resource):
     """
     def get(self):
         
-        q = db.execute("SELECT * FROM posts WHERE user_id=:user_id", user_id=session['user_id'])
+        q = db.execute("SELECT * FROM posts JOIN follows ON follows.other_id=posts.user_id OR user_id=:user_id", user_id=session['user_id'])
         q = query_to_dict(q)
 
         twoots = {}
@@ -71,5 +77,4 @@ class GetTwoot(Resource):
 
 
 # = jsonify(message = dictionary['message'])
-
 

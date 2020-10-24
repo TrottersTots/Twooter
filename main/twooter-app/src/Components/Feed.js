@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import '../styles/Feed.css';
 import TweetBox from './TweetBox';
 import Post from './Post';
@@ -11,6 +11,7 @@ function Feed({logged_in, setLoggedIn}) {
     const [show_login, setLogin] = useState(false);
 
     const [twoots, setTwoots] = useState({});
+
 
 
     return (
@@ -65,23 +66,20 @@ function Feed({logged_in, setLoggedIn}) {
 
                     
                     <TweetBox twoots={twoots} setTwoots={setTwoots}/>
-                    {/* feed content if logged in:
-                    <Post/>
-                    {console.log(twoots)}
-                    {twoots.map(postinfo => {
-                        return (
+                    {/* feed content if logged in: */}
+                    
+                    {Object.keys(twoots).sort().reverse().map(postID => 
+                        
                             <Post
                                 displayName="test_displayname"
-                                username="test_username"
+                                username={twoots[postID].user_id}
                                 verified={true}
-                                text="test_text"
-                                image="test_image"
+                                text={twoots[postID].message}
+                                image={twoots[postID].image}
                                 avatar=""
                             />
-                            )
-                        }
-                    )}*/}
-                    <Post/>
+                               
+                    )}
                     
 
                     {/* SAMPLE POSTS 

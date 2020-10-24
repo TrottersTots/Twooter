@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import "../styles/TweetBox.css"
 import { Avatar, Button } from "@material-ui/core";
 //import ImageIcon from '@material-ui/icons/Image';
@@ -9,7 +9,9 @@ function TweetBox({inModal, twoots, setTwoots}) {
     const [message, setMessage] = useState('');
     const [image, setImage] = useState('');
 
-    
+    useEffect(() => {  
+        get_twoot();
+    }, []);
 
     async function post_twoot()
     {
@@ -36,7 +38,6 @@ function TweetBox({inModal, twoots, setTwoots}) {
         console.log(twoots)
         
     }
-    
 
     return (
         <div className={"tweetBox " + (inModal ? '' : 'notInModal')}>
