@@ -21,40 +21,22 @@ function App() {
   //async function getsession yadayadayada
 
   return (
-    // BEM convention
 
     //call a route '/' that will get our user id if we previously logged in (session exists)
 
+    // BEM convention
     <div className="app">
       <Sidebar logged_in={logged_in}/>
 
-      <Router>
-
-        <Switch>
-          <Route exact path='/'>
-            <Feed logged_in={logged_in} setLoggedIn={setLoggedIn}/>
-          </Route>
-          <Route exact path='/explore'>
-            <Explore logged_in={logged_in} setLoggedIn={setLoggedIn}/>
-          </Route>
-          <Route exact path='/notifications'>
-            <Notifications />
-          </Route>
-          <Route exact path='/messages'>
-            <Messages/>
-          </Route>
-          <Route exact path='/more'>
-            <Settings />
-          </Route>        
-        </Switch>
-
-      </Router>
+      {/* Feed */}
+      <Feed logged_in={logged_in} setLoggedIn={setLoggedIn}/>
 
       {/* Widgets */}
       <Widgets logged_in={logged_in}/>
 
     </div>
 
+    
   );
 }
 App.defaultProps = {

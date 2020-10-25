@@ -63,15 +63,18 @@ function TweetBox({inModal, twoots, setTwoots}) {
                     </input>
                 </div>
                 
+                
                 <Button 
                 className="tweetBox__tweetButton" 
                 onClick={post_twoot}>
                 Twoot
                 </Button>
                 <Button 
-                className="tweetBox__tweetButton" 
-                onClick={get_twoot}>
-                Get Twoots
+                style={ {color: 'red'} }
+                className="tweetBox__tweetButton__debug" 
+                onClick={get_twoot}
+                >
+                (DEBUG) Get Twoots
                 </Button>
                 {/*<Button 
                 variant='contained'
