@@ -70,7 +70,6 @@ function TweetBox({inModal, twoots, setTwoots}) {
                 Twoot
                 </Button>
                 <Button 
-                style={ {color: 'red'} }
                 className="tweetBox__tweetButton__debug" 
                 onClick={get_twoot}
                 >

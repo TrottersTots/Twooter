@@ -115,6 +115,35 @@ class DeleteUser(Resource):
     """
     pass
 
+class FollowUser(Resource):
+    def post(self):
+        to_follow = request.get_json() #to_follow['username']
+        
+        follow_id = db.execute('SELECT user_id FROM users WHERE username=:username',
+                                username = to_follow['username'])
+        follow_id = query_to_dict(follow_id)
+        if(not len(follow_id)):
+            return 'no such user', 459 #maybe 404
+        follow_id = follow_id[0]['user_id']
+        
+        q = db.execute('SELECT * FROM users JOIN follows ON \
+            follows.other_id=:id\
+            WHERE users.user_id=:user_id',
+            id=follow_id, user_id=session['user_id'])
+        q = query_to_dict(q)
+        if(not len(q)):# the user does not follw 'to_follow' so set them to follow
+            db.execute('INSERT INTO follows (self_id, other_id) VALUES \
+                            (:user_id, :id)',
+                            user_id=session['user_id'], id=follow_id)
+            return 'follow-success', 200
+        else:
+            db.execute('DELETE FROM follows WHERE self_id=:user_id AND other_id=:id',
+                            user_id=session['user_id'], id=follow_id)
+            return 'unfollow-success', 201
+        return 'unknown-erorr', 404
+        
+        
+
 class Main(Resource):
     def get(self):
 

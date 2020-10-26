@@ -42,14 +42,23 @@ class DeleteTwoot(Resource):
 
 class LikeTwoot(Resource):
     """
-    Will toggle the 'like'd status from a specific user on a specific twoot/comment
+    Will toggle the 'like'd status from a specific user on a specific twoot
     """
     def post(self):
-        like_info_json = request.get_json()
-        liked_status   = None #do some db querty to check if this user has already liked this post
+        info = request.get_json() #info['post_id']
         #if liked_status == True then we want to 'unlike' the twoot/comment
         #if liked_status == False then we want to 'like' the twoot/comment
         #...db stuff...
+        q = db.execute('SELECT 1 FROM posts JOIN likes ON likes.post_id=posts.post_id WHERE \
+            likes.user_id=:user_id AND posts.post_id=:post_id',
+            post_id= info['post_id'], user_id = session['user_id'])      
+        q = query_to_dict(q)
+        if(not len(q)): # if the user has not yet liked the post, add them to db as a like to the post
+            db.execute('INSERT INTO likes (user_id, post_id) VALUES (:user_id, :post_id)', 
+                             user_id = session['user_id'], post_id = info['post_id'])
+        else: # the user has already liked the post so remove them from the likes on that post
+            db.execute('DELETE FROM likes WHERE user_id=:user_id AND post_id=:post_id',
+                            user_id = session['user_id'], post_id = info['post_id'])
         return 'updated-like-status', 201
 
 class Retwoot(Resource):
@@ -57,22 +66,42 @@ class Retwoot(Resource):
     Will toggle the 'retweet'd status from a specific user on a specific twoot
     """
     def post(self):
-        retwoot_info_json = request.get_json()
-        retwoot_status = None #do some db querty to check if this user has already retwoot'd this post
-        #...db stuff...
+        info = request.get_json()  # info['post_id']
+        # if liked_status == True then we want to 'unlike' the twoot/comment
+        # if liked_status == False then we want to 'like' the twoot/comment
+        # ...db stuff...
+        q = db.execute('SELECT 1 FROM posts JOIN retwoots ON retwoots.post_id=posts.post_id WHERE \
+            retwoots.user_id=:user_id AND posts.post_id=:post_id',
+            post_id = info['post_id'], user_id=session['user_id'])      
+        q = query_to_dict(q)
+        if(not len(q)): # if the user has not yet liked the post, add them to db as a like to the post
+            db.execute('INSERT INTO retwoots (user_id, post_id) VALUES (:user_id, :post_id)', 
+                             user_id = session['user_id'], post_id = info['post_id'])
+        else: # the user has already liked the post so remove them from the likes on that post
+            db.execute('DELETE FROM retwoots WHERE user_id=:user_id AND post_id=:post_id',
+                            user_id=session['user_id'], post_id=info['post_id'])
         return 'updated-retwoot-status', 201
+
 
 class GetTwoot(Resource):
     """
     Currently returns list of all twoots that the user posted themselves
     """
     def get(self):
-        q = db.execute("SELECT * FROM posts JOIN follows ON follows.other_id=posts.user_id OR user_id=:user_id", user_id=session['user_id'])
+        q = db.execute("SELECT * FROM posts JOIN follows ON follows.other_id=\
+            posts.user_id OR user_id=:user_id", user_id=session['user_id'])
         q = query_to_dict(q)
         twoots = {}
         for d in q:
             twoots[d['post_id']] = d
         return jsonify(twoots)
+
+class CommentTwoot(Resource):
+    def post(self):
+        info = request.get_json() # info['post_id'] , info['message'], session['user_id']
+        db.execute('INSERT INTO comments (post_id, user_id, message) VALUES (:post_id, :user_id, :message)',
+                    post_id=info['post_id'], user_id=session['user_id'], message=info['message'])
+        return 'comment-succesful', 200
 
 
 # = jsonify(message = dictionary['message'])''

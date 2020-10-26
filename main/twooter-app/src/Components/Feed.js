@@ -75,6 +75,7 @@ function Feed({logged_in, setLoggedIn}) {
                                 text={twoots[postID].message}
                                 image={twoots[postID].image}
                                 avatar=""
+                                post_id ={postID}
                             />
                                
                     )}
