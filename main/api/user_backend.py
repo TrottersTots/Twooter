@@ -115,9 +115,8 @@ class DeleteUser(Resource):
     """
     pass
 
-class GetSessionID(Resource):
-    """
-    returns the user_id stored in the session
-    """
+class Main(Resource):
     def get(self):
-        return jsonify({'id': session['user_id'] })
+
+        if session['user_id'] is not None:  return 'user has a session', 200
+        else: return 'user hasnt logged in before',500

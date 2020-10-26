@@ -3,6 +3,7 @@ from flask_restful import Resource
 from models import Twoot
 from db import db
 from helpers import query_to_dict
+
 """
 twoot_backend.py-
 manages the backend of twoot creation, deletion, and editing
@@ -68,12 +69,10 @@ class GetTwoot(Resource):
     def get(self):
         q = db.execute("SELECT * FROM posts JOIN follows ON follows.other_id=posts.user_id OR user_id=:user_id", user_id=session['user_id'])
         q = query_to_dict(q)
-
         twoots = {}
         for d in q:
             twoots[d['post_id']] = d
         return jsonify(twoots)
 
 
-# = jsonify(message = dictionary['message'])
-
+# = jsonify(message = dictionary['message'])''

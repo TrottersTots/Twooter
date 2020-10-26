@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import '../styles/Feed.css';
 import TweetBox from './TweetBox';
 import Post from './Post';
@@ -11,8 +11,6 @@ function Feed({logged_in, setLoggedIn}) {
     const [show_login, setLogin] = useState(false);
 
     const [twoots, setTwoots] = useState({});
-
-
 
     return (
         <div className="feed">
