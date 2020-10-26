@@ -61,6 +61,12 @@ function App() {
                 <More {...props} logged_in={logged_in}/>
               )}
           />
+          {/*404 Page*/}
+          <Route path='/'
+              render={(props) => (
+                <h2>404 page not found</h2>
+              )}
+          />
         </Switch>
       </Router>
       <Widgets logged_in={logged_in}/>
