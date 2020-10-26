@@ -2,11 +2,9 @@ import React, {useState} from "react";
 import '../styles/Sidebar.css'
 import SidebarOption from './SidebarOption';
 import TwootModal from './TwootModal';
-import Messages from './Messages';
-import Explore from './Explore';
 import UserProfile from "./UserProfile";
 import { Button } from "@material-ui/core";
-import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
+import {BrowserRouter as Router, Link} from "react-router-dom";
 // Icons
 import TwitterIcon from '@material-ui/icons/Twitter';
 import HomeIcon from '@material-ui/icons/Home';
@@ -14,11 +12,10 @@ import SearchIcon from '@material-ui/icons/Search';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import Notifications from "./Notifications";
 // - - -
 
 
-function Sidebar({logged_in}) {
+function Sidebar({logged_in, history}) {
 
     const [show_makeTwoot, setMakeTwoot] = useState(false);
 
@@ -26,23 +23,33 @@ function Sidebar({logged_in}) {
       <div className="sidebar">
             <TwitterIcon className="sidebar__twitterIcon" />
             <Router>
-              <Link to='/'>
+              <Link to='/' onClick={() => {
+                  history.push('/');
+              }}>
                 <SidebarOption active Icon={HomeIcon} text="Home" />
               </Link>
-              <Link to='/explore'>
+              <Link to='/explore' onClick={() => {
+                  history.push('/explore');
+              }}>
                 <SidebarOption Icon={SearchIcon} text="Explore" />
               </Link>
 
               {logged_in ? (
                   <>
                   
-                  <Link to="/notifications">
+                  <Link to="/notifications"onClick={() => {
+                  history.push('/notifications');
+              }}>
                     <SidebarOption Icon={NotificationsNoneIcon} text="Notifications" />
                   </Link>
-                  <Link to='/messages'>
+                  <Link to='/messages'onClick={() => {
+                  history.push('/messages');
+              }}>
                     <SidebarOption Icon={MailOutlineIcon} text="Messages" />
                   </Link>
-                  <Link to='/more'>
+                  <Link to='/more'onClick={() => {
+                  history.push('/more');
+              }}>
                     <SidebarOption Icon={MoreHorizIcon} text="More" />
                   </Link>
 
@@ -65,23 +72,6 @@ function Sidebar({logged_in}) {
 
                 </>)
               :('')}
-              <Switch>
-                <Route path='/notifications'>
-                  <Notifications/>
-                </Route>
-                <Route path='/messages'>
-                  <Messages/>
-                </Route>
-                <Route path='/explore'>
-                  <Explore/>
-                </Route>
-                <Route path='/more'>
-                  <h2>Not A Component - But, More!</h2>
-                </Route>
-
-              </Switch>
-
-
             </Router>
       </div>
     );

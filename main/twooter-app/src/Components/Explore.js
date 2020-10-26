@@ -2,8 +2,8 @@ import React from 'react'
 
 function Explore() {
     return (
-        <div>
-            <h2>This is explore.</h2>
+        <div className='app'>
+            <h2>Explore Page!</h2>
         </div>
     )
 }

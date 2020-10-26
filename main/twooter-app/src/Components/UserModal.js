@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import { Alert, Modal } from 'react-bootstrap';
 import { Button } from "@material-ui/core";
 import ErrorAlert from './ErrorAlert';
-import {logged_in, setLoggedIn} from '../App';
 import '../styles/UserModal.css';
 
 function UserModal({show_condition, setShow, modalTitle, registering, logged_in, setLoggedIn}) {
