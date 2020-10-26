@@ -19,6 +19,24 @@ function Sidebar({logged_in, history}) {
 
     const [show_makeTwoot, setMakeTwoot] = useState(false);
 
+    const [toFollow, setToFollow] = useState('');
+
+    async function follow_user()
+    {
+        const username = {'username': toFollow}
+        const response = await fetch('/api/follow_user/',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(username)
+        });
+        if(response.ok){
+            console.log('user-followed-successfully');
+            setToFollow('');
+        }
+    }
+
     return (
       <div className="sidebar">
             <TwitterIcon className="sidebar__twitterIcon" />
@@ -33,6 +51,11 @@ function Sidebar({logged_in, history}) {
               }}>
                 <SidebarOption Icon={SearchIcon} text="Explore" />
               </Link>
+
+
+              
+
+
 
               {logged_in ? (
                   <>
@@ -52,6 +75,11 @@ function Sidebar({logged_in, history}) {
               }}>
                     <SidebarOption Icon={MoreHorizIcon} text="More" />
                   </Link>
+                  <Link to='/profile' onClick={() => {
+                  history.push('/profile');
+              }}>
+                <SidebarOption Icon={SearchIcon} text="Profile" />
+              </Link>
 
                   <Button 
                     variant="outlined" 
@@ -64,7 +92,23 @@ function Sidebar({logged_in, history}) {
                     show_makeTwoot={show_makeTwoot}
                     setMakeTwoot={setMakeTwoot}
                   />
-                  
+                  <div className="tweetBox__imageDiv" style={{padding: 50}}>
+                    <input 
+                        className= "tweetBox__imageInput"
+                        placeholder="Follow: " 
+                        type="text"
+                        name="follow"
+                        value={toFollow}
+                        onChange={e => setToFollow(e.target.value)}>
+                    </input>
+                    <Button 
+                    variant="outlined" 
+                    className="tweetBox__tweetButton__debug"  
+                    fullWidth
+                    onClick= {follow_user}>
+                      (Debug) Follow User
+                  </Button>
+                </div>
                   <UserProfile 
                     displayName='Justin Stitt'
                     userName='Justin_Stitt'
@@ -73,6 +117,7 @@ function Sidebar({logged_in, history}) {
                 </>)
               :('')}
             </Router>
+            
       </div>
     );
 }
