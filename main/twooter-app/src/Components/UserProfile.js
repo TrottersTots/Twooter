@@ -2,10 +2,10 @@ import React from 'react'
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import {Avatar, Button, } from '@material-ui/core'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-
+import userData from '../userdata';
 import '../styles/UserProfile.css'
 
-const ProfileInfo = ({inPopover, displayName, userName, verified, loggedIn, setLoggedIn}) => {
+const ProfileInfo = ({inPopover, loggedIn, setLoggedIn}) => {
 
     async function logOut() {
         const response = await fetch('/api/', {
@@ -27,8 +27,8 @@ const ProfileInfo = ({inPopover, displayName, userName, verified, loggedIn, setL
     return(
         <div>
             <div className={"profile__text " + (inPopover ? 'profile__text__popOver' : '')}>
-                <h3>{displayName} {verified && <CheckCircleIcon className="profile__badge"/>} </h3>
-                <p>@{userName}</p>
+                <h3>{userData.displayname} {Boolean(userData.verified) && <CheckCircleIcon className="profile__badge"/>} </h3>
+                <p>@{userData.username}</p>
             </div>
             {inPopover ? (<>
                 <div className="profile__popOver__buttonContainer">
@@ -49,7 +49,7 @@ const ProfileInfo = ({inPopover, displayName, userName, verified, loggedIn, setL
     }
 }
 
-function UserProfile({displayName, userName, loggedIn, setLoggedIn, verified}) {
+function UserProfile({loggedIn, setLoggedIn}) {
 
     return (
         <div className="profile__container">
@@ -63,9 +63,6 @@ function UserProfile({displayName, userName, loggedIn, setLoggedIn, verified}) {
                             <div>
                                 <ProfileInfo 
                                     inPopover={true}
-                                    displayName={displayName}
-                                    userName={userName}
-                                    verified={true}
                                     loggedIn={loggedIn}
                                     setLoggedIn={setLoggedIn}
                                     />
@@ -77,9 +74,9 @@ function UserProfile({displayName, userName, loggedIn, setLoggedIn, verified}) {
                 <Button>
                     <Avatar src="" className="profile__avatar"/>
                     <ProfileInfo 
-                        displayName={displayName}
-                        userName={userName}
-                        verified={true}
+                        inPopover={false}
+                        loggedIn={loggedIn}
+                        setLoggedIn={setLoggedIn}
                     />
                 </Button>
             </OverlayTrigger>

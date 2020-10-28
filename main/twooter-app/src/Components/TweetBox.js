@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import "../styles/TweetBox.css"
 import { Avatar, Button } from "@material-ui/core";
+import userData from '../userdata';
 //import ImageIcon from '@material-ui/icons/Image';
 
 function TweetBox({inModal, twoots, setTwoots}) {
@@ -44,7 +45,7 @@ function TweetBox({inModal, twoots, setTwoots}) {
                 <div className="tweetBox__input">
                     <Avatar src="" />
                     <input 
-                        placeholder="What's happening, User?" 
+                        placeholder={"What's happening, " + userData.displayname + "?"}
                         value = {message}
                         name="message" 
                         type="text"

@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, session
 from flask_session import Session
 from flask_restful import Resource, Api
 
-from user_backend import  CreateUser, LoginUser, DeleteUser, FollowUser, Main
+from user_backend import  CreateUser, LoginUser, DeleteUser, FollowUser, Main, UserData
 from twoot_backend import PostTwoot, DeleteTwoot, LikeTwoot, Retwoot, GetTwoot, CommentTwoot
 
 from tempfile import mkdtemp
@@ -30,6 +30,7 @@ path = '/api' #local api path
 #ROUTING:
 #- User
 api.add_resource(Main, path + '/')
+api.add_resource(UserData, path + '/get_userdata/')
 api.add_resource(CreateUser, path +  '/create_user/') #methods:['POST']
 api.add_resource(LoginUser, path + '/login_user/') #methods:['POST']
 api.add_resource(DeleteUser, path +  '/delete_user/') #methods:['POST']

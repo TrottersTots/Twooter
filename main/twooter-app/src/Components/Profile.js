@@ -1,5 +1,6 @@
 import { Avatar } from '@material-ui/core';
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
+import userData from '../userdata';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Post from './Post';
@@ -9,6 +10,7 @@ import '../styles/Profile.css';
 function ProfileNavBar() {
     const [key, setKey] = useState('twoots');
   
+
     return (
       <Tabs
         activeKey={key}
@@ -17,7 +19,7 @@ function ProfileNavBar() {
       >
         <Tab class="show active" eventKey="twoots" title="Twoots">
             <Post 
-                displayName="JustinStitt"
+                displayName="Justin Stitt"
                 username="Justin_Stitt"
                 verified={true}
                 text="Always gonna be another mountain. Always gonna wanna make it move.
@@ -26,7 +28,7 @@ function ProfileNavBar() {
                 avatar="https://avatars3.githubusercontent.com/u/24460581?s=460&u=5beb1c69055ba1e6977ac011cb8110f28e5a5f2c&v=4"
             />
             <Post 
-                displayName="JustinStitt"
+                displayName="Justin Stitt"
                 username="Justin_Stitt"
                 verified={true}
                 text="imma be what i set out to be without a doubt, undoubtedly #widepeepohappy #poggerschampion"
@@ -60,7 +62,11 @@ function ProfileNavBar() {
   }
 
 
-function Profile() {
+function Profile({logged_in}) {
+
+    useEffect(() => {  
+    }, [logged_in]);
+
     return (
         <div className='profile'>
             <div className="profile__header">
@@ -69,10 +75,11 @@ function Profile() {
 
             <div className="profile__body">
                 <div className="profile__info">
-                    <Avatar src="" className="profile__info__avatar"/>
+                    <Avatar src={userData.avatar} className="profile__info__avatar"/>
                     <div className="profile__info__details">
-                        <h2>Justin Stitt</h2>
-                        <p className="profile__info__details__handle">@Justin_Stitt</p>
+                        <h2>{userData.displayname}</h2>
+                        <p className="profile__info__details__handle">@{userData.username}</p>
+                        <p>{userData.bio}</p>
                         <div className="profile__info__details__follow">
                             <p><span>69</span> Following</p>
                             <p><span>420</span> Followers</p>

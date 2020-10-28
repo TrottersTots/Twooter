@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
-
+import userData from './userdata';
 import "./styles/App.css";
 
 //different pages that will show in the center column
@@ -18,8 +18,29 @@ function App() {
   //things that potentially need to be shared by the entire website
   const [logged_in, setLoggedIn] = useState(false)
   //set logged in to true if the route returns an id
+  //const [ud, setUD] = useState({})
+  
+  useEffect(() => {  
+    setUserData()
+  }, [logged_in]);
 
-  async function getLoginState(){
+  async function setUserData() {
+    await fetch('api/get_userdata/')
+    .then(response => response.json())
+    .then(data => {
+      userData.displayname = data.displayname;
+      userData.username = data.username;
+      userData.email = data.email;
+      userData.dob = data.dob;
+      userData.bio = data.bio;
+      userData.avatar = data.avatar;
+      userData.verified = data.verified;
+      //setUD(userData);
+    });
+    console.log(userData);
+  }
+
+  async function getLoginState(){ //called when the App is loaded
     const response = await fetch('/api/',{
         method: 'GET',
       }
@@ -38,6 +59,7 @@ function App() {
         setLoggedIn(false);
         return;
     }
+    setUserData(); // <-- problem
   }
   
   return (

@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import userData from '../userdata';
 import '../styles/Sidebar.css'
 import SidebarOption from './SidebarOption';
 import TwootModal from './TwootModal';
@@ -11,6 +12,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import SearchIcon from '@material-ui/icons/Search';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+
 // - - -
 
 
@@ -105,9 +107,6 @@ function Sidebar({logged_in, setLoggedIn, history}) {
                   </Button>
                 </div>
                   <UserProfile 
-                    displayName='Justin Stitt'
-                    userName='Justin_Stitt'
-                    verified={true}
                     logged_in={logged_in}
                     setLoggedIn={setLoggedIn}
                     />
