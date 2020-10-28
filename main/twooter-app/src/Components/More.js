@@ -1,9 +1,12 @@
 import React from 'react'
+import '../styles/More.css';
 
 function More() {
     return (
-        <div>
-            <h2>More Page!</h2>
+        <div className='more'>
+            <div className="more__header">
+                <h2>More</h2>
+            </div>
         </div>
     )
 }

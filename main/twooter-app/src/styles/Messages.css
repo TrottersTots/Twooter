@@ -1,0 +1,31 @@
+.messages {
+    flex: 0.4;
+    border-right: 1px solid var(--highlight);
+    min-width: 614px;
+    overflow-y: scroll;
+}
+
+.messages::-webkit-scrollbar {
+    display: none;
+}
+
+.messages {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.messages__header {
+    position: sticky;
+    top: 0;
+    background-color: var(--highlight);
+    z-index: 100;
+    border: 1px solid var(--highlight);
+    padding: 13px 20px;
+
+}
+
+.messages__header > h2 {
+    font-size: 20px;
+    font-weight: 800;
+}
+/*  end of standard css  */

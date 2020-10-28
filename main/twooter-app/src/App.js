@@ -7,7 +7,6 @@ import "./styles/App.css";
 import Home from './Components/Home';
 import Explore from './Components/Explore';
 import Messages from './Components/Messages';
-import Notifications from './Components/Notifications';
 import More from './Components/More';
 import Profile from './Components/Profile';
 
@@ -44,12 +43,6 @@ function App() {
           <Route exact path='/explore'
               render={(props) => (
                 <Explore {...props} logged_in={logged_in} setLoggedIn={setLoggedIn}/>
-              )}
-          />
-          {/*Notifications Page*/}
-          <Route exact path='/notifications'
-              render={(props) => (
-                <Notifications {...props} logged_in={logged_in} />
               )}
           />
           {/*Messages Page*/}

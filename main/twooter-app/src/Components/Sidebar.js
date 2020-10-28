@@ -9,7 +9,6 @@ import {BrowserRouter as Router, Link} from "react-router-dom";
 import TwitterIcon from '@material-ui/icons/Twitter';
 import HomeIcon from '@material-ui/icons/Home';
 import SearchIcon from '@material-ui/icons/Search';
-import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 // - - -
@@ -60,11 +59,6 @@ function Sidebar({logged_in, history}) {
               {logged_in ? (
                   <>
                   
-                  <Link to="/notifications"onClick={() => {
-                  history.push('/notifications');
-              }}>
-                    <SidebarOption Icon={NotificationsNoneIcon} text="Notifications" />
-                  </Link>
                   <Link to='/messages'onClick={() => {
                   history.push('/messages');
               }}>
