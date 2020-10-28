@@ -14,12 +14,13 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 // - - -
 
 
-function Sidebar({logged_in, history}) {
+function Sidebar({logged_in, setLoggedIn, history}) {
 
     const [show_makeTwoot, setMakeTwoot] = useState(false);
 
     const [toFollow, setToFollow] = useState('');
 
+    //DEBUG 
     async function follow_user()
     {
         const username = {'username': toFollow}
@@ -35,7 +36,7 @@ function Sidebar({logged_in, history}) {
             setToFollow('');
         }
     }
-
+    // - - - -
     return (
       <div className="sidebar">
             <TwitterIcon className="sidebar__twitterIcon" />
@@ -106,7 +107,10 @@ function Sidebar({logged_in, history}) {
                   <UserProfile 
                     displayName='Justin Stitt'
                     userName='Justin_Stitt'
-                    verified={true}/>
+                    verified={true}
+                    logged_in={logged_in}
+                    setLoggedIn={setLoggedIn}
+                    />
 
                 </>)
               :('')}

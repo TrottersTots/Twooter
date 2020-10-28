@@ -14,17 +14,34 @@ import Profile from './Components/Profile';
 import Sidebar from './Components/Sidebar';
 import Widgets from './Components/Widgets';
 
-
-
-
-
 function App() {
   //things that potentially need to be shared by the entire website
   const [logged_in, setLoggedIn] = useState(false)
   //set logged in to true if the route returns an id
 
+  async function getLoginState(){
+    const response = await fetch('/api/',{
+        method: 'GET',
+      }
+    );
+    
+
+    switch(response.status)
+    {
+      case(200):
+        setLoggedIn(true);
+        break;
+      case(500):
+        setLoggedIn(false);
+        break;
+      default:
+        setLoggedIn(false);
+        return;
+    }
+  }
+  
   return (
-    <div className="app">
+    <div className="app" onLoad={() => getLoginState()}>
       <Router>
           {/*Show sidebar for all pages*/}
           <Route path='/'

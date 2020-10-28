@@ -146,6 +146,13 @@ class FollowUser(Resource):
 
 class Main(Resource):
     def get(self):
-
         if session['user_id'] is not None:  return 'user has a session', 200
-        else: return 'user hasnt logged in before',500
+        else: return 'user hasnt logged in before', 500
+
+    def post(self):
+        try:
+            session.pop('user_id')
+        except KeyError:
+            return 'logout-failed', 500
+        else:
+            return 'logout-success', 200

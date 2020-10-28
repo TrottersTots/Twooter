@@ -5,7 +5,25 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 import '../styles/UserProfile.css'
 
-const ProfileInfo = ({inPopover, displayName, userName, verified}) => {
+const ProfileInfo = ({inPopover, displayName, userName, verified, loggedIn, setLoggedIn}) => {
+
+    async function logOut() {
+        const response = await fetch('/api/', {
+            method : 'POST'
+        });
+        switch (response.status)
+        {
+            case 200:
+                setLoggedIn(false);
+                break;
+            case 500:
+                console.log('logout-failed')
+                break;
+            default:
+                return;
+        }
+    }
+
     return(
         <div>
             <div className={"profile__text " + (inPopover ? 'profile__text__popOver' : '')}>
@@ -17,7 +35,10 @@ const ProfileInfo = ({inPopover, displayName, userName, verified}) => {
                     <Button className="profile__popOver__button">Add account</Button>
                 </div>
                 <div className="profile__popOver__buttonContainer">
-                    <Button className="profile__popOver__button">Log Out</Button>
+                    <Button 
+                        className="profile__popOver__button"
+                        onClick={() => logOut()}
+                        >Log Out</Button>
                 </div>
             </>):('')}
         </div>
@@ -28,7 +49,8 @@ const ProfileInfo = ({inPopover, displayName, userName, verified}) => {
     }
 }
 
-function UserProfile({displayName, userName, verified}) {
+function UserProfile({displayName, userName, loggedIn, setLoggedIn, verified}) {
+
     return (
         <div className="profile__container">
             <OverlayTrigger 
@@ -44,6 +66,8 @@ function UserProfile({displayName, userName, verified}) {
                                     displayName={displayName}
                                     userName={userName}
                                     verified={true}
+                                    loggedIn={loggedIn}
+                                    setLoggedIn={setLoggedIn}
                                     />
                             </div>
                         </Popover.Content>
