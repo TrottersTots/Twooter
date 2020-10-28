@@ -128,7 +128,7 @@ class FollowUser(Resource):
         
         q = db.execute('SELECT * FROM users JOIN follows ON \
             follows.other_id=:id\
-            WHERE users.user_id=:user_id',
+            WHERE users.user_id=:user_id AND follows.self_id=:id',
             id=follow_id, user_id=session['user_id'])
         q = query_to_dict(q)
         if(not len(q)):# the user does not follw 'to_follow' so set them to follow

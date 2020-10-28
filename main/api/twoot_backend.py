@@ -88,8 +88,8 @@ class GetTwoot(Resource):
     Currently returns list of all twoots that the user posted themselves
     """
     def get(self):
-        q = db.execute("SELECT * FROM posts JOIN follows ON follows.other_id=\
-            posts.user_id OR user_id=:user_id", user_id=session['user_id'])
+        q = db.execute("SELECT * FROM posts WHERE posts.user_id=:user_id OR posts.user_id=\
+            (SELECT other_id FROM follows WHERE self_id=:user_id)", user_id=session['user_id'])
         q = query_to_dict(q)
         twoots = {}
         for d in q:
