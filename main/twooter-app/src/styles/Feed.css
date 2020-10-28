@@ -2,7 +2,7 @@
 .feed {
     flex: 0.4; /* This + 0.3 from sidebar = 70% screen width */
     border-right: 1px solid var(--highlight);
-    min-width: fit-content;
+    min-width: 614px;    
     overflow-y: scroll; /*When there is too much content, scroll*/
 }
 

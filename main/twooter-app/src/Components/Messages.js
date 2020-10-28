@@ -1,9 +1,12 @@
 import React from 'react'
+import '../styles/Messages.css';
 
 function Messages() {
     return (
-        <div>
-            <h2>This is Messages.</h2>
+        <div className='messages'>
+            <div className="messages__header">
+                <h2>Messages</h2>
+            </div>
         </div>
     )
 }
