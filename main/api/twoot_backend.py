@@ -103,6 +103,7 @@ class CommentTwoot(Resource):
                     post_id=info['post_id'], user_id=session['user_id'], message=info['message'])
         return 'comment-succesful', 200
 
+#routes for displaying twoot sets on profile
 class GetSelfTwoot(Resource):
     def get(self):
         q = db.execute("SELECT * FROM posts WHERE posts.user_id=:user_id", user_id=session['user_id'])

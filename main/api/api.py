@@ -43,6 +43,7 @@ api.add_resource(LikeTwoot, path +    '/like_twoot/'    ) #methods:['POST']
 api.add_resource(Retwoot, path +      '/retwoot/'       ) #methods:['POST']
 api.add_resource(GetTwoot, path +     '/get_twoot/'     ) #methods:['GET']
 api.add_resource(CommentTwoot, path + '/comment_twoot/' ) #methods:['POST']
+    #profile-related
 api.add_resource(GetSelfTwoot, path + '/get_selftwoot/' ) #methods:['GET']
 api.add_resource(GetSelfMediaTwoot, path + '/get_selftwoot_media/' ) #methods:['GET']
 api.add_resource(GetLikedTwoot, path + '/get_likedtwoot/')

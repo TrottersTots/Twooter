@@ -6,11 +6,9 @@ import Tabs from 'react-bootstrap/Tabs';
 import Post from './Post';
 import '../styles/Profile.css';
 
-
-function ProfileNavBar() {
+function ProfileNavBar({selfTwoots, selfMediaTwoots, likedTwoots}) {
     const [key, setKey] = useState('twoots');
-  
-
+    
     return (
       <Tabs
         activeKey={key}
@@ -18,44 +16,72 @@ function ProfileNavBar() {
         transition={false}
       >
         <Tab class="show active" eventKey="twoots" title="Twoots">
-            <Post 
-                displayName="Justin Stitt"
-                username="Justin_Stitt"
-                verified={true}
-                text="Always gonna be another mountain. Always gonna wanna make it move.
-                        Feeling #blessed #thankful 🙏🙏😇😇⭐"
-                image="https://media.giphy.com/media/5sYj38hS0GE2dCzJsN/giphy.gif"
-                avatar="https://avatars3.githubusercontent.com/u/24460581?s=460&u=5beb1c69055ba1e6977ac011cb8110f28e5a5f2c&v=4"
-            />
-            <Post 
-                displayName="Justin Stitt"
-                username="Justin_Stitt"
-                verified={true}
-                text="imma be what i set out to be without a doubt, undoubtedly #widepeepohappy #poggerschampion"
-                image=""
-                avatar="https://avatars3.githubusercontent.com/u/24460581?s=460&u=5beb1c69055ba1e6977ac011cb8110f28e5a5f2c&v=4"
-            />
+            {Object.keys(selfTwoots).length === 0 ? 
+                (
+                    <h4 className="profile__emptyFeed">You haven't twooted anything yet</h4>
+                ) : 
+                (
+
+                    Object.keys(selfTwoots).sort().reverse().map(postID => 
+                        
+                        <Post
+                            displayName="test_displayname"
+                            username={selfTwoots[postID].user_id}
+                            verified={true}
+                            text={selfTwoots[postID].message}
+                            image={selfTwoots[postID].image}
+                            avatar=""
+                            post_id ={postID}
+                        />)                    
+                )
+            
+            }
+
         </Tab>
         <Tab eventKey="media" title="Media">
-        <Post 
-            displayName="JustinStitt"
-            username="Justin_Stitt"
-            verified={true}
-            text="Always gonna be another mountain. Always gonna wanna make it move.
-                    Feeling #blessed #thankful 🙏🙏😇😇⭐"
-            image="https://media.giphy.com/media/5sYj38hS0GE2dCzJsN/giphy.gif"
-            avatar="https://avatars3.githubusercontent.com/u/24460581?s=460&u=5beb1c69055ba1e6977ac011cb8110f28e5a5f2c&v=4"
-            />            
+            {Object.keys(selfMediaTwoots).length === 0 ? 
+                (
+                    <h4 className="profile__emptyFeed">You haven't twooted any photos or videos yet</h4>  
+                ) : 
+                (
+                    Object.keys(selfMediaTwoots).sort().reverse().map(postID => 
+                        
+                        <Post
+                            displayName="test_displayname"
+                            username={selfMediaTwoots[postID].user_id}
+                            verified={true}
+                            text={selfMediaTwoots[postID].message}
+                            image={selfMediaTwoots[postID].image}
+                            avatar=""
+                            post_id ={postID}
+                        />     
+            )                    
+                )
+            }          
         </Tab>
         <Tab eventKey="likes" title="Likes">
-            <Post 
-                displayName="NathanInbar"
-                username="Nathan_Inbar42069"
-                verified={true}
-                text="Worlds best catapult maker. 🍤🦐🍤🦐 #pistolShrimp3k 🎇🧨🔨💵"
-                image="https://media.giphy.com/media/5hTNG4XpBRDBC/source.gif"
-                avatar="https://avatars1.githubusercontent.com/u/23346068?s=460&u=56b1fa5b8a548010185263e2a12ec3e3b77018f7&v=4"
-            />
+
+            {Object.keys(likedTwoots).length === 0 ? 
+                (
+                    <h4 className="profile__emptyFeed">You haven't liked any twoots yet</h4>
+                ) : 
+                (
+                    Object.keys(likedTwoots).sort().reverse().map(postID => 
+                        
+                        <Post
+                            displayName="test_displayname"
+                            username={likedTwoots[postID].user_id}
+                            verified={true}
+                            text={likedTwoots[postID].message}
+                            image={likedTwoots[postID].image}
+                            avatar=""
+                            post_id ={postID}
+                        />
+                           
+                    )
+                )
+            }
+
         </Tab>
       </Tabs>
     );
@@ -64,7 +90,30 @@ function ProfileNavBar() {
 
 function Profile({logged_in}) {
 
+    const [selfTwoots, setSelfTwoots] = useState({});
+    const [selfMediaTwoots, setSelfMediaTwoots] = useState({});
+    const [likedTwoots, setLikedTwoots] = useState({});
+
+    async function get_twoot(route, setFunc) //self, self-media, liked
+    {
+        if (route == null) {return;}
+
+        await fetch(route)
+        .then(response => response.json())
+        .then(data => setFunc(data));
+    }
+
+    function get_twoots(){
+        get_twoot('/api/get_selftwoot/', setSelfTwoots);
+        get_twoot('/api/get_selftwoot_media/', setSelfMediaTwoots);
+        get_twoot('/api/get_likedtwoot/', setLikedTwoots);
+    }
+
     useEffect(() => {  
+        get_twoots();
+    }, []);
+
+    useEffect(() => {  //does this do anything lol
     }, [logged_in]);
 
     return (
@@ -87,7 +136,7 @@ function Profile({logged_in}) {
                     </div>
                 </div>
                 <div className="profile__content">
-                    <ProfileNavBar />
+                    <ProfileNavBar selfTwoots={selfTwoots} selfMediaTwoots={selfMediaTwoots} likedTwoots={likedTwoots} />
                 </div>
             </div>
 
