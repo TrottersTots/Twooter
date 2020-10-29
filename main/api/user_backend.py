@@ -142,7 +142,13 @@ class FollowUser(Resource):
             return 'unfollow-success', 201
         return 'unknown-erorr', 404
         
-        
+class UserData(Resource):
+    def get(self):
+        q = db.execute("SELECT * FROM users WHERE user_id=:user_id", user_id=session['user_id'])
+        q = query_to_dict(q)
+
+        #print(userdata)
+        return jsonify(q[0])
 
 class Main(Resource):
     def get(self):

@@ -124,7 +124,7 @@ function Post({displayName, username, verified, timestamp, text, image, avatar, 
                     <Button 
                     className="tweetBox__tweetButton" 
                     onClick={comment_post}
-                    >Comment</Button>
+                    >Reply</Button>
 
                         </div>
                     </div>

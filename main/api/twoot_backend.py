@@ -103,5 +103,31 @@ class CommentTwoot(Resource):
                     post_id=info['post_id'], user_id=session['user_id'], message=info['message'])
         return 'comment-succesful', 200
 
+#routes for displaying twoot sets on profile
+class GetSelfTwoot(Resource):
+    def get(self):
+        q = db.execute("SELECT * FROM posts WHERE posts.user_id=:user_id", user_id=session['user_id'])
+        q = query_to_dict(q)
+        twoots = {}
+        for d in q:
+            twoots[d['post_id']] = d
+        return jsonify(twoots)
 
-# = jsonify(message = dictionary['message'])''
+class GetSelfMediaTwoot(Resource):
+    def get(self):
+        q = db.execute("SELECT * FROM posts WHERE posts.user_id=:user_id AND image!=NULL", user_id=session['user_id'])
+        q = query_to_dict(q)
+        twoots = {}
+        for d in q:
+            twoots[d['post_id']] = d
+        return jsonify(twoots)
+
+class GetLikedTwoot(Resource):
+    def get(self):
+        q = db.execute("SELECT * FROM posts WHERE post_id IN (SELECT post_id FROM likes WHERE user_id=:user_id)", user_id=session['user_id'])
+        q = query_to_dict(q)
+        twoots = {}
+        for d in q:
+            twoots[d['post_id']] = d
+        return jsonify(twoots)           
+# = jsonify(message = dictionary['message'])

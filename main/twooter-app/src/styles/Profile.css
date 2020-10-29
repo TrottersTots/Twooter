@@ -97,3 +97,8 @@
 .profile__content {
     border-bottom: 1px solid var(--highlight);
 }
+
+.profile__emptyFeed {
+    text-align: center;
+    padding-top: 50px;
+}
