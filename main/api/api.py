@@ -3,7 +3,7 @@ from flask_session import Session
 from flask_restful import Resource, Api
 
 from user_backend import  CreateUser, LoginUser, DeleteUser, FollowUser, Main, UserData
-from twoot_backend import PostTwoot, DeleteTwoot, LikeTwoot, Retwoot, GetTwoot, CommentTwoot
+from twoot_backend import PostTwoot, DeleteTwoot, LikeTwoot, Retwoot, GetTwoot, CommentTwoot, GetSelfTwoot, GetSelfMediaTwoot, GetLikedTwoot
 
 from tempfile import mkdtemp
 
@@ -37,13 +37,15 @@ api.add_resource(DeleteUser, path +  '/delete_user/') #methods:['POST']
 api.add_resource(FollowUser, path +  '/follow_user/') #methods:['POST']
 
 #- Twoot
-api.add_resource(PostTwoot, path +    '/post_twoot/'  ) #methods:['POST']
-api.add_resource(DeleteTwoot, path +  '/delete_twoot/') #methods:['POST']
-api.add_resource(LikeTwoot, path +    '/like_twoot/'  ) #methods:['POST']
-api.add_resource(Retwoot, path +      '/retwoot/'     ) #methods:['POST']
-api.add_resource(GetTwoot, path +     '/get_twoot/'  ) #methods:['GET']
-api.add_resource(CommentTwoot, path + '/comment_twoot/'  ) #methods:['POST']
-
+api.add_resource(PostTwoot, path +    '/post_twoot/'    ) #methods:['POST']
+api.add_resource(DeleteTwoot, path +  '/delete_twoot/'  ) #methods:['POST']
+api.add_resource(LikeTwoot, path +    '/like_twoot/'    ) #methods:['POST']
+api.add_resource(Retwoot, path +      '/retwoot/'       ) #methods:['POST']
+api.add_resource(GetTwoot, path +     '/get_twoot/'     ) #methods:['GET']
+api.add_resource(CommentTwoot, path + '/comment_twoot/' ) #methods:['POST']
+api.add_resource(GetSelfTwoot, path + '/get_selftwoot/' ) #methods:['GET']
+api.add_resource(GetSelfMediaTwoot, path + '/get_selftwoot_media/' ) #methods:['GET']
+api.add_resource(GetLikedTwoot, path + '/get_likedtwoot/')
 #api.add_resource(ShareTwoot), path + '/share_twoot/') #methods: ['GET']
 
 if __name__ == "__main__":
