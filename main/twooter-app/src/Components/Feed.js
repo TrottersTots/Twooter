@@ -69,12 +69,12 @@ function Feed({userData, logged_in, setLoggedIn}) {
                     {Object.keys(twoots).sort().reverse().map(postID => 
                         
                             <Post
-                                displayName="test_displayname"
-                                username={twoots[postID].user_id}
-                                verified={true}
+                                displayName={twoots[postID].displayname}
+                                username={twoots[postID].username}
+                                verified={twoots[postID].verified}
                                 text={twoots[postID].message}
                                 image={twoots[postID].image}
-                                avatar=""
+                                avatar={twoots[postID].avatar}
                                 post_id ={postID}
                             />
                                

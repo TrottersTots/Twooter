@@ -25,12 +25,12 @@ function ProfileNavBar({selfTwoots, selfMediaTwoots, likedTwoots}) {
                     Object.keys(selfTwoots).sort().reverse().map(postID => 
                         
                         <Post
-                            displayName="test_displayname"
-                            username={selfTwoots[postID].user_id}
-                            verified={true}
+                            displayName={selfTwoots[postID].displayname}
+                            username={selfTwoots[postID].username}
+                            verified={selfTwoots[postID].verified}
                             text={selfTwoots[postID].message}
                             image={selfTwoots[postID].image}
-                            avatar=""
+                            avatar={selfTwoots[postID].avatar}
                             post_id ={postID}
                         />)                    
                 )
@@ -47,12 +47,12 @@ function ProfileNavBar({selfTwoots, selfMediaTwoots, likedTwoots}) {
                     Object.keys(selfMediaTwoots).sort().reverse().map(postID => 
                         
                         <Post
-                            displayName="test_displayname"
-                            username={selfMediaTwoots[postID].user_id}
-                            verified={true}
+                            displayName={selfMediaTwoots[postID].displayname}
+                            username={selfMediaTwoots[postID].username}
+                            verified={selfMediaTwoots[postID].verified}
                             text={selfMediaTwoots[postID].message}
                             image={selfMediaTwoots[postID].image}
-                            avatar=""
+                            avatar={selfMediaTwoots[postID].avatar}
                             post_id ={postID}
                         />     
             )                    
@@ -69,12 +69,12 @@ function ProfileNavBar({selfTwoots, selfMediaTwoots, likedTwoots}) {
                     Object.keys(likedTwoots).sort().reverse().map(postID => 
                         
                         <Post
-                            displayName="test_displayname"
-                            username={likedTwoots[postID].user_id}
-                            verified={true}
+                            displayName={likedTwoots[postID].displayname}
+                            username={likedTwoots[postID].username}
+                            verified={likedTwoots[postID].verified}
                             text={likedTwoots[postID].message}
                             image={likedTwoots[postID].image}
-                            avatar=""
+                            avatar={likedTwoots[postID].avatar}
                             post_id ={postID}
                         />
                            
