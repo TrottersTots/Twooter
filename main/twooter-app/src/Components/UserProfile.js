@@ -57,16 +57,17 @@ const UserProfile = ({userData, loggedIn, setLoggedIn, history}) => {
             </Popover>
         }
     >
-            <Button>
-                <Avatar src="" className="profile__avatar"/>
-                <div>
-                    <div className="profile__text profile__text__popOver">
-                        <h3>{userData.displayname} {Boolean(userData.verified) && <CheckCircleIcon className="profile__badge"/>} </h3>
-                        <p>@{userData.username}</p>
+            <div className="profile__buttonContainer">
+                <Button>
+                    <Avatar src="" className="profile__avatar"/>
+                    <div>
+                        <div className="profile__text profile__text__popOver">
+                            <h3>{userData.displayname} {Boolean(userData.verified) && <CheckCircleIcon className="profile__badge"/>} </h3>
+                            <p>@{userData.username}</p>
+                        </div>
                     </div>
-                </div>
-            </Button>
-
+                </Button>
+            </div>
         </OverlayTrigger>
     )
 }

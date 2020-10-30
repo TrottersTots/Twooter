@@ -1,5 +1,6 @@
 import { Avatar } from '@material-ui/core';
 import React, {useState, useEffect} from 'react'
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Post from './Post';
@@ -123,9 +124,9 @@ function Profile({userData, logged_in}) {
 
             <div className="profile__body">
                 <div className="profile__info">
-                    <Avatar src={userData.avatar} className="profile__info__avatar"/>
+                <Avatar src={userData.avatar} className="profile__info__avatar"/>
                     <div className="profile__info__details">
-                        <h2>{userData.displayname}</h2>
+    <h2>{userData.displayname}<span>{Boolean(userData.verified) && <CheckCircleIcon className="profile__info__badge"/>}</span></h2>
                         <p className="profile__info__details__handle">@{userData.username}</p>
                         <p>{userData.bio}</p>
                         <div className="profile__info__details__follow">

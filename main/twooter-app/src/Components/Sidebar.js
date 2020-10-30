@@ -3,7 +3,7 @@ import '../styles/Sidebar.css'
 import SidebarOption from './SidebarOption';
 import TwootModal from './TwootModal';
 import UserProfile from "./UserProfile";
-import { Button } from "@material-ui/core";
+import { Button} from "@material-ui/core";
 import {BrowserRouter as Router, Link} from "react-router-dom";
 // Icons
 import TwitterIcon from '@material-ui/icons/Twitter';
@@ -83,7 +83,8 @@ function Sidebar({userData, logged_in, setLoggedIn, history}) {
                     show_makeTwoot={show_makeTwoot}
                     setMakeTwoot={setMakeTwoot}
                   />
-                  <div className="tweetBox__imageDiv" style={{padding: 50}}>
+                  {/*
+                  <div className="tweetBox__imageDiv" style={{padding: 50, visibility: Hidden}}>
                     <input 
                         className= "tweetBox__imageInput"
                         placeholder="Follow: " 
@@ -99,7 +100,9 @@ function Sidebar({userData, logged_in, setLoggedIn, history}) {
                     onClick= {follow_user}>
                       (Debug) Follow User
                   </Button>
+                  
                 </div>
+                */}
                   <UserProfile 
                     userData={userData}
                     logged_in={logged_in}
