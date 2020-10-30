@@ -2,10 +2,9 @@ import React from 'react'
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import {Avatar, Button, } from '@material-ui/core'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import userData from '../userdata';
 import '../styles/UserProfile.css'
 
-const ProfileInfo = ({inPopover, loggedIn, setLoggedIn}) => {
+const ProfileInfo = ({userData, inPopover, loggedIn, setLoggedIn}) => {
 
     async function logOut() {
         const response = await fetch('/api/', {
@@ -49,7 +48,7 @@ const ProfileInfo = ({inPopover, loggedIn, setLoggedIn}) => {
     }
 }
 
-function UserProfile({loggedIn, setLoggedIn}) {
+function UserProfile({userData, loggedIn, setLoggedIn}) {
 
     return (
         <div className="profile__container">
@@ -77,6 +76,7 @@ function UserProfile({loggedIn, setLoggedIn}) {
                         inPopover={false}
                         loggedIn={loggedIn}
                         setLoggedIn={setLoggedIn}
+                        userData={userData}
                     />
                 </Button>
             </OverlayTrigger>

@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
-import userData from './userdata';
 import "./styles/App.css";
 
 //different pages that will show in the center column
@@ -18,24 +17,34 @@ function App() {
   //things that potentially need to be shared by the entire website
   const [logged_in, setLoggedIn] = useState(false)
   //set logged in to true if the route returns an id
-  //const [ud, setUD] = useState({})
+  const [userData, setUD] = useState({})
   
-  useEffect(() => {  
-    setUserData()
-  }, [logged_in]);
+  //useEffect(() => {  
+  //  setUserData()
+  //}, [logged_in]);
 
   async function setUserData() {
+    let ud = {displayname: '',
+              username: '',
+              email: '',
+              dob: '',
+              bio: '',
+              avatar: '',
+              verified: '',
+              followers: '',
+              following: '',}
+
     await fetch('api/get_userdata/')
     .then(response => response.json())
     .then(data => {
-      userData.displayname = data.displayname;
-      userData.username = data.username;
-      userData.email = data.email;
-      userData.dob = data.dob;
-      userData.bio = data.bio;
-      userData.avatar = data.avatar;
-      userData.verified = data.verified;
-      //setUD(userData);
+      ud.displayname = data.displayname;
+      ud.username = data.username;
+      ud.email = data.email;
+      ud.dob = data.dob;
+      ud.bio = data.bio;
+      ud.avatar = data.avatar;
+      ud.verified = data.verified;
+      setUD(ud);
     });
     console.log(userData);
   }
@@ -68,14 +77,14 @@ function App() {
           {/*Show sidebar for all pages*/}
           <Route path='/'
             render={(props) => (
-              <Sidebar {...props} logged_in={logged_in} setLoggedIn={setLoggedIn}/>            
+              <Sidebar {...props} logged_in={logged_in} setLoggedIn={setLoggedIn} userData={userData}/>            
             )}
           />
           {/*Home Page*/}
         <Switch>{/* Switch means we want to only show ONE of these */}
           <Route exact path='/'
               render={(props) => (
-                <Home {...props} logged_in={logged_in} setLoggedIn={setLoggedIn}/>
+                <Home {...props} logged_in={logged_in} setLoggedIn={setLoggedIn} userData={userData}/>
               )}
           />
           {/*Explore Page*/}
@@ -99,7 +108,7 @@ function App() {
           {/*Profile Page*/}
           <Route excat path='/profile'
               render={(props) => (
-                <Profile {...props} logged_in={logged_in}/>
+                <Profile {...props} logged_in={logged_in} userData={userData}/>
               )}
           />
           {/*leave at bottom 404 Page*/}

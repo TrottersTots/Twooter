@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import "../styles/TweetBox.css"
 import { Avatar, Button } from "@material-ui/core";
-import userData from '../userdata';
 //import ImageIcon from '@material-ui/icons/Image';
 
-function TweetBox({inModal, twoots, setTwoots}) {
+function TweetBox({userData, inModal, twoots, setTwoots}) {
 
     const [message, setMessage] = useState('');
     const [image, setImage] = useState('');

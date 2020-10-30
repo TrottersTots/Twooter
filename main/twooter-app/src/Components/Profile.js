@@ -1,6 +1,5 @@
 import { Avatar } from '@material-ui/core';
 import React, {useState, useEffect} from 'react'
-import userData from '../userdata';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Post from './Post';
@@ -88,7 +87,7 @@ function ProfileNavBar({selfTwoots, selfMediaTwoots, likedTwoots}) {
   }
 
 
-function Profile({logged_in}) {
+function Profile({userData, logged_in}) {
 
     const [selfTwoots, setSelfTwoots] = useState({});
     const [selfMediaTwoots, setSelfMediaTwoots] = useState({});
@@ -136,7 +135,7 @@ function Profile({logged_in}) {
                     </div>
                 </div>
                 <div className="profile__content">
-                    <ProfileNavBar selfTwoots={selfTwoots} selfMediaTwoots={selfMediaTwoots} likedTwoots={likedTwoots} />
+                    <ProfileNavBar selfTwoots={selfTwoots} selfMediaTwoots={selfMediaTwoots} likedTwoots={likedTwoots}/>
                 </div>
             </div>
 
