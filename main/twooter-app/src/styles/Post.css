@@ -46,13 +46,14 @@
 
 .post__headerText__username {
     font-size: 13px;
-    color: var(--purple);
+    color: #9aa1ad;
     padding-left: 5px;
+    padding-bottom: 1px;
 }
 .post__badge {
     font-size: 14px !important;
     color: var(--blue);
-    padding: 0px 5px;
+    padding: 0 0 0 5px;
 }
 
 .post__headerSpecial > svg {

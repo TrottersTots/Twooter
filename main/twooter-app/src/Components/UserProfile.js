@@ -59,7 +59,7 @@ const UserProfile = ({userData, loggedIn, setLoggedIn, history}) => {
     >
             <div className="profile__buttonContainer">
                 <Button>
-                    <Avatar src="" className="profile__avatar"/>
+                    <Avatar src={userData.avatar} className="profile__avatar"/>
                     <div>
                         <div className="profile__text profile__text__popOver">
                             <h3>{userData.displayname} {Boolean(userData.verified) && <CheckCircleIcon className="profile__badge"/>} </h3>
