@@ -1,10 +1,11 @@
 import React from 'react'
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import {Avatar, Button, } from '@material-ui/core'
+import {BrowserRouter as Router, Link} from "react-router-dom";
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import '../styles/UserProfile.css'
 
-const UserProfile = ({userData, loggedIn, setLoggedIn}) => {
+const UserProfile = ({userData, loggedIn, setLoggedIn, history}) => {
     console.log('PI:',userData)
 
     async function logOut() {
@@ -41,11 +42,15 @@ const UserProfile = ({userData, loggedIn, setLoggedIn}) => {
                                 <Button className="profile__popOver__button">Add account</Button>
                             </div>
                             <div className="profile__popOver__buttonContainer">
-                                <Button 
-                                    className="profile__popOver__button"
-                                    onClick={() => logOut()}
-                                    >Log Out
-                                </Button>
+                                <Router>
+                                    <Link to='/' onClick={() => {history.push('/');}}>
+                                        <Button 
+                                            className="profile__popOver__button"
+                                            onClick={() => logOut()}
+                                            >Log Out
+                                        </Button>
+                                    </Link>
+                                </Router>
                             </div>
                     </div>
                 </Popover.Content>
@@ -61,6 +66,7 @@ const UserProfile = ({userData, loggedIn, setLoggedIn}) => {
                     </div>
                 </div>
             </Button>
+
         </OverlayTrigger>
     )
 }
