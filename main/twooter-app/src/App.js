@@ -44,6 +44,8 @@ function App() {
       ud.bio = data.bio;
       ud.avatar = data.avatar;
       ud.verified = data.verified;
+      ud.following = data.following;
+      ud.followers = data.followers;
       setUD(ud);
     });
     console.log(userData);

@@ -130,8 +130,8 @@ function Profile({userData, logged_in}) {
                         <p className="profile__info__details__handle">@{userData.username}</p>
                         <p>{userData.bio}</p>
                         <div className="profile__info__details__follow">
-                            <p><span>69</span> Following</p>
-                            <p><span>420</span> Followers</p>
+                            <p><span>{userData.following}</span> Following</p>
+                            <p><span>{userData.followers}</span> Followers</p>
                         </div>
                     </div>
                 </div>

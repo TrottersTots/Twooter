@@ -146,7 +146,10 @@ class UserData(Resource):
     def get(self):
         q = db.execute("SELECT * FROM users WHERE user_id=:user_id", user_id=session['user_id'])
         q = query_to_dict(q)
-
+        
+        #query for follower/following counts and then append them to our main query
+        q[0].update(query_to_dict(db.execute("SELECT COUNT(other_id) as followers FROM follows WHERE self_id=:user_id", user_id=session['user_id']))[0])
+        q[0].update(query_to_dict(db.execute("SELECT COUNT(self_id) as following FROM follows WHERE other_id=:user_id", user_id=session['user_id']))[0])
         #print(userdata)
         return jsonify(q[0])
 
