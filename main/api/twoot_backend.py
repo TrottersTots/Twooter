@@ -85,11 +85,14 @@ class Retwoot(Resource):
 
 class GetTwoot(Resource):
     """
-    Currently returns list of all twoots that the user posted themselves
+    returns list of all twoots that either the user posted or the users that this user is following posted
     """
     def get(self):
-        q = db.execute("SELECT * FROM posts WHERE posts.user_id=:user_id OR posts.user_id=\
-            (SELECT other_id FROM follows WHERE self_id=:user_id)", user_id=session['user_id'])
+        q = db.execute("SELECT post_id, message, image, username, displayname, avatar, verified \
+                        FROM posts JOIN users on posts.user_id=users.user_id \
+                        WHERE posts.user_id=:user_id \
+                        OR posts.user_id=(SELECT other_id FROM follows WHERE self_id=:user_id)", 
+                        user_id=session['user_id'])
         q = query_to_dict(q)
         twoots = {}
         for d in q:
@@ -106,7 +109,9 @@ class CommentTwoot(Resource):
 #routes for displaying twoot sets on profile
 class GetSelfTwoot(Resource):
     def get(self):
-        q = db.execute("SELECT * FROM posts WHERE posts.user_id=:user_id", user_id=session['user_id'])
+        q = db.execute("SELECT post_id, message, image, username, displayname, avatar, verified \
+                        FROM posts JOIN users on posts.user_id=users.user_id \
+                        WHERE posts.user_id=:user_id", user_id=session['user_id'])
         q = query_to_dict(q)
         twoots = {}
         for d in q:
@@ -115,7 +120,9 @@ class GetSelfTwoot(Resource):
 
 class GetSelfMediaTwoot(Resource):
     def get(self):
-        q = db.execute("SELECT * FROM posts WHERE posts.user_id=:user_id AND image!=NULL", user_id=session['user_id'])
+        q = db.execute("SELECT post_id, message, image, username, displayname, avatar, verified \
+                        FROM posts JOIN users on posts.user_id=users.user_id \
+                        WHERE posts.user_id=:user_id AND image!=NULL", user_id=session['user_id'])
         q = query_to_dict(q)
         twoots = {}
         for d in q:
@@ -124,7 +131,9 @@ class GetSelfMediaTwoot(Resource):
 
 class GetLikedTwoot(Resource):
     def get(self):
-        q = db.execute("SELECT * FROM posts WHERE post_id IN (SELECT post_id FROM likes WHERE user_id=:user_id)", user_id=session['user_id'])
+        q = db.execute("SELECT post_id, message, image, username, displayname, avatar, verified \
+                        FROM posts JOIN users on posts.user_id=users.user_id \
+                        WHERE post_id IN (SELECT post_id FROM likes WHERE user_id=:user_id)", user_id=session['user_id'])
         q = query_to_dict(q)
         twoots = {}
         for d in q:

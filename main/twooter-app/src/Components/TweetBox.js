@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import "../styles/TweetBox.css"
 import { Avatar, Button } from "@material-ui/core";
-import userData from '../userdata';
 //import ImageIcon from '@material-ui/icons/Image';
 
-function TweetBox({inModal, twoots, setTwoots}) {
+function TweetBox({userData, inModal, twoots, setTwoots}) {
 
     const [message, setMessage] = useState('');
     const [image, setImage] = useState('');
@@ -35,7 +34,7 @@ function TweetBox({inModal, twoots, setTwoots}) {
         await fetch('api/get_twoot/')
         .then(response => response.json())
         .then(data => setTwoots(data));
-        console.log(twoots)
+        console.log('TWOOT TWOOT:',twoots)
         
     }
 
@@ -43,7 +42,7 @@ function TweetBox({inModal, twoots, setTwoots}) {
         <div className={"tweetBox " + (inModal ? '' : 'notInModal')}>
             <form action="/api/postTweet">
                 <div className="tweetBox__input">
-                    <Avatar src="" />
+                    <Avatar src={userData.avatar} />
                     <input 
                         placeholder={"What's happening, " + userData.displayname + "?"}
                         value = {message}
@@ -70,13 +69,14 @@ function TweetBox({inModal, twoots, setTwoots}) {
                 onClick={post_twoot}>
                 Twoot
                 </Button>
+                {/*
                 <Button 
                 className="tweetBox__tweetButton__debug" 
                 onClick={get_twoot}
                 >
                 (DEBUG) Get Twoots
                 </Button>
-                {/*<Button 
+                <Button 
                 variant='contained'
                 color='secondary'
                 onClick={get_most_recent}>

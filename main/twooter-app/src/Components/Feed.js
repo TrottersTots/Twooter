@@ -5,7 +5,7 @@ import Post from './Post';
 import { Button } from "@material-ui/core";
 import UserModal from './UserModal';
 
-function Feed({logged_in, setLoggedIn}) {
+function Feed({userData, logged_in, setLoggedIn}) {
 
     const [show_signup, setSignup] = useState(false);
     const [show_login, setLogin] = useState(false);
@@ -63,18 +63,18 @@ function Feed({logged_in, setLoggedIn}) {
                 (<>
 
                     
-                    <TweetBox twoots={twoots} setTwoots={setTwoots}/>
+                    <TweetBox twoots={twoots} setTwoots={setTwoots} userData={userData}/>
                     {/* feed content if logged in: */}
                     
                     {Object.keys(twoots).sort().reverse().map(postID => 
                         
                             <Post
-                                displayName="test_displayname"
-                                username={twoots[postID].user_id}
-                                verified={true}
+                                displayName={twoots[postID].displayname}
+                                username={twoots[postID].username}
+                                verified={twoots[postID].verified}
                                 text={twoots[postID].message}
                                 image={twoots[postID].image}
-                                avatar=""
+                                avatar={twoots[postID].avatar}
                                 post_id ={postID}
                             />
                                

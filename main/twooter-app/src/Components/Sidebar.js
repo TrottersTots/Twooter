@@ -1,10 +1,9 @@
 import React, {useState} from "react";
-import userData from '../userdata';
 import '../styles/Sidebar.css'
 import SidebarOption from './SidebarOption';
 import TwootModal from './TwootModal';
 import UserProfile from "./UserProfile";
-import { Button } from "@material-ui/core";
+import { Button} from "@material-ui/core";
 import {BrowserRouter as Router, Link} from "react-router-dom";
 // Icons
 import TwitterIcon from '@material-ui/icons/Twitter';
@@ -16,7 +15,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 // - - -
 
 
-function Sidebar({logged_in, setLoggedIn, history}) {
+function Sidebar({userData, logged_in, setLoggedIn, history}) {
 
     const [show_makeTwoot, setMakeTwoot] = useState(false);
 
@@ -54,11 +53,6 @@ function Sidebar({logged_in, setLoggedIn, history}) {
                 <SidebarOption Icon={SearchIcon} text="Explore" />
               </Link>
 
-
-              
-
-
-
               {logged_in ? (
                   <>
                   
@@ -89,7 +83,8 @@ function Sidebar({logged_in, setLoggedIn, history}) {
                     show_makeTwoot={show_makeTwoot}
                     setMakeTwoot={setMakeTwoot}
                   />
-                  <div className="tweetBox__imageDiv" style={{padding: 50}}>
+                  {/*
+                  <div className="tweetBox__imageDiv" style={{padding: 50, visibility: Hidden}}>
                     <input 
                         className= "tweetBox__imageInput"
                         placeholder="Follow: " 
@@ -105,10 +100,14 @@ function Sidebar({logged_in, setLoggedIn, history}) {
                     onClick= {follow_user}>
                       (Debug) Follow User
                   </Button>
+                  
                 </div>
+                */}
                   <UserProfile 
+                    userData={userData}
                     logged_in={logged_in}
                     setLoggedIn={setLoggedIn}
+                    history= {history}
                     />
 
                 </>)

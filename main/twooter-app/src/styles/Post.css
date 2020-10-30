@@ -44,20 +44,20 @@
     text-overflow: clip;
 }
 
+.post__headerText__username {
+    font-size: 13px;
+    color: #9aa1ad;
+    padding-left: 5px;
+    padding-bottom: 1px;
+}
 .post__badge {
     font-size: 14px !important;
     color: var(--blue);
-    padding: 0px 5px;
-}
-
-.post__headerSpecial {
-    font-weight: 600;
-    font-size: 12px;
-    color: var(--offwhite);
+    padding: 0 0 0 5px;
 }
 
 .post__headerSpecial > svg {
-    padding-bottom: 2px;
+    font-size: 15px !important;
 }
 
 .post__avatar {

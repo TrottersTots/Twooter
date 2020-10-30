@@ -1,6 +1,6 @@
 import { Avatar } from '@material-ui/core';
 import React, {useState, useEffect} from 'react'
-import userData from '../userdata';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Post from './Post';
@@ -25,12 +25,12 @@ function ProfileNavBar({selfTwoots, selfMediaTwoots, likedTwoots}) {
                     Object.keys(selfTwoots).sort().reverse().map(postID => 
                         
                         <Post
-                            displayName="test_displayname"
-                            username={selfTwoots[postID].user_id}
-                            verified={true}
+                            displayName={selfTwoots[postID].displayname}
+                            username={selfTwoots[postID].username}
+                            verified={selfTwoots[postID].verified}
                             text={selfTwoots[postID].message}
                             image={selfTwoots[postID].image}
-                            avatar=""
+                            avatar={selfTwoots[postID].avatar}
                             post_id ={postID}
                         />)                    
                 )
@@ -47,12 +47,12 @@ function ProfileNavBar({selfTwoots, selfMediaTwoots, likedTwoots}) {
                     Object.keys(selfMediaTwoots).sort().reverse().map(postID => 
                         
                         <Post
-                            displayName="test_displayname"
-                            username={selfMediaTwoots[postID].user_id}
-                            verified={true}
+                            displayName={selfMediaTwoots[postID].displayname}
+                            username={selfMediaTwoots[postID].username}
+                            verified={selfMediaTwoots[postID].verified}
                             text={selfMediaTwoots[postID].message}
                             image={selfMediaTwoots[postID].image}
-                            avatar=""
+                            avatar={selfMediaTwoots[postID].avatar}
                             post_id ={postID}
                         />     
             )                    
@@ -69,12 +69,12 @@ function ProfileNavBar({selfTwoots, selfMediaTwoots, likedTwoots}) {
                     Object.keys(likedTwoots).sort().reverse().map(postID => 
                         
                         <Post
-                            displayName="test_displayname"
-                            username={likedTwoots[postID].user_id}
-                            verified={true}
+                            displayName={likedTwoots[postID].displayname}
+                            username={likedTwoots[postID].username}
+                            verified={likedTwoots[postID].verified}
                             text={likedTwoots[postID].message}
                             image={likedTwoots[postID].image}
-                            avatar=""
+                            avatar={likedTwoots[postID].avatar}
                             post_id ={postID}
                         />
                            
@@ -88,7 +88,7 @@ function ProfileNavBar({selfTwoots, selfMediaTwoots, likedTwoots}) {
   }
 
 
-function Profile({logged_in}) {
+function Profile({userData, logged_in}) {
 
     const [selfTwoots, setSelfTwoots] = useState({});
     const [selfMediaTwoots, setSelfMediaTwoots] = useState({});
@@ -124,19 +124,19 @@ function Profile({logged_in}) {
 
             <div className="profile__body">
                 <div className="profile__info">
-                    <Avatar src={userData.avatar} className="profile__info__avatar"/>
+                <Avatar src={userData.avatar} className="profile__info__avatar"/>
                     <div className="profile__info__details">
-                        <h2>{userData.displayname}</h2>
+    <h2>{userData.displayname}<span>{Boolean(userData.verified) && <CheckCircleIcon className="profile__info__badge"/>}</span></h2>
                         <p className="profile__info__details__handle">@{userData.username}</p>
                         <p>{userData.bio}</p>
                         <div className="profile__info__details__follow">
-                            <p><span>69</span> Following</p>
-                            <p><span>420</span> Followers</p>
+                            <p><span>{userData.following}</span> Following</p>
+                            <p><span>{userData.followers}</span> Followers</p>
                         </div>
                     </div>
                 </div>
                 <div className="profile__content">
-                    <ProfileNavBar selfTwoots={selfTwoots} selfMediaTwoots={selfMediaTwoots} likedTwoots={likedTwoots} />
+                    <ProfileNavBar selfTwoots={selfTwoots} selfMediaTwoots={selfMediaTwoots} likedTwoots={likedTwoots}/>
                 </div>
             </div>
 
