@@ -1,0 +1,25 @@
+.main-modal {
+    min-width: 40%;
+}
+
+.edit__container {
+    display: flex;
+    flex-direction: row;
+}
+
+.edit__container__inputContainer{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 2;
+}
+
+.edit__avatarButton {
+    border: 2px dotted var(--highlight) !important;
+    border-radius: 50% !important;
+    max-width: 100px;
+    max-height: 100px;
+}
+.edit__avatarButton__avatar {
+    width: 90px !important;
+    height: 90px !important;
+}

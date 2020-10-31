@@ -1,8 +1,9 @@
-import { Avatar } from '@material-ui/core';
 import React, {useState, useEffect} from 'react'
+import { Avatar, Button } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+import EditProfileModal from './EditProfileModal';
 import Post from './Post';
 import '../styles/Profile.css';
 
@@ -94,6 +95,9 @@ function Profile({userData, logged_in}) {
     const [selfMediaTwoots, setSelfMediaTwoots] = useState({});
     const [likedTwoots, setLikedTwoots] = useState({});
 
+    const [show_editProfile, set_editProfile] = useState(false);
+    const selfProfile = true;
+
     async function get_twoot(route, setFunc) //self, self-media, liked
     {
         if (route == null) {return;}
@@ -124,15 +128,30 @@ function Profile({userData, logged_in}) {
 
             <div className="profile__body">
                 <div className="profile__info">
+
                 <Avatar src={userData.avatar} className="profile__info__avatar"/>
                     <div className="profile__info__details">
-    <h2>{userData.displayname}<span>{Boolean(userData.verified) && <CheckCircleIcon className="profile__info__badge"/>}</span></h2>
+
+                        <h2>{userData.displayname}<span>{Boolean(userData.verified) && <CheckCircleIcon className="profile__info__badge"/>}</span></h2>
                         <p className="profile__info__details__handle">@{userData.username}</p>
+
                         <p>{userData.bio}</p>
                         <div className="profile__info__details__follow">
                             <p><span>{userData.following}</span> Following</p>
                             <p><span>{userData.followers}</span> Followers</p>
                         </div>
+                        <span className="profile__edit" hidden={!selfProfile}>
+                                <Button 
+                                    variant="outlined" 
+                                    onClick= {() => set_editProfile(true)}>
+                                    Edit Profile
+                                </Button>
+                                <EditProfileModal 
+                                    show_editProfile={show_editProfile}
+                                    set_editProfile={set_editProfile}
+                                    userData={userData}
+                                />
+                        </span>
                     </div>
                 </div>
                 <div className="profile__content">
