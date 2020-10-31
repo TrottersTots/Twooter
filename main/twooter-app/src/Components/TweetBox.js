@@ -3,7 +3,7 @@ import "../styles/TweetBox.css"
 import { Avatar, Button } from "@material-ui/core";
 //import ImageIcon from '@material-ui/icons/Image';
 
-function TweetBox({userData, inModal, twoots, setTwoots}) {
+function TweetBox({userData, inModal, twoots, setTwoots, setMakeTwoot}) {
 
     const [message, setMessage] = useState('');
     const [image, setImage] = useState('');
@@ -26,6 +26,7 @@ function TweetBox({userData, inModal, twoots, setTwoots}) {
             console.log('twoot-sent-successfully');
             setMessage('')
             setImage('')
+            setMakeTwoot(false);
         }
     }
 

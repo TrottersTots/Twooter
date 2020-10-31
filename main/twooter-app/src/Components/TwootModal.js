@@ -4,7 +4,7 @@ import { Avatar,Button } from "@material-ui/core";
 import TweetBox from './TweetBox';
 import '../styles/TwootModal.css';
 
-function TwootModal ({show_makeTwoot, setMakeTwoot, userData}) {
+function TwootModal ({show_makeTwoot, setMakeTwoot, userData, twoots, setTwoots}) {
 
     const [message, setMessage] = useState('');
     const [imgURL, setImgURL] = useState('');
@@ -20,7 +20,7 @@ function TwootModal ({show_makeTwoot, setMakeTwoot, userData}) {
             <Modal.Header closeButton>
             </Modal.Header>
                     <Modal.Body>
-                        <TweetBox inModal={true} userData={userData}/>
+                        <TweetBox inModal={true} userData={userData} twoots={twoots} setTwoots={setTwoots} setMakeTwoot={setMakeTwoot}/>
                     </Modal.Body>
             </Modal>            
         </>
