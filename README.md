@@ -29,7 +29,7 @@ To-do:
 * Flask w/ ![](https://via.placeholder.com/10/ebcb8b/000000?text=+) RESTful Api
 * sqlite3 w/ SQLAlchemy python toolkit
 
-<img src="/media/full-stack_outline.png/" width="240">
+![](/media/Twooter.png/)
 
 
 ## Dev Environment Setup 
