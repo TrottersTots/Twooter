@@ -15,7 +15,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 // - - -
 
 
-function Sidebar({userData, logged_in, setLoggedIn, history}) {
+function Sidebar({userData, logged_in, setLoggedIn, history, setTwoots, twoots}) {
 
     const [show_makeTwoot, setMakeTwoot] = useState(false);
 
@@ -82,6 +82,9 @@ function Sidebar({userData, logged_in, setLoggedIn, history}) {
                   <TwootModal 
                     show_makeTwoot={show_makeTwoot}
                     setMakeTwoot={setMakeTwoot}
+                    setTwoots={setTwoots}
+                    twoots={twoots}
+                    userData={userData}
                   />
                   {/*
                   <div className="tweetBox__imageDiv" style={{padding: 50, visibility: Hidden}}>

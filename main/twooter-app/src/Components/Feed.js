@@ -5,12 +5,11 @@ import Post from './Post';
 import { Button } from "@material-ui/core";
 import UserModal from './UserModal';
 
-function Feed({userData, logged_in, setLoggedIn}) {
+function Feed({userData, logged_in, setLoggedIn, setTwoots, twoots}) {
 
     const [show_signup, setSignup] = useState(false);
     const [show_login, setLogin] = useState(false);
 
-    const [twoots, setTwoots] = useState({});
 
     return (
         <div className="feed">

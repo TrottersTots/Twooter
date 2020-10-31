@@ -19,6 +19,7 @@ function App() {
   //set logged in to true if the route returns an id
   const [userData, setUD] = useState({})
   
+  const [twoots, setTwoots] = useState({});
   //useEffect(() => {  
   //  setUserData()
   //}, [logged_in]);
@@ -79,14 +80,14 @@ function App() {
           {/*Show sidebar for all pages*/}
           <Route path='/'
             render={(props) => (
-              <Sidebar {...props} logged_in={logged_in} setLoggedIn={setLoggedIn} userData={userData}/>            
+              <Sidebar {...props} logged_in={logged_in} setLoggedIn={setLoggedIn} userData={userData} twoots={twoots} setTwoots={setTwoots}/>            
             )}
           />
           {/*Home Page*/}
         <Switch>{/* Switch means we want to only show ONE of these */}
           <Route exact path='/'
               render={(props) => (
-                <Home {...props} logged_in={logged_in} setLoggedIn={setLoggedIn} userData={userData}/>
+                <Home {...props} logged_in={logged_in} setLoggedIn={setLoggedIn} userData={userData} twoots={twoots} setTwoots={setTwoots}/>
               )}
           />
           {/*Explore Page*/}
