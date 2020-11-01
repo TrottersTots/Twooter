@@ -16,6 +16,31 @@ function EditProfileModal ({show_editProfile, set_editProfile, userData}) {
         setDob(userData.dob)
         setBio(userData.bio)
     }
+
+    async function submit_userData()
+    {
+        const ud = {name_input, email_input, dob_input, bio_input}
+
+        const response = await fetch('/api/submit_userData/',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(ud)
+        });
+        switch(response.status){
+            case 200:
+                console.log('userData updated');
+                set_editProfile(false);
+                window.location.reload();
+            break;
+            case 500:
+                console.log('userData update failed');
+            break;
+            default:
+                return;
+        }
+    }
     
     return (
         <>
@@ -77,7 +102,7 @@ function EditProfileModal ({show_editProfile, set_editProfile, userData}) {
                                         ></textarea>
                                     </div>
 
-                                    <Button className="edit__save">Save</Button>
+                                    <Button className="edit__save" onClick={submit_userData}>Save</Button>
                                 </div>
 
                             </div>
