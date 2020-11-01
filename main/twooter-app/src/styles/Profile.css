@@ -62,7 +62,41 @@
     display: flex;
     flex-direction: column;
     margin-left: 15px;
+    width: 400px;
 }
+.profile__info__details > p {
+    overflow-wrap: break-word;
+}
+.profile__edit {
+    display: flex;
+    margin-right: 15px;
+    margin-bottom: 5px;
+    justify-content: end !important;
+}
+
+.profile__edit > span {
+    font-size: 14px;
+    color: var(--grey);
+    margin-right: auto;
+}
+.profile__edit > span > svg {
+    font-size: 1.3rem;
+    padding-bottom: 9px;
+    padding-right: 2px;
+    margin-left: -2px;
+}
+
+.profile__edit > button {
+    background-color: var(--main-background) !important;
+    border: 2px solid var(--blue) !important;
+    color: var(--blue) !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    text-transform: inherit !important;
+    border-radius: 30px !important;
+    height: 30px !important;    
+}
+
 .profile__info__details__handle {
     color: var(--offwhite);
 }

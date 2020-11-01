@@ -153,6 +153,28 @@ class UserData(Resource):
         #print(userdata)
         return jsonify(q[0])
 
+class UpdateUserData(Resource):
+    def post(self):
+
+        newUD = request.get_json()
+        
+        try:
+            db.execute("UPDATE users \
+                        SET displayname=:displayname, email=:email, dob=:dob, bio=:bio\
+                        WHERE user_id=:user_id", 
+                        user_id=session['user_id'],
+                        displayname=newUD['name_input'],
+                        email=newUD['email_input'],
+                        dob=newUD['dob_input'],
+                        bio=newUD['bio_input'])
+        except Exception as e:
+            print(e)
+            return 'userData update failed', 500
+        else:
+            return 'userData updated in DB', 200
+
+        return 'something went wrong :(',501
+
 class Main(Resource):
     def get(self):
         if session['user_id'] is not None:  return 'user has a session', 200

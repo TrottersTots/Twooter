@@ -13,6 +13,11 @@ import Profile from './Components/Profile';
 import Sidebar from './Components/Sidebar';
 import Widgets from './Components/Widgets';
 
+//MAX LENGTHS:
+//displayname - 12 char
+//username - 25 char
+//bio - 50 char
+
 function App() {
   //things that potentially need to be shared by the entire website
   const [logged_in, setLoggedIn] = useState(false)

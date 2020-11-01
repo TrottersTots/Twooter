@@ -1,0 +1,62 @@
+.main-modal {
+    min-width: 40%;
+}
+
+.edit__container {
+    display: flex;
+    flex-direction: row;
+}
+
+.edit__container__inputContainer{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 2;
+    margin-left: 1rem;
+}
+.edit__container__inputContainer > div {
+    background-color: var(--main-background);
+    border: 1px dashed var(--highlight);
+    border-radius: 30px;
+    margin-bottom: 1rem;
+}
+.edit__container__inputContainer > p {
+    margin-bottom: 0;
+    margin-left: 12px;
+}
+.edit__container__inputContainer > div > input, textarea {
+    box-sizing: border-box;
+    margin: 10px;
+    background-color: var(--main-background);
+    color: var(--white);
+    border: none;
+    width: 95%;
+}
+
+.input__bio {
+    height: 50px !important;
+    resize: none;
+}
+
+.edit__avatarButton {
+    border: 2px dotted var(--highlight) !important;
+    border-radius: 50% !important;
+    max-width: 100px;
+    max-height: 100px;
+}
+.edit__avatarButton__avatar {
+    width: 90px !important;
+    height: 90px !important;
+}
+
+.edit__save {
+    background-color: var(--blue) !important;
+    border: none !important;
+    color: var(--white) !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    text-transform: inherit !important;
+    border-radius: 30px !important;
+    margin-left: auto !important;
+    width: 200px;
+    height: 30px !important;    
+}

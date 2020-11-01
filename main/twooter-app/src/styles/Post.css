@@ -46,7 +46,7 @@
 
 .post__headerText__username {
     font-size: 13px;
-    color: #9aa1ad;
+    color: var(--grey);
     padding-left: 5px;
     padding-bottom: 1px;
 }
