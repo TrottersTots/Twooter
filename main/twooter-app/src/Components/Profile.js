@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { Avatar, Button } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import CakeIcon from '@material-ui/icons/Cake';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import EditProfileModal from './EditProfileModal';
@@ -121,7 +122,7 @@ function Profile({userData, logged_in}) {
     }, [logged_in]);
 
     return (
-        <div className='profile'>
+        <div className='profile' >
             <div className="profile__header">
                 <h2>Profile</h2>
             </div>
@@ -140,7 +141,9 @@ function Profile({userData, logged_in}) {
                             <p><span>{userData.following}</span> Following</p>
                             <p><span>{userData.followers}</span> Followers</p>
                         </div>
+                        {console.log('=',userData.dob,'=')}
                         <span className="profile__edit" hidden={!selfProfile}>
+                                <span><CakeIcon/>Born {userData.dob}</span>
                                 <Button 
                                     variant="outlined" 
                                     onClick= {() => set_editProfile(true)}>

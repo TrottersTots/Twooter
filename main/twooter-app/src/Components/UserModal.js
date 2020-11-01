@@ -117,6 +117,7 @@ function UserModal({show_condition, setShow, modalTitle, registering, logged_in,
                     type="text"
                     value={username}
                     onChange={e => setUsername(e.target.value)}
+                    maxLength='25'
                   />
                   <input
                     placeholder="Password"

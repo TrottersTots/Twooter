@@ -40,9 +40,7 @@
     color: var(--white);
     margin-bottom: 0;
 }
-.MuiAvatar-root {
-    padding: 2px;
-}
+
 .widget__followButton {
     background-color: var(--main-background) !important;
     border: 2px solid var(--blue) !important;

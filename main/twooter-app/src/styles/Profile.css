@@ -62,13 +62,28 @@
     display: flex;
     flex-direction: column;
     margin-left: 15px;
+    width: 400px;
 }
-
+.profile__info__details > p {
+    overflow-wrap: break-word;
+}
 .profile__edit {
     display: flex;
     margin-right: 15px;
     margin-bottom: 5px;
     justify-content: end !important;
+}
+
+.profile__edit > span {
+    font-size: 14px;
+    color: var(--grey);
+    margin-right: auto;
+}
+.profile__edit > span > svg {
+    font-size: 1.3rem;
+    padding-bottom: 9px;
+    padding-right: 2px;
+    margin-left: -2px;
 }
 
 .profile__edit > button {
