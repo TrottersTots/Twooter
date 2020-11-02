@@ -6,7 +6,7 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import '../styles/UserProfile.css'
 
 const UserProfile = ({userData, loggedIn, setLoggedIn, history}) => {
-    console.log('PI:',userData)
+    //console.log('PI:',userData)
 
     async function logOut() {
         const response = await fetch('/api/', {

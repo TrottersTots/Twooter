@@ -9,6 +9,7 @@ function EditProfileModal ({show_editProfile, set_editProfile, userData}) {
     const[email_input, setEmail] = useState(userData.email);
     const[dob_input, setDob] = useState(userData.dob);
     const[bio_input, setBio] = useState(userData.bio);
+    const[avatar_input, setAvatar] = useState('');
 
     function setDefaultInputs() {
         setName(userData.displayname)
@@ -19,7 +20,7 @@ function EditProfileModal ({show_editProfile, set_editProfile, userData}) {
 
     async function submit_userData()
     {
-        const ud = {name_input, email_input, dob_input, bio_input}
+        const ud = {name_input, email_input, dob_input, bio_input, avatar_input}
 
         const response = await fetch('/api/submit_userData/',{
             method: 'POST',
@@ -41,7 +42,30 @@ function EditProfileModal ({show_editProfile, set_editProfile, userData}) {
                 return;
         }
     }
-    
+
+    useEffect(() => {  
+        console.log('Avatar Changed!!')
+        //console.log(avatar_input)
+    }, [avatar_input]);
+
+    function setAvatarAsBinaryString(file){
+
+        //console.log('FILE:',file);
+        var reader = new FileReader();
+        reader.readAsBinaryString(file);
+        
+        reader.onload = function() {
+            //console.log('HELLO???');
+            //console.log(btoa(reader.result));
+            setAvatar(btoa(reader.result));
+        };
+
+        reader.onerror = function() {
+            console.log('error occured...');
+        };
+
+    }
+
     return (
         <>
             <Modal 
@@ -57,9 +81,12 @@ function EditProfileModal ({show_editProfile, set_editProfile, userData}) {
                             <div className="edit__container">
                                 <Button
                                 className="edit__avatarButton"
-                                onClick={console.log('Clicked!')}> 
+                                > 
                                     <Avatar className="edit__avatarButton__avatar" src={userData.avatar}/>
                                 </Button>
+                                <input type="file"
+                                 id="image"
+                                 onChange={e => setAvatarAsBinaryString(e.target.files[0])}/>
                                 <div className="edit__container__inputContainer">
 
                                     <p>Name</p>

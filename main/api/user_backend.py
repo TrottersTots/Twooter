@@ -5,11 +5,14 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from db import db
 from helpers import query_to_dict
 from re import match
+import base64
+import os.path
 """
 user_backend.py-
 manages the User base backend integration.
 """
 
+current_dir = os.path.dirname(__file__)
 
 class CreateUser(Resource):
     """
@@ -157,7 +160,11 @@ class UpdateUserData(Resource):
     def post(self):
 
         newUD = request.get_json()
-        
+
+        avatar_path = os.path.join(current_dir, f"data/avatars/{session['user_id']}.jpg")
+        with open(avatar_path, "wb") as fh:
+            fh.write(base64.decodebytes(newUD['avatar_input'].encode('ascii')))
+
         try:
             db.execute("UPDATE users \
                         SET displayname=:displayname, email=:email, dob=:dob, bio=:bio\

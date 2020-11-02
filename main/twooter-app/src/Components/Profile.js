@@ -141,7 +141,7 @@ function Profile({userData, logged_in}) {
                             <p><span>{userData.following}</span> Following</p>
                             <p><span>{userData.followers}</span> Followers</p>
                         </div>
-                        {console.log('=',userData.dob,'=')}
+                        {/*console.log('=',userData.dob,'=')*/}
                         <span className="profile__edit" hidden={!selfProfile}>
                                 <span><CakeIcon/>Born {userData.dob}</span>
                                 <Button 
