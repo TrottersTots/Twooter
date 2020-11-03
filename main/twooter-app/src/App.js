@@ -55,11 +55,11 @@ function App() {
       //turning avatar base64 string to an Image
       let img = new Image();
       img.src = 'data:image/jpg;base64,'.concat(data.avatar);
-      ud.avatar = "C:\\Users\\robot\\Documents\\GitHub\\Twooter\\main\\api\\data\\avatars\\33.jpg"//'main/api/data/avatars/33.jpg';
+      ud.avatar = "../../../api/data/avatars/33.jpg"//'main/api/data/avatars/33.jpg';
 
       setUD(ud);
     });
-    console.log(userData);
+    console.log('user data:',userData);
   }
 
   async function getLoginState(){ //called when the App is loaded
