@@ -153,7 +153,16 @@ class UserData(Resource):
         #query for follower/following counts and then append them to our main query
         q[0].update(query_to_dict(db.execute("SELECT COUNT(other_id) as followers FROM follows WHERE self_id=:user_id", user_id=session['user_id']))[0])
         q[0].update(query_to_dict(db.execute("SELECT COUNT(self_id) as following FROM follows WHERE other_id=:user_id", user_id=session['user_id']))[0])
-        #print(userdata)
+        
+        #append an avatar element to the dictionary if the user has an avatar in the directory
+        if(os.path.exists(os.path.join(current_dir, f"data/avatars/{session['user_id']}.jpg"))):
+            #get and encode the users avatar
+            avatar_path = os.path.join(current_dir, f"data/avatars/{session['user_id']}.jpg")
+            with open(avatar_path, "rb") as image_file:
+                encoded_avatar = base64.b64encode(image_file.read()).decode('ascii')
+
+            q[0].update({'avatar':encoded_avatar})
+        
         return jsonify(q[0])
 
 class UpdateUserData(Resource):

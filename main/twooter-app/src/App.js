@@ -48,10 +48,15 @@ function App() {
       ud.email = data.email;
       ud.dob = data.dob;
       ud.bio = data.bio;
-      ud.avatar = data.avatar;
       ud.verified = data.verified;
       ud.following = data.following;
       ud.followers = data.followers;
+      
+      //turning avatar base64 string to an Image
+      let img = new Image();
+      img.src = 'data:image/jpg;base64,'.concat(data.avatar);
+      ud.avatar = "C:\\Users\\robot\\Documents\\GitHub\\Twooter\\main\\api\\data\\avatars\\33.jpg"//'main/api/data/avatars/33.jpg';
+
       setUD(ud);
     });
     console.log(userData);
