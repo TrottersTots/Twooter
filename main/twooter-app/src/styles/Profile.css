@@ -5,7 +5,7 @@
     overflow-y: scroll;
 }
 
-.feed::-webkit-scrollbar {
+.profile::-webkit-scrollbar {
     display: none;
 }
 
