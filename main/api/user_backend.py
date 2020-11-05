@@ -165,7 +165,7 @@ class UserData(Resource):
 
         if(os.path.exists(os.path.join(current_dir, avatar_path))):  #if there is a custom avatar for this user
             #set an avatar attribute in the JSON to its dir
-            q[0].update({'avatar':os.path.join(current_dir, avatar_path)})
+            q[0].update({'avatar':session['hashed_id']})
         
         return jsonify(q[0])
 

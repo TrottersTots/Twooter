@@ -130,7 +130,7 @@ function Profile({userData, logged_in}) {
             <div className="profile__body">
                 <div className="profile__info">
 
-                <Avatar src={userData.avatar} className="profile__info__avatar"/>
+                <Avatar src={process.env.PUBLIC_URL+"/avatars/"+ userData.avatar +".jpg"} className="profile__info__avatar"/>
                     <div className="profile__info__details">
 
                         <h2>{userData.displayname}<span>{Boolean(userData.verified) && <CheckCircleIcon className="profile__info__badge"/>}</span></h2>

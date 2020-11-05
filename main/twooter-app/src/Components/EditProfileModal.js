@@ -82,7 +82,7 @@ function EditProfileModal ({show_editProfile, set_editProfile, userData}) {
                                 <Button
                                 className="edit__avatarButton"
                                 > 
-                                    <Avatar className="edit__avatarButton__avatar" src={userData.avatar}/>
+                                    <Avatar className="edit__avatarButton__avatar" src={process.env.PUBLIC_URL+"/avatars/"+ userData.avatar +".jpg"}/>
                                 </Button>
                                 <input type="file"
                                  id="image"
