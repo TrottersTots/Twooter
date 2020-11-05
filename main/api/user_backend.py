@@ -3,16 +3,13 @@ from flask_restful import Resource
 from models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from db import db
-from helpers import query_to_dict
+from helpers import query_to_dict, appendAvatar
 from re import match
 import base64
-import os.path
 """
 user_backend.py-
 manages the User base backend integration.
 """
-
-current_dir = os.path.dirname(__file__)
 
 class CreateUser(Resource):
     """
@@ -160,12 +157,7 @@ class UserData(Resource):
         q[0].update(query_to_dict(db.execute("SELECT COUNT(self_id) as following FROM follows WHERE other_id=:user_id", user_id=session['user_id']))[0])
         
         #append an avatar element to the dictionary if the user has an avatar in the directory
-
-        avatar_path = f"../twooter-app/public/avatars/{session['hashed_id']}.jpg"
-
-        if(os.path.exists(os.path.join(current_dir, avatar_path))):  #if there is a custom avatar for this user
-            #set an avatar attribute in the JSON to its dir
-            q[0].update({'avatar':session['hashed_id']})
+        appendAvatar(q, session)
         
         return jsonify(q[0])
 

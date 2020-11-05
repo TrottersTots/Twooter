@@ -2,13 +2,11 @@ from flask import Flask, jsonify, request, session
 from flask_restful import Resource
 from models import Twoot
 from db import db
-from helpers import query_to_dict
-import os
+from helpers import query_to_dict, appendAvatar
 """
 twoot_backend.py-
 manages the backend of twoot creation, deletion, and editing
 """
-current_dir = os.path.dirname(__file__)
 
 class PostTwoot(Resource):
     """
@@ -95,12 +93,8 @@ class GetTwoot(Resource):
                         OR posts.user_id=(SELECT other_id FROM follows WHERE self_id=:user_id)", 
                         user_id=session['user_id'])
         q = query_to_dict(q)
+        appendAvatar(q, session)
 
-        avatar_path = f"../twooter-app/public/avatars/{session['hashed_id']}.jpg"
-
-        if(os.path.exists(os.path.join(current_dir, avatar_path))):  #if there is a custom avatar for this user
-            #set an avatar attribute in the JSON to its dir
-            q[0].update({'avatar':session['hashed_id']})
         twoots = {}
         for d in q:
             twoots[d['post_id']] = d
@@ -120,17 +114,22 @@ class GetSelfTwoot(Resource):
                         FROM posts JOIN users on posts.user_id=users.user_id \
                         WHERE posts.user_id=:user_id", user_id=session['user_id'])
         q = query_to_dict(q)
+        appendAvatar(q, session)
+
         twoots = {}
         for d in q:
             twoots[d['post_id']] = d
+
         return jsonify(twoots)
 
 class GetSelfMediaTwoot(Resource):
     def get(self):
         q = db.execute("SELECT post_id, message, image, username, displayname, verified \
                         FROM posts JOIN users on posts.user_id=users.user_id \
-                        WHERE posts.user_id=:user_id AND image!=NULL", user_id=session['user_id'])
+                        WHERE posts.user_id=:user_id AND image!=''", user_id=session['user_id'])
         q = query_to_dict(q)
+        appendAvatar(q, session)
+
         twoots = {}
         for d in q:
             twoots[d['post_id']] = d
@@ -142,6 +141,8 @@ class GetLikedTwoot(Resource):
                         FROM posts JOIN users on posts.user_id=users.user_id \
                         WHERE post_id IN (SELECT post_id FROM likes WHERE user_id=:user_id)", user_id=session['user_id'])
         q = query_to_dict(q)
+        appendAvatar(q, session)
+
         twoots = {}
         for d in q:
             twoots[d['post_id']] = d
