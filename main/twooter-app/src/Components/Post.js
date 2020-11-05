@@ -23,6 +23,8 @@ function Post({displayName, username, verified, timestamp, text, image, avatar, 
     comments,
     retweets
     */
+    console.log("ATR",avatar)
+
     const [showCommentBox, setShowCommentBox] = useState(false);
     const [commentMessage, setCommentMessage] = useState('');
 
@@ -73,7 +75,7 @@ function Post({displayName, username, verified, timestamp, text, image, avatar, 
     return (
         <div className="post">
             <div className="post__avatar">
-                <Avatar src={avatar} />
+                <Avatar src={process.env.PUBLIC_URL+"/avatars/"+ avatar +".jpg"} />
             </div>
             <div className="post__body">
                 <div className="post__header">
@@ -104,10 +106,7 @@ function Post({displayName, username, verified, timestamp, text, image, avatar, 
                     <Button onClick={like_twoot}>
                     <FavoriteBorderIcon id="favoriteIcon" fontSize="small" /></Button>
 
-                    <PublishIcon id="publishIcon" fontSize="small" />
-
-                    
-
+                    <Button><PublishIcon id="publishIcon" fontSize="small" /></Button>
 
                 </div>
                 {showCommentBox ? (

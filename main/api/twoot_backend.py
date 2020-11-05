@@ -3,11 +3,12 @@ from flask_restful import Resource
 from models import Twoot
 from db import db
 from helpers import query_to_dict
-
+import os
 """
 twoot_backend.py-
 manages the backend of twoot creation, deletion, and editing
 """
+current_dir = os.path.dirname(__file__)
 
 class PostTwoot(Resource):
     """
@@ -94,6 +95,12 @@ class GetTwoot(Resource):
                         OR posts.user_id=(SELECT other_id FROM follows WHERE self_id=:user_id)", 
                         user_id=session['user_id'])
         q = query_to_dict(q)
+
+        avatar_path = f"../twooter-app/public/avatars/{session['hashed_id']}.jpg"
+
+        if(os.path.exists(os.path.join(current_dir, avatar_path))):  #if there is a custom avatar for this user
+            #set an avatar attribute in the JSON to its dir
+            q[0].update({'avatar':session['hashed_id']})
         twoots = {}
         for d in q:
             twoots[d['post_id']] = d
