@@ -130,7 +130,7 @@ function Profile({userData, logged_in}) {
             <div className="profile__body">
                 <div className="profile__info">
 
-                <Avatar src={userData.avatar} className="profile__info__avatar"/>
+                <Avatar src={process.env.PUBLIC_URL+"/avatars/"+ userData.avatar +".jpg"} className="profile__info__avatar"/>
                     <div className="profile__info__details">
 
                         <h2>{userData.displayname}<span>{Boolean(userData.verified) && <CheckCircleIcon className="profile__info__badge"/>}</span></h2>
@@ -141,7 +141,7 @@ function Profile({userData, logged_in}) {
                             <p><span>{userData.following}</span> Following</p>
                             <p><span>{userData.followers}</span> Followers</p>
                         </div>
-                        {console.log('=',userData.dob,'=')}
+                        {/*console.log('=',userData.dob,'=')*/}
                         <span className="profile__edit" hidden={!selfProfile}>
                                 <span><CakeIcon/>Born {userData.dob}</span>
                                 <Button 

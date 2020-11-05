@@ -43,7 +43,7 @@ function TweetBox({userData, inModal, twoots, setTwoots, setMakeTwoot}) {
         <div className={"tweetBox " + (inModal ? '' : 'notInModal')}>
             <form action="/api/postTweet">
                 <div className="tweetBox__input">
-                    <Avatar src={userData.avatar} />
+                    <Avatar src={process.env.PUBLIC_URL+"/avatars/"+ userData.avatar +".jpg"} />
                     <input 
                         placeholder={"What's happening, " + userData.displayname + "?"}
                         value = {message}

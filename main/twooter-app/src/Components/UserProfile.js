@@ -6,7 +6,7 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import '../styles/UserProfile.css'
 
 const UserProfile = ({userData, loggedIn, setLoggedIn, history}) => {
-    console.log('PI:',userData)
+    //console.log('PI:',userData)
 
     async function logOut() {
         const response = await fetch('/api/', {
@@ -59,7 +59,7 @@ const UserProfile = ({userData, loggedIn, setLoggedIn, history}) => {
     >
             <div className="profile__buttonContainer">
                 <Button>
-                    <Avatar src={userData.avatar} className="profile__avatar"/>
+                    <Avatar src={process.env.PUBLIC_URL+"/avatars/"+ userData.avatar +".jpg"} className="profile__avatar"/>
                     <div>
                         <div className="profile__text profile__text__popOver">
                             <h3>{userData.displayname} {Boolean(userData.verified) && <CheckCircleIcon className="profile__badge"/>} </h3>

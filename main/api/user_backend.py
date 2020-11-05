@@ -5,11 +5,14 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from db import db
 from helpers import query_to_dict
 from re import match
+import base64
+import os.path
 """
 user_backend.py-
 manages the User base backend integration.
 """
 
+current_dir = os.path.dirname(__file__)
 
 class CreateUser(Resource):
     """
@@ -84,6 +87,7 @@ class LoginUser(Resource):
             return True
         try:
             session.pop('user_id')#clears the user id
+            session.pop('hashed_id')
         except KeyError:
             pass
         user_info_json = request.get_json()
@@ -105,7 +109,11 @@ class LoginUser(Resource):
         
         if not loginValid:
             return 'incorrect-user-or-password', 403
+
         session['user_id'] = query_to_dict(db.execute('SELECT * FROM users WHERE username=:username', username=user_info.username))[0]['user_id']
+        #we need a hashed id so we can send it to the front end without worries (for avatar path)
+        session['hashed_id'] = (1+6*session['user_id']) #<== very intricate hash function :)
+
         return 'login-success', 200
         
 class DeleteUser(Resource):
@@ -150,14 +158,26 @@ class UserData(Resource):
         #query for follower/following counts and then append them to our main query
         q[0].update(query_to_dict(db.execute("SELECT COUNT(other_id) as followers FROM follows WHERE self_id=:user_id", user_id=session['user_id']))[0])
         q[0].update(query_to_dict(db.execute("SELECT COUNT(self_id) as following FROM follows WHERE other_id=:user_id", user_id=session['user_id']))[0])
-        #print(userdata)
+        
+        #append an avatar element to the dictionary if the user has an avatar in the directory
+
+        avatar_path = f"../twooter-app/public/avatars/{session['hashed_id']}.jpg"
+
+        if(os.path.exists(os.path.join(current_dir, avatar_path))):  #if there is a custom avatar for this user
+            #set an avatar attribute in the JSON to its dir
+            q[0].update({'avatar':session['hashed_id']})
+        
         return jsonify(q[0])
 
 class UpdateUserData(Resource):
     def post(self):
 
         newUD = request.get_json()
-        
+
+        avatar_path = os.path.join(current_dir, f"../twooter-app/public/avatars/{session['hashed_id']}.jpg")
+        with open(avatar_path, "wb") as fh:
+            fh.write(base64.decodebytes(newUD['avatar_input'].encode('ascii')))
+
         try:
             db.execute("UPDATE users \
                         SET displayname=:displayname, email=:email, dob=:dob, bio=:bio\
@@ -183,6 +203,7 @@ class Main(Resource):
     def post(self):
         try:
             session.pop('user_id')
+            session.pop('hashed_id')
         except KeyError:
             return 'logout-failed', 500
         else:

@@ -52,9 +52,12 @@ function App() {
       ud.verified = data.verified;
       ud.following = data.following;
       ud.followers = data.followers;
+
       setUD(ud);
+      console.log('ud:',ud);
+      console.log('user data:',userData);
+
     });
-    console.log(userData);
   }
 
   async function getLoginState(){ //called when the App is loaded
