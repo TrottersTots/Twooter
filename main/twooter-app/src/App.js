@@ -25,6 +25,8 @@ function App() {
   const [userData, setUD] = useState({})
   
   const [twoots, setTwoots] = useState({});
+
+  const [show_makeTwoot, setMakeTwoot] = useState(false);
   //useEffect(() => {  
   //  setUserData()
   //}, [logged_in]);
@@ -88,14 +90,18 @@ function App() {
           {/*Show sidebar for all pages*/}
           <Route path='/'
             render={(props) => (
-              <Sidebar {...props} logged_in={logged_in} setLoggedIn={setLoggedIn} userData={userData} twoots={twoots} setTwoots={setTwoots}/>            
+              <Sidebar {...props} logged_in={logged_in} setLoggedIn={setLoggedIn} 
+              userData={userData} twoots={twoots} 
+              setTwoots={setTwoots} setMakeTwoot={setMakeTwoot} show_makeTwoot={show_makeTwoot}/>            
             )}
           />
           {/*Home Page*/}
         <Switch>{/* Switch means we want to only show ONE of these */}
           <Route exact path='/'
               render={(props) => (
-                <Home {...props} logged_in={logged_in} setLoggedIn={setLoggedIn} userData={userData} twoots={twoots} setTwoots={setTwoots}/>
+                <Home {...props} logged_in={logged_in} setLoggedIn={setLoggedIn} userData={userData} 
+                twoots={twoots} setTwoots={setTwoots}
+                setMakeTwoot={setMakeTwoot} show_makeTwoot={show_makeTwoot}/>
               )}
           />
           {/*Explore Page*/}

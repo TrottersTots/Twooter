@@ -15,9 +15,9 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 // - - -
 
 
-function Sidebar({userData, logged_in, setLoggedIn, history, setTwoots, twoots}) {
+function Sidebar({userData, logged_in, setLoggedIn, history, setTwoots, twoots, show_makeTwoot, setMakeTwoot}) {
 
-    const [show_makeTwoot, setMakeTwoot] = useState(false);
+    
 
     const [toFollow, setToFollow] = useState('');
 
