@@ -90,7 +90,7 @@ class GetTwoot(Resource):
         q = db.execute("SELECT post_id, message, image, username, displayname, verified \
                         FROM posts JOIN users on posts.user_id=users.user_id \
                         WHERE posts.user_id=:user_id \
-                        OR posts.user_id=(SELECT other_id FROM follows WHERE self_id=:user_id)", 
+                        OR posts.user_id IN (SELECT other_id FROM follows WHERE self_id=:user_id)", 
                         user_id=session['user_id'])
         q = query_to_dict(q)
         appendAvatar(q, session)
