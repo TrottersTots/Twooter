@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request, session
 from flask_restful import Resource
 from models import Twoot
 from db import db
-from helpers import query_to_dict, appendAvatar
+from helpers import query_to_dict
 """
 twoot_backend.py-
 manages the backend of twoot creation, deletion, and editing
@@ -60,6 +60,13 @@ class LikeTwoot(Resource):
                             user_id = session['user_id'], post_id = info['post_id'])
         return 'updated-like-status', 201
 
+class CommentTwoot(Resource):
+    def post(self):
+        info = request.get_json() # info['post_id'] , info['message'], session['user_id']
+        db.execute('INSERT INTO comments (post_id, user_id, message) VALUES (:post_id, :user_id, :message)',
+                    post_id=info['post_id'], user_id=session['user_id'], message=info['message'])
+        return 'comment-succesful', 200
+
 class Retwoot(Resource):
     """
     Will toggle the 'retweet'd status from a specific user on a specific twoot
@@ -87,34 +94,25 @@ class GetTwoot(Resource):
     returns list of all twoots that either the user posted or the users that this user is following posted
     """
     def get(self):
-        q = db.execute("SELECT post_id, message, image, username, displayname, verified \
+        q = db.execute("SELECT post_id, message, image, username, displayname, verified, avatar \
                         FROM posts JOIN users on posts.user_id=users.user_id \
                         WHERE posts.user_id=:user_id \
                         OR posts.user_id=(SELECT other_id FROM follows WHERE self_id=:user_id)", 
                         user_id=session['user_id'])
         q = query_to_dict(q)
-        appendAvatar(q, session)
 
         twoots = {}
         for d in q:
             twoots[d['post_id']] = d
         return jsonify(twoots)
 
-class CommentTwoot(Resource):
-    def post(self):
-        info = request.get_json() # info['post_id'] , info['message'], session['user_id']
-        db.execute('INSERT INTO comments (post_id, user_id, message) VALUES (:post_id, :user_id, :message)',
-                    post_id=info['post_id'], user_id=session['user_id'], message=info['message'])
-        return 'comment-succesful', 200
-
 #routes for displaying twoot sets on profile
 class GetSelfTwoot(Resource):
     def get(self):
-        q = db.execute("SELECT post_id, message, image, username, displayname, verified \
+        q = db.execute("SELECT post_id, message, image, username, displayname, verified, avatar \
                         FROM posts JOIN users on posts.user_id=users.user_id \
                         WHERE posts.user_id=:user_id", user_id=session['user_id'])
         q = query_to_dict(q)
-        appendAvatar(q, session)
 
         twoots = {}
         for d in q:
@@ -124,11 +122,10 @@ class GetSelfTwoot(Resource):
 
 class GetSelfMediaTwoot(Resource):
     def get(self):
-        q = db.execute("SELECT post_id, message, image, username, displayname, verified \
+        q = db.execute("SELECT post_id, message, image, username, displayname, verified, avatar \
                         FROM posts JOIN users on posts.user_id=users.user_id \
                         WHERE posts.user_id=:user_id AND image!=''", user_id=session['user_id'])
         q = query_to_dict(q)
-        appendAvatar(q, session)
 
         twoots = {}
         for d in q:
@@ -137,11 +134,10 @@ class GetSelfMediaTwoot(Resource):
 
 class GetLikedTwoot(Resource):
     def get(self):
-        q = db.execute("SELECT post_id, message, image, username, displayname, verified \
+        q = db.execute("SELECT post_id, message, image, username, displayname, verified, avatar \
                         FROM posts JOIN users on posts.user_id=users.user_id \
                         WHERE post_id IN (SELECT post_id FROM likes WHERE user_id=:user_id)", user_id=session['user_id'])
         q = query_to_dict(q)
-        appendAvatar(q, session)
 
         twoots = {}
         for d in q:
