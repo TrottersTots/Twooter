@@ -8,6 +8,23 @@ twoot_backend.py-
 manages the backend of twoot creation, deletion, and editing
 """
 
+def append_twoot_stats(q):
+    for post in q:
+        likes = query_to_dict(db.execute("SELECT COUNT(user_id) as likes \
+        FROM likes \
+        WHERE post_id=:post_id",post_id=post.get('post_id')))[0].get('likes')
+
+        comments = query_to_dict(db.execute("SELECT COUNT(user_id) as comments \
+        FROM comments \
+        WHERE post_id=:post_id",post_id=post.get('post_id')))[0].get('comments')
+
+        retwoots = query_to_dict(db.execute("SELECT COUNT(user_id) as retwoots \
+        FROM retwoots \
+        WHERE post_id=:post_id",post_id=post.get('post_id')))[0].get('retwoots')
+
+        post.update({'likes': likes, 'retwoots': retwoots, 'comments': comments})
+    return q
+
 class PostTwoot(Resource):
     """
     Posts a twoot from a user and handles the database relations.
@@ -100,10 +117,12 @@ class GetTwoot(Resource):
                         OR posts.user_id IN (SELECT other_id FROM follows WHERE self_id=:user_id)", 
                         user_id=session['user_id'])
         q = query_to_dict(q)
+        q = append_twoot_stats(q)
 
         twoots = {}
         for d in q:
             twoots[d['post_id']] = d
+        print(twoots)
         return jsonify(twoots)
 
 #routes for displaying twoot sets on profile
@@ -113,7 +132,7 @@ class GetSelfTwoot(Resource):
                         FROM posts JOIN users on posts.user_id=users.user_id \
                         WHERE posts.user_id=:user_id", user_id=session['user_id'])
         q = query_to_dict(q)
-
+        q = append_twoot_stats(q)
         twoots = {}
         for d in q:
             twoots[d['post_id']] = d
@@ -126,7 +145,7 @@ class GetSelfMediaTwoot(Resource):
                         FROM posts JOIN users on posts.user_id=users.user_id \
                         WHERE posts.user_id=:user_id AND image!=''", user_id=session['user_id'])
         q = query_to_dict(q)
-
+        q = append_twoot_stats(q)
         twoots = {}
         for d in q:
             twoots[d['post_id']] = d
@@ -138,7 +157,7 @@ class GetLikedTwoot(Resource):
                         FROM posts JOIN users on posts.user_id=users.user_id \
                         WHERE post_id IN (SELECT post_id FROM likes WHERE user_id=:user_id)", user_id=session['user_id'])
         q = query_to_dict(q)
-
+        q = append_twoot_stats(q)
         twoots = {}
         for d in q:
             twoots[d['post_id']] = d

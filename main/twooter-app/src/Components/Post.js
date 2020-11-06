@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import '../styles/Post.css';
-import {Avatar, Button} from '@material-ui/core';
+import {Avatar} from '@material-ui/core';
 //icons
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
@@ -9,7 +9,7 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import PublishIcon from '@material-ui/icons/Publish';
 //
 
-function Post({displayName, username, verified, timestamp, text, image, avatar, likes, comments, retweets, post_id}) {
+function Post({displayName, username, verified, timestamp, text, image, avatar, likes, comments, retwoots, post_id}) {
     /*
     displayName,
     username,
@@ -23,6 +23,12 @@ function Post({displayName, username, verified, timestamp, text, image, avatar, 
     comments,
     retweets
     */
+
+    //uh oh spaghettios!
+    if(likes == 0){likes=null}
+    if(comments == 0){comments=null}
+    if(retwoots == 0){retwoots=null}
+
     console.log("ATR",avatar)
 
     const [showCommentBox, setShowCommentBox] = useState(false);
@@ -96,17 +102,29 @@ function Post({displayName, username, verified, timestamp, text, image, avatar, 
                 
                 <div className="post__footer">
                     {/* Comment button */}
-                    <Button onClick={() => setShowCommentBox(!showCommentBox)}>
-                    <ChatBubbleOutlineIcon id="chatIcon" fontSize="small" /></Button>
-
+                    <div className="post__footer__iconDiv">
+                        <button onClick={() => setShowCommentBox(!showCommentBox)}>
+                        <ChatBubbleOutlineIcon id="chatIcon" fontSize="small" /></button>
+                        <span>{comments}</span>
+                    </div>
+                    
                     {/* Retwoot button */}
-                    <Button onClick={retwoot_post}>
-                    <RepeatIcon id="repeatIcon" fontSize="small" /></Button>
+                    <div className="post__footer_iconDiv">
+                        <button onClick={retwoot_post}>
+                        <RepeatIcon id="repeatIcon" fontSize="small" /></button>
+                        <span>{retwoots}</span>
+                    </div>
                     {/* Like Button */}
-                    <Button onClick={like_twoot}>
-                    <FavoriteBorderIcon id="favoriteIcon" fontSize="small" /></Button>
-
-                    <Button><PublishIcon id="publishIcon" fontSize="small" /></Button>
+                    <div className="post__footer_iconDiv">
+                        <button onClick={like_twoot}>
+                        <FavoriteBorderIcon id="favoriteIcon" fontSize="small" /></button>
+                        <span>{likes}</span>
+                    </div>
+                    {/* Share Button */}
+                    <div className="post__footer_iconDiv">
+                        <button>
+                        <PublishIcon id="publishIcon" fontSize="small" /></button>
+                    </div>
 
                 </div>
                 {showCommentBox ? (
@@ -120,10 +138,10 @@ function Post({displayName, username, verified, timestamp, text, image, avatar, 
                         type="text"
                         onChange={e => setCommentMessage(e.target.value)}>   
                     </input>
-                    <Button 
+                    <button 
                     className="tweetBox__tweetButton" 
                     onClick={comment_post}
-                    >Reply</Button>
+                    >Reply</button>
 
                         </div>
                     </div>

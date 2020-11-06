@@ -23,8 +23,13 @@
 
 .post__footer {
     display: flex;
+    max-width: 500px;
     justify-content: space-between;
     margin-top: 20px;
+}
+
+.post__footer__iconDiv {
+    max-width: 62px !important;
 }
 
 .post__headerDescription {
@@ -72,7 +77,14 @@
     padding: 20px;
 }
 
+button {
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+
 /*  icon colors  */
+
 
 #chatIcon {
     color: var(--grey);/*var(--green) */
