@@ -75,14 +75,26 @@
 /*  icon colors  */
 
 #chatIcon {
-    color: var(--green)
+    color: var(--grey);/*var(--green) */
+}
+#chatIcon:hover {
+    color: var(--green);
 }
 #repeatIcon {
-    color: var(--yellow)
+    color: var(--grey); /*var(--yellow) */
+}
+#repeatIcon:hover {
+    color: var(--yellow);
 }
 #favoriteIcon {
+    color: var(--grey);/*var(--red); */
+}
+#favoriteIcon:hover {
     color: var(--red);
 }
 #publishIcon {
+    color: var(--grey);/*var(--purple); */
+}
+#publishIcon:hover {
     color: var(--purple);
 }
