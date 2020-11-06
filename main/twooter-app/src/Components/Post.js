@@ -81,7 +81,7 @@ function Post({displayName, username, verified, timestamp, text, image, avatar, 
                 <div className="post__header">
                     <div className="post__headerText">
                         <h3>
-                            <span>{displayName}</span>
+                            <span className="post__headerText__displayName">{displayName}</span>
                             <span className="post__headerSpecial">
                                 {Boolean(verified) && <CheckCircleIcon className="post__badge" />}
                             </span>

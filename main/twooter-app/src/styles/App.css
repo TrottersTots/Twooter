@@ -4,7 +4,8 @@
 }
 
 body {
-    --main-background: #2f3541;
+    --main-background: #2e3440;
+    --secondary-background: #3C4453;
     --highlight: #4c566a;
     --white: #eceff4;
     --offwhite: #d8dee9;
