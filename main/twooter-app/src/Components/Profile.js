@@ -33,6 +33,11 @@ function ProfileNavBar({selfTwoots, selfMediaTwoots, likedTwoots}) {
                             text={selfTwoots[postID].message}
                             image={selfTwoots[postID].image}
                             avatar={selfTwoots[postID].avatar}
+                            likes={selfTwoots[postID].likes}
+                            comments={selfTwoots[postID].comments}
+                            retwoots={selfTwoots[postID].retwoots}
+                            likedbyself = {selfTwoots[postID].likedbyself}
+                            retwootedbyself = {selfTwoots[postID].retwootedbyself}
                             post_id ={postID}
                         />)                    
                 )
@@ -54,6 +59,11 @@ function ProfileNavBar({selfTwoots, selfMediaTwoots, likedTwoots}) {
                             verified={selfMediaTwoots[postID].verified}
                             text={selfMediaTwoots[postID].message}
                             image={selfMediaTwoots[postID].image}
+                            likes={selfMediaTwoots[postID].likes}
+                            comments={selfMediaTwoots[postID].comments}
+                            retwoots={selfMediaTwoots[postID].retwoots}
+                            likedbyself = {selfMediaTwoots[postID].likedbyself}
+                            retwootedbyself = {selfMediaTwoots[postID].retwootedbyself}
                             avatar={selfMediaTwoots[postID].avatar}
                             post_id ={postID}
                         />     
@@ -77,6 +87,11 @@ function ProfileNavBar({selfTwoots, selfMediaTwoots, likedTwoots}) {
                             text={likedTwoots[postID].message}
                             image={likedTwoots[postID].image}
                             avatar={likedTwoots[postID].avatar}
+                            likes={likedTwoots[postID].likes}
+                            comments={likedTwoots[postID].comments}
+                            retwoots={likedTwoots[postID].retwoots}
+                            likedbyself={1}//its given that these will be liked by self
+                            retwootedbyself = {likedTwoots[postID].retwootedbyself}
                             post_id ={postID}
                         />
                            

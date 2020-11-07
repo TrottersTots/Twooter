@@ -62,7 +62,8 @@ function Feed({userData, logged_in, setLoggedIn, setTwoots, twoots, setMakeTwoot
                 (<>
 
                     
-                    <TweetBox twoots={twoots} setTwoots={setTwoots} userData={userData} setMakeTwoot={setMakeTwoot}/>
+                    <TweetBox twoots={twoots} setTwoots={setTwoots} userData={userData} 
+                    setMakeTwoot={setMakeTwoot}/>
                     {/* feed content if logged in: */}
                     
                     {Object.keys(twoots).sort().reverse().map(postID => 
@@ -74,6 +75,12 @@ function Feed({userData, logged_in, setLoggedIn, setTwoots, twoots, setMakeTwoot
                                 text={twoots[postID].message}
                                 image={twoots[postID].image}
                                 avatar={twoots[postID].avatar}
+                                likes={twoots[postID].likes}
+                                comments={twoots[postID].comments}
+                                retwoots={twoots[postID].retwoots}
+                                likedbyself={twoots[postID].likedbyself}
+                                retwootedbyself={twoots[postID].retwootedbyself}
+                                commentedbyself={twoots[postID].commentedbyself}
                                 post_id ={postID}
                             />
                                

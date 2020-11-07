@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import '../styles/Post.css';
-import {Avatar, Button} from '@material-ui/core';
+import {Avatar} from '@material-ui/core';
 //icons
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
@@ -9,7 +9,8 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import PublishIcon from '@material-ui/icons/Publish';
 //
 
-function Post({displayName, username, verified, timestamp, text, image, avatar, likes, comments, retweets, post_id}) {
+function Post({displayName, username, verified, timestamp, text, image, 
+    avatar, likes, comments, retwoots, likedbyself, retwootedbyself, post_id, commentedbyself}) {
     /*
     displayName,
     username,
@@ -23,10 +24,24 @@ function Post({displayName, username, verified, timestamp, text, image, avatar, 
     comments,
     retweets
     */
-    console.log("ATR",avatar)
+    likedbyself = !!likedbyself //'not not' here converts a 0 to false and a 1 to true
+    retwootedbyself = !!retwootedbyself
+    //uh oh spaghettios!
+    if(likes == 0){likes=null}
+    if(comments == 0){comments=null}
+    if(retwoots == 0){retwoots=null}
 
     const [showCommentBox, setShowCommentBox] = useState(false);
     const [commentMessage, setCommentMessage] = useState('');
+
+    //front-end display only, not to be used in REST workflow 
+    const [displayLikes, setDisplayLikes] = useState(likes);
+    const [displayRetwoots, setDisplayRetwoots] = useState(retwoots);
+    const [likedStyle, setLikedStyle] = useState(likedbyself);
+    const [retwootStyle, setRetwootStyle] = useState(retwootedbyself);
+    const [displayCommentCount, setDisplayCommentCount] = useState(comments);
+    const [commentIconStyle, setCommentIconStyle] = useState(commentedbyself);
+    //end non-REST states
 
     async function like_twoot()
     {
@@ -40,6 +55,23 @@ function Post({displayName, username, verified, timestamp, text, image, avatar, 
         });
         if(response.ok){
             console.log('twoot-liked-successfully');
+            //update display
+            if(likedStyle)//if we do like already then we want to unlike
+            {
+                if(likedbyself)
+                    setDisplayLikes(likes - 1);//remove our like
+                else
+                    setDisplayLikes(likes);
+                setLikedStyle(false);//toggle
+            }  
+            else//we are liking it for the first time
+            {
+                if(likedbyself)
+                    setDisplayLikes(likes);
+                else
+                    setDisplayLikes(likes + 1);//add our like
+                setLikedStyle(true);//toggle
+            }
         }
     }
     async function retwoot_post()
@@ -54,6 +86,25 @@ function Post({displayName, username, verified, timestamp, text, image, avatar, 
         });
         if(response.ok){
             console.log('retwoot-successful');
+            //update display
+            //update display
+            if(retwootStyle)//if we do like already then we want to unlike
+            {
+                if(retwootedbyself)
+                    setDisplayRetwoots(retwoots - 1);//remove our like
+                else
+                setDisplayRetwoots(retwoots);
+                setRetwootStyle(false);//toggle
+            }  
+            else//we are liking it for the first time
+            {
+                if(retwootedbyself)
+                setDisplayRetwoots(retwoots);
+                else
+                setDisplayRetwoots(retwoots + 1);//add our like
+                setRetwootStyle(true);//toggle
+            }
+
         }
     }
     async function comment_post()
@@ -69,6 +120,8 @@ function Post({displayName, username, verified, timestamp, text, image, avatar, 
         if(response.ok){
             console.log('comment-successful');
             setCommentMessage('');
+            setDisplayCommentCount(comments + 1);
+            setCommentIconStyle(true);
         }
     }
 
@@ -96,17 +149,35 @@ function Post({displayName, username, verified, timestamp, text, image, avatar, 
                 
                 <div className="post__footer">
                     {/* Comment button */}
-                    <Button onClick={() => setShowCommentBox(!showCommentBox)}>
-                    <ChatBubbleOutlineIcon id="chatIcon" fontSize="small" /></Button>
-
+                    <div className="post__footer__iconDiv">
+                        <button onClick={() => setShowCommentBox(!showCommentBox)}>
+                        <ChatBubbleOutlineIcon id="chatIcon" fontSize="small"
+                        style={{color: commentIconStyle ? 'var(--blue)' : 'grey'}}/></button>
+                        <span>{displayCommentCount}</span>
+                    </div>
+                    
                     {/* Retwoot button */}
-                    <Button onClick={retwoot_post}>
-                    <RepeatIcon id="repeatIcon" fontSize="small" /></Button>
+                    <div className="post__footer_iconDiv">
+                        <button onClick={retwoot_post}>
+                        <RepeatIcon id="repeatIcon" fontSize="small" 
+                        style={{color: retwootStyle ? 'var(--green)' : 'grey'}}/></button>
+                        <span>{displayRetwoots}</span>
+                    </div>
                     {/* Like Button */}
-                    <Button onClick={like_twoot}>
-                    <FavoriteBorderIcon id="favoriteIcon" fontSize="small" /></Button>
-
-                    <Button><PublishIcon id="publishIcon" fontSize="small" /></Button>
+                    <div className="post__footer_iconDiv">
+                        <button onClick={like_twoot}>
+                        <FavoriteBorderIcon id="favoriteIcon" fontSize="small" 
+                        style={{color: likedStyle ? 'var(--red)' : 'grey'}} /></button>
+                        <span>
+                            {displayLikes}
+                        </span>
+                        
+                    </div>
+                    {/* Share Button */}
+                    <div className="post__footer_iconDiv">
+                        <button>
+                        <PublishIcon id="publishIcon" fontSize="small" /></button>
+                    </div>
 
                 </div>
                 {showCommentBox ? (
@@ -120,10 +191,10 @@ function Post({displayName, username, verified, timestamp, text, image, avatar, 
                         type="text"
                         onChange={e => setCommentMessage(e.target.value)}>   
                     </input>
-                    <Button 
+                    <button 
                     className="tweetBox__tweetButton" 
                     onClick={comment_post}
-                    >Reply</Button>
+                    >Reply</button>
 
                         </div>
                     </div>

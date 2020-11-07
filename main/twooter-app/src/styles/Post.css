@@ -23,8 +23,13 @@
 
 .post__footer {
     display: flex;
+    max-width: 500px;
     justify-content: space-between;
     margin-top: 20px;
+}
+
+.post__footer__iconDiv {
+    max-width: 62px !important;
 }
 
 .post__headerDescription {
@@ -72,17 +77,36 @@
     padding: 20px;
 }
 
+button {
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+
 /*  icon colors  */
 
+
 #chatIcon {
-    color: var(--green)
+    color: var(--grey);/*var(--green) */
+}
+#chatIcon:hover {
+    color: var(--green);
 }
 #repeatIcon {
-    color: var(--yellow)
+    color: var(--grey); /*var(--yellow) */
+}
+#repeatIcon:hover {
+    color: var(--yellow);
 }
 #favoriteIcon {
+    color: var(--grey);/*var(--red); */
+}
+#favoriteIcon:hover {
     color: var(--red);
 }
 #publishIcon {
+    color: var(--grey);/*var(--purple); */
+}
+#publishIcon:hover {
     color: var(--purple);
 }
