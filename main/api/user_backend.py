@@ -169,8 +169,9 @@ class UpdateUserData(Resource):
         newUD = request.get_json()
 
         avatar_path = path.join(current_dir, f"../twooter-app/public/avatars/{session['hashed_id']}.jpg")
-        with open(avatar_path, "wb") as fh:
-            fh.write(base64.decodebytes(newUD['avatar_input'].encode('ascii')))
+        if(  len(newUD['avatar_input'])  > 3):
+            with open(avatar_path, "wb") as fh:
+                fh.write(base64.decodebytes(newUD['avatar_input'].encode('ascii')))
 
         try:
             db.execute("UPDATE users \

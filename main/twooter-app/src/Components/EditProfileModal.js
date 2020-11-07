@@ -20,6 +20,7 @@ function EditProfileModal ({show_editProfile, set_editProfile, userData}) {
 
     async function submit_userData()
     {
+
         const ud = {name_input, email_input, dob_input, bio_input, avatar_input}
 
         const response = await fetch('/api/submit_userData/',{
