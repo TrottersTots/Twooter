@@ -35,8 +35,6 @@ function TweetBox({userData, inModal, twoots, setTwoots, setMakeTwoot}) {
         await fetch('api/get_twoot/')
         .then(response => response.json())
         .then(data => setTwoots(data));
-        console.log('TWOOT TWOOT:',twoots)
-        
     }
 
     return (
