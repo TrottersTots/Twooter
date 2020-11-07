@@ -28,7 +28,13 @@ def append_twoot_stats(q):
         FROM posts \
         JOIN likes ON likes.post_id=posts.post_id \
         WHERE posts.post_id=:post_id AND likes.user_id=:user_id", post_id=post_id, user_id=session['user_id']))[0].get('likedbyself')
-        post.update({'likes': likes, 'retwoots': retwoots, 'comments': comments, 'likedbyself': likedbyself})
+
+        retwootedbyself = query_to_dict(db.execute("SELECT COUNT(posts.user_id) as retwootedbyself \
+        FROM posts \
+        JOIN retwoots ON retwoots.post_id=posts.post_id \
+        WHERE posts.post_id=:post_id AND retwoots.user_id=:user_id", post_id=post_id, user_id=session['user_id']))[0].get('retwootedbyself')
+
+        post.update({'likes': likes, 'retwoots': retwoots, 'comments': comments, 'likedbyself': likedbyself, 'retwootedbyself':retwootedbyself})
     return q
 
 class PostTwoot(Resource):

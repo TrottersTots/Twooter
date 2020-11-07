@@ -9,7 +9,7 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import PublishIcon from '@material-ui/icons/Publish';
 //
 
-function Post({displayName, username, verified, timestamp, text, image, avatar, likes, comments, retwoots, likedbyself, post_id}) {
+function Post({displayName, username, verified, timestamp, text, image, avatar, likes, comments, retwoots, likedbyself, retwootedbyself, post_id}) {
     /*
     displayName,
     username,
@@ -23,9 +23,9 @@ function Post({displayName, username, verified, timestamp, text, image, avatar, 
     comments,
     retweets
     */
-
+    console.log(post_id, retwootedbyself)
     likedbyself = !!likedbyself //'not not' here converts a 0 to false and a 1 to true
-
+    retwootedbyself = !!retwootedbyself
     //uh oh spaghettios!
     if(likes == 0){likes=null}
     if(comments == 0){comments=null}
@@ -106,14 +106,14 @@ function Post({displayName, username, verified, timestamp, text, image, avatar, 
                     {/* Comment button */}
                     <div className="post__footer__iconDiv">
                         <button onClick={() => setShowCommentBox(!showCommentBox)}>
-                        <ChatBubbleOutlineIcon id="chatIcon" fontSize="small" /></button>
+                        <ChatBubbleOutlineIcon id="chatIcon" fontSize="small"/></button>
                         <span>{comments}</span>
                     </div>
                     
                     {/* Retwoot button */}
                     <div className="post__footer_iconDiv">
                         <button onClick={retwoot_post}>
-                        <RepeatIcon id="repeatIcon" fontSize="small" /></button>
+                        <RepeatIcon id="repeatIcon" fontSize="small" style={{color: likedbyself ? 'var(--green)' : 'grey'}}/></button>
                         <span>{retwoots}</span>
                     </div>
                     {/* Like Button */}
