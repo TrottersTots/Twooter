@@ -36,6 +36,7 @@ function ProfileNavBar({selfTwoots, selfMediaTwoots, likedTwoots}) {
                             likes={selfTwoots[postID].likes}
                             comments={selfTwoots[postID].comments}
                             retwoots={selfTwoots[postID].retwoots}
+                            likedbyself = {selfTwoots[postID].likedbyself}
                             post_id ={postID}
                         />)                    
                 )
@@ -60,6 +61,7 @@ function ProfileNavBar({selfTwoots, selfMediaTwoots, likedTwoots}) {
                             likes={selfMediaTwoots[postID].likes}
                             comments={selfMediaTwoots[postID].comments}
                             retwoots={selfMediaTwoots[postID].retwoots}
+                            likedbyself = {selfMediaTwoots[postID].likedbyself}
                             avatar={selfMediaTwoots[postID].avatar}
                             post_id ={postID}
                         />     
@@ -86,6 +88,7 @@ function ProfileNavBar({selfTwoots, selfMediaTwoots, likedTwoots}) {
                             likes={likedTwoots[postID].likes}
                             comments={likedTwoots[postID].comments}
                             retwoots={likedTwoots[postID].retwoots}
+                            likedbyself={1}//its given that these will be liked by self
                             post_id ={postID}
                         />
                            

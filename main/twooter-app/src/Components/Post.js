@@ -9,7 +9,7 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import PublishIcon from '@material-ui/icons/Publish';
 //
 
-function Post({displayName, username, verified, timestamp, text, image, avatar, likes, comments, retwoots, post_id}) {
+function Post({displayName, username, verified, timestamp, text, image, avatar, likes, comments, retwoots, likedbyself, post_id}) {
     /*
     displayName,
     username,
@@ -23,6 +23,8 @@ function Post({displayName, username, verified, timestamp, text, image, avatar, 
     comments,
     retweets
     */
+
+    likedbyself = !!likedbyself //'not not' here converts a 0 to false and a 1 to true
 
     //uh oh spaghettios!
     if(likes == 0){likes=null}
@@ -117,7 +119,7 @@ function Post({displayName, username, verified, timestamp, text, image, avatar, 
                     {/* Like Button */}
                     <div className="post__footer_iconDiv">
                         <button onClick={like_twoot}>
-                        <FavoriteBorderIcon id="favoriteIcon" fontSize="small" /></button>
+                        <FavoriteBorderIcon id="favoriteIcon" fontSize="small" style={{color: likedbyself ? 'var(--red)' : 'grey'}} /></button>
                         <span>{likes}</span>
                     </div>
                     {/* Share Button */}

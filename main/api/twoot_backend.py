@@ -10,19 +10,25 @@ manages the backend of twoot creation, deletion, and editing
 
 def append_twoot_stats(q):
     for post in q:
+        post_id = post.get('post_id')
+
         likes = query_to_dict(db.execute("SELECT COUNT(user_id) as likes \
         FROM likes \
-        WHERE post_id=:post_id",post_id=post.get('post_id')))[0].get('likes')
+        WHERE post_id=:post_id",post_id=post_id))[0].get('likes')
 
         comments = query_to_dict(db.execute("SELECT COUNT(user_id) as comments \
         FROM comments \
-        WHERE post_id=:post_id",post_id=post.get('post_id')))[0].get('comments')
+        WHERE post_id=:post_id",post_id=post_id))[0].get('comments')
 
         retwoots = query_to_dict(db.execute("SELECT COUNT(user_id) as retwoots \
         FROM retwoots \
-        WHERE post_id=:post_id",post_id=post.get('post_id')))[0].get('retwoots')
+        WHERE post_id=:post_id",post_id=post_id))[0].get('retwoots')
 
-        post.update({'likes': likes, 'retwoots': retwoots, 'comments': comments})
+        likedbyself = query_to_dict(db.execute("SELECT COUNT(posts.user_id) as likedbyself \
+        FROM posts \
+        JOIN likes ON likes.post_id=posts.post_id \
+        WHERE posts.post_id=:post_id AND likes.user_id=:user_id", post_id=post_id, user_id=session['user_id']))[0].get('likedbyself')
+        post.update({'likes': likes, 'retwoots': retwoots, 'comments': comments, 'likedbyself': likedbyself})
     return q
 
 class PostTwoot(Resource):

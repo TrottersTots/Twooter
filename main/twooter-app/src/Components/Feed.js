@@ -77,6 +77,7 @@ function Feed({userData, logged_in, setLoggedIn, setTwoots, twoots, setMakeTwoot
                                 likes={twoots[postID].likes}
                                 comments={twoots[postID].comments}
                                 retwoots={twoots[postID].retwoots}
+                                likedbyself={twoots[postID].likedbyself}
                                 post_id ={postID}
                             />
                                
