@@ -5,6 +5,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import SearchIcon from '@material-ui/icons/Search';
 import '../styles/Explore.css';
 import Post from './Post';
+import SidebarProfiles from './SidebarProfiles';
 
 function ExploreNavBar(){
     const [key, setKey] = useState('foryou');
@@ -33,8 +34,10 @@ function ExploreNavBar(){
                 <Post />
                 
             </Tab>
-            <Tab class="show active" eventKey="mutualFriends" title="Mutual Friends">
+            <Tab class="show active" eventKey="connect" title="Connect">
+                {/* displays mutual friends and other fun algorithms we think of :) */}
                 {/* MAPPED LIST OF USER COMPONENTS (DOESNT EXIST YET)*/}
+                
             </Tab>
 
       </Tabs>

@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import '../styles/Sidebar.css'
 import SidebarOption from './SidebarOption';
 import TwootModal from './TwootModal';
-import UserProfile from "./UserProfile";
+import SidebarProfiles from "./SidebarProfiles";
 import { Button} from "@material-ui/core";
 import {BrowserRouter as Router, Link} from "react-router-dom";
 // Icons
@@ -106,7 +106,7 @@ function Sidebar({userData, logged_in, setLoggedIn, history, setTwoots, twoots, 
                   
                 </div>
                 */}
-                  <UserProfile 
+                  <SidebarProfiles 
                     userData={userData}
                     logged_in={logged_in}
                     setLoggedIn={setLoggedIn}

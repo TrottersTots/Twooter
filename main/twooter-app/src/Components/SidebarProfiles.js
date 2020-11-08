@@ -3,9 +3,9 @@ import { OverlayTrigger, Popover } from 'react-bootstrap';
 import {Avatar, Button, } from '@material-ui/core'
 import {BrowserRouter as Router, Link} from "react-router-dom";
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import '../styles/UserProfile.css'
+import '../styles/SidebarProfiles.css'
 
-const UserProfile = ({userData, loggedIn, setLoggedIn, history}) => {
+const SidebarProfiles = ({userData, loggedIn, setLoggedIn, history}) => {
     //console.log('PI:',userData)
 
     async function logOut() {
@@ -72,4 +72,4 @@ const UserProfile = ({userData, loggedIn, setLoggedIn, history}) => {
     )
 }
 
-export default UserProfile
+export default SidebarProfiles
