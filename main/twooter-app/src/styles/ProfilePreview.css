@@ -6,7 +6,7 @@
     flex-direction: row;
     margin-left: 10px;
 }
-.profilePreview__header > p, span {
+.profilePreview__header > .profilePreview__header__p, .personIcon {
     color: var(--grey);
 }
 .profilePreview__header > p {

@@ -7,8 +7,8 @@ function ProfilePreview({}) {
     return (
         <div className="profilePreview">
             <div className="profilePreview__header">
-                <span><PersonIcon/></span>
-                <p>Ajit Pai follows</p>
+                <span className="personIcon"><PersonIcon/></span>
+                <p className="profilePreview__header__p">Ajit Pai follows</p>
             </div>
             <div className="profilePreview__content">
                 <div className="profilePreview__avatar">
