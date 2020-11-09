@@ -55,12 +55,7 @@ function Sidebar({userData, logged_in, setLoggedIn, history, setTwoots, twoots, 
 
               {logged_in ? (
                   <>
-                  
-                  <Link to='/messages'onClick={() => {
-                  history.push('/messages');
-              }}>
-                    <SidebarOption Icon={MailOutlineIcon} text="Messages" />
-                  </Link>
+
                   <Link to='/more'onClick={() => {
                   history.push('/more');
               }}>

@@ -8,7 +8,7 @@ import Post from './Post';
 import ProfilePreview from './ProfilePreview';
 
 function ExploreNavBar(){
-    const [key, setKey] = useState('connect');//foryou
+    const [key, setKey] = useState('foryou');//foryou
 
     const [trendingTwoots, setTrendingTwoots] = useState({});
     const [curatedTwoots, setCuratedTwoots] = useState({});

@@ -5,7 +5,6 @@ import "./styles/App.css";
 //different pages that will show in the center column
 import Home from './Components/Home';
 import Explore from './Components/Explore';
-import Messages from './Components/Messages';
 import More from './Components/More';
 import Profile from './Components/Profile';
 
@@ -108,12 +107,6 @@ function App() {
           <Route exact path='/explore'
               render={(props) => (
                 <Explore {...props} logged_in={logged_in} setLoggedIn={setLoggedIn}/>
-              )}
-          />
-          {/*Messages Page*/}
-          <Route exact path='/messages'
-              render={(props) => (
-                <Messages {...props} logged_in={logged_in}/>
               )}
           />
           {/*More Page*/}
