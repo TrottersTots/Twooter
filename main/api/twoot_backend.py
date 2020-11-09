@@ -189,13 +189,20 @@ class GetTrendingTwoots(Resource):
     """
     def get(self):
         #change this query to select twoots sorted by most liked, nothing else matters
-        q = db.execute("SELECT post_id, message, image, username, displayname, verified, avatar \
-                        FROM posts JOIN users on posts.user_id=users.user_id \
-                        WHERE posts.user_id=:user_id \
-                        OR posts.user_id IN (SELECT other_id FROM follows WHERE self_id=:user_id)", 
-                        user_id=session['user_id'])
-        q = query_to_dict(q)
-        q = append_twoot_stats(q)
+        most_liked = db.execute("SELECT post_id\
+                        FROM likes\
+                        GROUP BY post_id\
+                        ORDER BY COUNT(*) DESC")
+        most_liked=[list(row)[0] for row in most_liked.fetchall()]
+        
+        q = []
+        for post in most_liked:
+            q.append(query_to_dict(db.execute("SELECT post_id, message, image, username, displayname, verified, avatar\
+                                                FROM posts JOIN users on posts.user_id=users.user_id \
+                                                WHERE post_id=:post",post=post))[0])
+
+        #q = query_to_dict(q)
+        #q = append_twoot_stats(q)
 
         twoots = {}
         for d in q:
