@@ -142,7 +142,6 @@ class GetTwoot(Resource):
         twoots = {}
         for d in q:
             twoots[d['post_id']] = d
-        print(twoots)
         return jsonify(twoots)
 
 #routes for displaying twoot sets on profile
@@ -183,3 +182,40 @@ class GetLikedTwoot(Resource):
             twoots[d['post_id']] = d
         return jsonify(twoots)           
 # = jsonify(message = dictionary['message'])
+
+class GetTrendingTwoots(Resource):
+    """
+    returns top 'x' amount of trending twoots
+    """
+    def get(self):
+        #change this query to select twoots sorted by most liked, nothing else matters
+        q = db.execute("SELECT post_id, message, image, username, displayname, verified, avatar \
+                        FROM posts JOIN users on posts.user_id=users.user_id \
+                        WHERE posts.user_id=:user_id \
+                        OR posts.user_id IN (SELECT other_id FROM follows WHERE self_id=:user_id)", 
+                        user_id=session['user_id'])
+        q = query_to_dict(q)
+        q = append_twoot_stats(q)
+
+        twoots = {}
+        for d in q:
+            twoots[d['post_id']] = d
+        return jsonify(twoots)
+
+class GetCuratedTwoots(Resource):
+    """
+    returns twoots that use the same hashtags that the user also uses
+    """
+    def get(self):
+        #change this query to select twoots with hashtags that the user has also used (complex logic?)
+        q = db.execute("SELECT post_id, message, image, username, displayname, verified, avatar \
+                        FROM posts JOIN users on posts.user_id=users.user_id \
+                        WHERE posts.user_id=:user_id \
+                        OR posts.user_id IN (SELECT other_id FROM follows WHERE self_id=:user_id)", 
+                        user_id=session['user_id'])
+        q = query_to_dict(q)
+        q = append_twoot_stats(q)
+        twoots = {}
+        for d in q:
+            twoots[d['post_id']] = d
+        return jsonify(twoots)
