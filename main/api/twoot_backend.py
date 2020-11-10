@@ -183,3 +183,16 @@ class GetLikedTwoot(Resource):
             twoots[d['post_id']] = d
         return jsonify(twoots)           
 # = jsonify(message = dictionary['message'])
+
+class SearchQuery(Resource):
+    def get(self):
+        pass
+    def post(self):
+        query = request.get_json()
+        print(query)
+        q = db.execute("SELECT post_id, message, image, username, displayname, verified, avatar \
+                        FROM posts JOIN users on posts.user_id=users.user_id \
+                        WHERE message LIKE '%:search%'", search=query)
+        q = query_to_dict(q)
+        print(q)
+        return jsonify(q), 200
