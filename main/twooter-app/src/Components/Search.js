@@ -26,28 +26,28 @@ function Search() {
            {Object.keys(searchContent).length === 0 ? 
                 (
                     <h4 className="search__emptyFeed">No results</h4>
-                ) : 
-                (
-                    Object.keys(searchContent).sort().map(postID => 
-                        //in here we want to have both profile preview's and also posts
-                        /*<Post
-                            displayName={searchContent[postID].displayname}
-                            username={searchContent[postID].username}
-                            verified={searchContent[postID].verified}
-                            text={searchContent[postID].message}
-                            image={searchContent[postID].image}
-                            avatar={searchContent[postID].avatar}
-                            likes={searchContent[postID].likes}
-                            comments={searchContent[postID].comments}
-                            retwoots={searchContent[postID].retwoots}
-                            likedbyself={1}//its given that these will be liked by self
-                            retwootedbyself = {searchContent[postID].retwootedbyself}
-                            post_id ={postID}
-                        />
-                        */
-                       <h2>content</h2>
-                    )
-                )
+                ): 
+                (<>
+                    {Object.keys(searchContent).sort().reverse().map(postID => 
+                        
+                            <Post
+                                displayName={searchContent[postID].displayname}
+                                username={searchContent[postID].username}
+                                verified={searchContent[postID].verified}
+                                text={searchContent[postID].message}
+                                image={searchContent[postID].image}
+                                avatar={searchContent[postID].avatar}
+                                likes={searchContent[postID].likes}
+                                comments={searchContent[postID].comments}
+                                retwoots={searchContent[postID].retwoots}
+                                likedbyself={searchContent[postID].likedbyself}
+                                retwootedbyself={searchContent[postID].retwootedbyself}
+                                commentedbyself={searchContent[postID].commentedbyself}
+                                post_id ={postID}
+                            />
+                    )}
+                    
+                </>)
             }
         </div>
     )
