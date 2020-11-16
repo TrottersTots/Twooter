@@ -1,5 +1,6 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Post from './Post';
+import '../styles/Search.css';
 
 function Search() {
     const queryString = window.location.search;
@@ -20,35 +21,43 @@ function Search() {
             .then(data => setSearchContent(data));
     }
 
+    useEffect(() => {
+            get_search()  
+        });
+
     return (
-        <div onLoad={() => get_search()}>
-            <button onClick = {() => get_search()}>CLick me</button>
-           {Object.keys(searchContent).length === 0 ? 
-                (
-                    <h4 className="search__emptyFeed">No results</h4>
-                ): 
-                (<>
-                    {Object.keys(searchContent).sort().reverse().map(postID => 
+        <div className="search">
+            <div className="search__header">
+                <h2>Search</h2>
+            </div>
+            <div onLoad={() => get_search()}>
+            {Object.keys(searchContent).length === 0 ? 
+                    (
+                        <h4 className="search__emptyFeed">No results</h4>
+                    ): 
+                    (<>
+                        {Object.keys(searchContent).sort().reverse().map(postID => 
+                            
+                                <Post
+                                    displayName={searchContent[postID].displayname}
+                                    username={searchContent[postID].username}
+                                    verified={searchContent[postID].verified}
+                                    text={searchContent[postID].message}
+                                    image={searchContent[postID].image}
+                                    avatar={searchContent[postID].avatar}
+                                    likes={searchContent[postID].likes}
+                                    comments={searchContent[postID].comments}
+                                    retwoots={searchContent[postID].retwoots}
+                                    likedbyself={searchContent[postID].likedbyself}
+                                    retwootedbyself={searchContent[postID].retwootedbyself}
+                                    commentedbyself={searchContent[postID].commentedbyself}
+                                    post_id ={postID}
+                                />
+                        )}
                         
-                            <Post
-                                displayName={searchContent[postID].displayname}
-                                username={searchContent[postID].username}
-                                verified={searchContent[postID].verified}
-                                text={searchContent[postID].message}
-                                image={searchContent[postID].image}
-                                avatar={searchContent[postID].avatar}
-                                likes={searchContent[postID].likes}
-                                comments={searchContent[postID].comments}
-                                retwoots={searchContent[postID].retwoots}
-                                likedbyself={searchContent[postID].likedbyself}
-                                retwootedbyself={searchContent[postID].retwootedbyself}
-                                commentedbyself={searchContent[postID].commentedbyself}
-                                post_id ={postID}
-                            />
-                    )}
-                    
-                </>)
-            }
+                    </>)
+                }
+            </div>
         </div>
     )
 }

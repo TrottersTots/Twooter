@@ -202,8 +202,8 @@ class SearchQuery(Resource):
                             #idk why but i cant figure out how to use string substitution in sql such that it achieves the same result as this f-string
                             #anyway. "DROP TABLE users" it is for now i guess. Sadge
             q = query_to_dict(q)
-            #print(f"AAAAAAAAAAAAAAAAA:{q}")
-            #return jsonify(q), 200
+            #q = append_twoot_stats(q)
+
             return jsonify(q)
         except Exception as e:
             return 'Error when searching for a term', 500 
