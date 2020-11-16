@@ -1,10 +1,9 @@
 from flask import Flask, request, jsonify, session
 from flask_session import Session
 from flask_restful import Resource, Api
-
-from user_backend import  CreateUser, LoginUser, DeleteUser, FollowUser, Main, UserData, UpdateUserData
-from twoot_backend import PostTwoot, DeleteTwoot, LikeTwoot, Retwoot, GetTwoot, CommentTwoot, GetSelfTwoot, GetSelfMediaTwoot, GetLikedTwoot, SearchQuery
-
+from twoot_backend import PostTwoot, DeleteTwoot, LikeTwoot,\
+Retwoot, GetTwoot, CommentTwoot, GetSelfTwoot, GetSelfMediaTwoot, GetLikedTwoot,\
+GetTrendingTwoots, GetCuratedTwoots, SearchQuery
 from tempfile import mkdtemp
 
 """
@@ -43,7 +42,10 @@ api.add_resource(LikeTwoot, path +    '/like_twoot/'    ) #methods:['POST']
 api.add_resource(Retwoot, path +      '/retwoot/'       ) #methods:['POST']
 api.add_resource(GetTwoot, path +     '/get_twoot/'     ) #methods:['GET']
 api.add_resource(CommentTwoot, path + '/comment_twoot/' ) #methods:['POST']
+
 api.add_resource(SearchQuery, path + '/search_query') #methods: ['POST']
+api.add_resource(GetTrendingTwoots, path + '/get_trending/' ) #methods:['GET']
+api.add_resource(GetCuratedTwoots, path + '/get_curated/' ) #methods:['GET']
     #profile-related
 api.add_resource(GetSelfTwoot, path + '/get_selftwoot/' ) #methods:['GET']
 api.add_resource(GetSelfMediaTwoot, path + '/get_selftwoot_media/' ) #methods:['GET']
