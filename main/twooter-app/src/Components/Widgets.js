@@ -8,7 +8,9 @@ function Widgets({logged_in}) {
         <div className="widgets">
             <div className="widgets__input">
                 <SearchIcon pclassName="widgets__searchIcon" />
-                <input placeholder="Search Twooter" type="text" />
+                <form action="/search">
+                    <input name="q" id="q" placeholder="Search Twooter" type="text" />
+                </form>
             </div>
 
             <div className="widgets__widgetContainer w1">

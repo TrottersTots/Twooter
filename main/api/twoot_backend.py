@@ -183,6 +183,30 @@ class GetLikedTwoot(Resource):
         return jsonify(twoots)           
 # = jsonify(message = dictionary['message'])
 
+class SearchQuery(Resource):
+    def get(self):
+        pass
+    def post(self):
+        #appending % means anything that can come before or after the search term. 
+        #this isnt optimal as it will return posts containing 'paint' given the term 'pain' ..except the 2 solutions i tried to resolve this didnt work:
+        #1. using sqlite's REGEXP instead of LIKE - doesnt work bc sqlalchemy doesnt support REGEXP
+        #2. using the wildcards [^a-z]. - doesnt work bc sqlite only supports the % and _ wildcards.
+        try:
+            searchTerm = "'%"+request.get_json()+"%'"
+            
+            #ALERT. ALERT. WEEEEEE WOOOOO. WEEEEE WOOOOOO. SQL INJECTION ATTACK IMMINENT.
+            q = db.execute(f"SELECT post_id, message, image, username, displayname, verified, avatar \
+                            FROM posts JOIN users on posts.user_id=users.user_id \
+                            WHERE message LIKE {searchTerm}")
+                            #idk why but i cant figure out how to use string substitution in sql such that it achieves the same result as this f-string
+                            #anyway. "DROP TABLE users" it is for now i guess. Sadge
+            q = query_to_dict(q)
+            #q = append_twoot_stats(q)
+
+            return jsonify(q)
+        except Exception as e:
+            return 'Error when searching for a term', 500 
+          
 class GetTrendingTwoots(Resource):
     """
     returns top 'x' amount of trending twoots

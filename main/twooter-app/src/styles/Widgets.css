@@ -12,7 +12,7 @@
     margin-left: 20px;
 }
 
-.widgets__input > input {
+.widgets__input > form > input {
     border: none;
     color: var(--white) !important;
     background-color: var(--highlight);
