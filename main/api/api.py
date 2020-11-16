@@ -1,9 +1,14 @@
 from flask import Flask, request, jsonify, session
 from flask_session import Session
 from flask_restful import Resource, Api
+
+from user_backend import  CreateUser, LoginUser, DeleteUser,\
+FollowUser, Main, UserData, UpdateUserData
+
 from twoot_backend import PostTwoot, DeleteTwoot, LikeTwoot,\
 Retwoot, GetTwoot, CommentTwoot, GetSelfTwoot, GetSelfMediaTwoot, GetLikedTwoot,\
 GetTrendingTwoots, GetCuratedTwoots, SearchQuery
+
 from tempfile import mkdtemp
 
 """

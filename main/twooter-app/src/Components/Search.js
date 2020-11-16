@@ -21,16 +21,16 @@ function Search() {
             .then(data => setSearchContent(data));
     }
 
-    useEffect(() => {
+    useState(() => {
             get_search()  
-        });
+        }, [searchContent]);
 
     return (
         <div className="search">
             <div className="search__header">
                 <h2>Search</h2>
             </div>
-            <div onLoad={() => get_search()}>
+            <div>
             {Object.keys(searchContent).length === 0 ? 
                     (
                         <h4 className="search__emptyFeed">No results</h4>
