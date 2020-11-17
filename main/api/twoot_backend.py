@@ -226,7 +226,7 @@ class GetTrendingTwoots(Resource):
                                                 WHERE post_id=:post",post=post))[0])
 
         #q = query_to_dict(q)
-        #q = append_twoot_stats(q)
+        q = append_twoot_stats(q)
 
         twoots = {}
         for d in q:
@@ -235,7 +235,7 @@ class GetTrendingTwoots(Resource):
 
 class GetCuratedTwoots(Resource):
     """
-    returns twoots that use the same hashtags that the user also uses
+    returns twoots that use the same hashtags that the user also uses ("for you" tab of explore)
     """
     def get(self):
         #change this query to select twoots with hashtags that the user has also used (complex logic?)
@@ -250,3 +250,22 @@ class GetCuratedTwoots(Resource):
         for d in q:
             twoots[d['post_id']] = d
         return jsonify(twoots)
+
+class GetConnections(Resource):
+    """
+    returns mutual friends ("connect" tab of explore)
+    """
+    def get(self):
+        #select friends of friends user information
+        q = db.execute("SELECT username,displayname,bio,verified,avatar FROM users \
+                        WHERE user_id IN ( \
+                            SELECT other_id FROM follows \
+	                        WHERE self_id IN ( \
+		                        SELECT other_id FROM follows \
+		                        WHERE self_id=:user_id \
+	                            ) \
+	                        AND other_id!=:user_id \
+                        )", user_id=session['user_id'])
+
+        q = query_to_dict(q)
+        return jsonify(q)

@@ -55,8 +55,8 @@ function App() {
       ud.followers = data.followers;
 
       setUD(ud);
-      console.log('ud:',ud);
-      console.log('user data:',userData);
+      //console.log('ud:',ud);
+      //console.log('user data:',userData);
 
     });
   }

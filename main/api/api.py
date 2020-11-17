@@ -7,7 +7,7 @@ FollowUser, Main, UserData, UpdateUserData
 
 from twoot_backend import PostTwoot, DeleteTwoot, LikeTwoot,\
 Retwoot, GetTwoot, CommentTwoot, GetSelfTwoot, GetSelfMediaTwoot, GetLikedTwoot,\
-GetTrendingTwoots, GetCuratedTwoots, SearchQuery
+GetTrendingTwoots, GetCuratedTwoots, SearchQuery, GetConnections
 
 from tempfile import mkdtemp
 
@@ -51,6 +51,7 @@ api.add_resource(CommentTwoot, path + '/comment_twoot/' ) #methods:['POST']
 api.add_resource(SearchQuery, path + '/search_query') #methods: ['POST']
 api.add_resource(GetTrendingTwoots, path + '/get_trending/' ) #methods:['GET']
 api.add_resource(GetCuratedTwoots, path + '/get_curated/' ) #methods:['GET']
+api.add_resource(GetConnections, path + '/get_connections/' ) #methods:['GET']
     #profile-related
 api.add_resource(GetSelfTwoot, path + '/get_selftwoot/' ) #methods:['GET']
 api.add_resource(GetSelfMediaTwoot, path + '/get_selftwoot_media/' ) #methods:['GET']

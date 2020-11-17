@@ -12,13 +12,19 @@ function ExploreNavBar(){
 
     const [trendingTwoots, setTrendingTwoots] = useState({});
     const [curatedTwoots, setCuratedTwoots] = useState({});
-    
+    const [connections, setConnections] = useState({});
 
     useEffect(() => {  
         get_trending();
         get_curated();
+        get_connnections();
     }, []);//on mount / on change
 
+     useEffect(() => {
+        //console.log(Object.values(trendingTwoots).sort((a,b) => (a.likes < b.likes) ? 1 : -1));
+        //console.log(Object.keys(trendingTwoots).sort().reverse());
+        console.log("conns: ",connections)
+     }, [connections])
 
     async function get_trending()
     {
@@ -33,7 +39,14 @@ function ExploreNavBar(){
         .then(response => response.json())
         .then(data => setCuratedTwoots(data));
     }
-    
+
+    async function get_connnections()
+    {
+        await fetch('api/get_connections/')
+        .then(response => response.json())
+        .then(data => setConnections(data));
+    }
+
     return (
         <Tabs
         activeKey={key}
@@ -66,22 +79,23 @@ function ExploreNavBar(){
             </Tab>
             <Tab class="show active" eventKey="trending" title="Trending">
                 {/* MAPPED LIST OF POST COMPONENTS (SEE FEED.JS) */}
-                {Object.keys(trendingTwoots).sort().reverse().map(postID => 
+                {/* Sorts the trending twoots value array by likes and then maps each element (post) to a post component */}
+                {Object.values(trendingTwoots).sort((a,b) => (a.likes < b.likes) ? 1 : -1).map(post => 
                         
                         <Post
-                            displayName={trendingTwoots[postID].displayname}
-                            username={trendingTwoots[postID].username}
-                            verified={trendingTwoots[postID].verified}
-                            text={trendingTwoots[postID].message}
-                            image={trendingTwoots[postID].image}
-                            avatar={trendingTwoots[postID].avatar}
-                            likes={trendingTwoots[postID].likes}
-                            comments={trendingTwoots[postID].comments}
-                            retwoots={trendingTwoots[postID].retwoots}
-                            likedbyself={trendingTwoots[postID].likedbyself}
-                            retwootedbyself={trendingTwoots[postID].retwootedbyself}
-                            commentedbyself={trendingTwoots[postID].commentedbyself}
-                            post_id ={postID}
+                            displayName={post.displayname}
+                            username={post.username}
+                            verified={post.verified}
+                            text={post.message}
+                            image={post.image}
+                            avatar={post.avatar}
+                            likes={post.likes}
+                            comments={post.comments}
+                            retwoots={post.retwoots}
+                            likedbyself={post.likedbyself}
+                            retwootedbyself={post.retwootedbyself}
+                            commentedbyself={post.commentedbyself}
+                            post_id ={post.postID}
                         />
                            
                 )}
@@ -89,9 +103,20 @@ function ExploreNavBar(){
             </Tab>
             <Tab class="show active" eventKey="connect" title="Connect">
                 {/* displays mutual friends and other fun algorithms we think of :) */}
-                {/* MAPPED LIST OF USER COMPONENTS (DOESNT EXIST YET)*/}
-                <ProfilePreview />
-                <ProfilePreview />
+                {/* MAPPED LIST OF USER COMPONENTS */}
+                
+                {Object.values(connections).map(user =>
+                
+                    <ProfilePreview 
+                        displayName={user.displayname}
+                        username={user.username}
+                        verified={user.verified}
+                        bio={user.bio}
+                        avatar={user.avatar}
+                    />
+                
+                )}
+                
             </Tab>
 
       </Tabs>
