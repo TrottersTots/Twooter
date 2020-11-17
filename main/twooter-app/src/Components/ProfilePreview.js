@@ -9,7 +9,7 @@ function ProfilePreview({displayName, username, bio, verified, avatar}) {
         <div className="profilePreview">
             <div className="profilePreview__header">
                 <span className="personIcon"><PersonIcon/></span>
-                <p className="profilePreview__header__p">Ajit Pai follows</p>
+                <p className="profilePreview__header__p">Mutual Friend</p>
             </div>
             <div className="profilePreview__content">
                 <div className="profilePreview__avatar">

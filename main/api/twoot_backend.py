@@ -222,7 +222,7 @@ class GetTrendingTwoots(Resource):
         q = []
         for post in most_liked:
             q.append(query_to_dict(db.execute("SELECT post_id, message, image, username, displayname, verified, avatar\
-                                                FROM posts JOIN users on posts.user_id=users.user_id \
+                                                FROM posts JOIN users ON posts.user_id=users.user_id \
                                                 WHERE post_id=:post",post=post))[0])
 
         #q = query_to_dict(q)
@@ -235,15 +235,24 @@ class GetTrendingTwoots(Resource):
 
 class GetCuratedTwoots(Resource):
     """
-    returns twoots that use the same hashtags that the user also uses ("for you" tab of explore)
+    returns twoots of mutual friends ("for you" tab of explore)
     """
     def get(self):
+        
         #change this query to select twoots with hashtags that the user has also used (complex logic?)
         q = db.execute("SELECT post_id, message, image, username, displayname, verified, avatar \
-                        FROM posts JOIN users on posts.user_id=users.user_id \
-                        WHERE posts.user_id=:user_id \
-                        OR posts.user_id IN (SELECT other_id FROM follows WHERE self_id=:user_id)", 
-                        user_id=session['user_id'])
+                        FROM posts JOIN users ON posts.user_id=users.user_id \
+                        WHERE users.user_id IN ( \
+                            SELECT user_id FROM users \
+                            WHERE user_id IN ( \
+                                SELECT other_id FROM follows \
+	                            WHERE self_id IN ( \
+		                            SELECT other_id FROM follows \
+		                            WHERE self_id=2 \
+	                                ) \
+	                            AND other_id!=2 \
+                                ) \
+                            )", user_id=session['user_id'])
         q = query_to_dict(q)
         q = append_twoot_stats(q)
         twoots = {}
