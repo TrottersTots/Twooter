@@ -7,7 +7,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import Post from './Post';
 import '../styles/Profile.css';
 
-function ProfileNavBar({selfTwoots, selfMediaTwoots, likedTwoots}) {
+function ProfileNavBar({selfTwoots, selfMediaTwoots, likedTwoots, displayName}) {
     const [key, setKey] = useState('twoots');
     
     return (
@@ -19,7 +19,7 @@ function ProfileNavBar({selfTwoots, selfMediaTwoots, likedTwoots}) {
         <Tab class="show active" eventKey="twoots" title="Twoots">
             {Object.keys(selfTwoots).length === 0 ? 
                 (
-                    <h4 className="profile__emptyFeed">You haven't twooted anything yet</h4>
+                    <h4 className="profile__emptyFeed">{displayName} hasn't twooted anything yet</h4>
                 ) : 
                 (
 
@@ -47,7 +47,7 @@ function ProfileNavBar({selfTwoots, selfMediaTwoots, likedTwoots}) {
         <Tab eventKey="media" title="Media">
             {Object.keys(selfMediaTwoots).length === 0 ? 
                 (
-                    <h4 className="profile__emptyFeed">You haven't twooted any photos or videos yet</h4>  
+                    <h4 className="profile__emptyFeed">{displayName} hasn't twooted any photos or videos yet</h4>  
                 ) : 
                 (
                     Object.keys(selfMediaTwoots).sort().reverse().map(postID => 
@@ -74,7 +74,7 @@ function ProfileNavBar({selfTwoots, selfMediaTwoots, likedTwoots}) {
 
             {Object.keys(likedTwoots).length === 0 ? 
                 (
-                    <h4 className="profile__emptyFeed">You haven't liked any twoots yet</h4>
+                    <h4 className="profile__emptyFeed">{displayName} hasn't liked any twoots yet</h4>
                 ) : 
                 (
                     Object.keys(likedTwoots).sort().reverse().map(postID => 
@@ -192,7 +192,7 @@ function OtherProfile({}) {
                     </div>
                 </div>
                 <div className="profile__content">
-                    <ProfileNavBar selfTwoots={selfTwoots} selfMediaTwoots={selfMediaTwoots} likedTwoots={likedTwoots}/>
+                    <ProfileNavBar selfTwoots={selfTwoots} selfMediaTwoots={selfMediaTwoots} likedTwoots={likedTwoots} displayName={userData.displayname}/>
                 </div>
             </div>
 
