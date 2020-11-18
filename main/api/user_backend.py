@@ -162,7 +162,23 @@ class UserData(Resource):
         #append an avatar element to the dictionary if the user has an avatar in the directory
         
         return jsonify(q[0])
-
+    def post(self):
+        """
+        used when getting someone else's userData (for their profile page)
+        """
+        other_id = request.get_json()
+        other_id = query_to_dict(db.execute("SELECT user_id FROM users WHERE username=:username",username=other_id))[0]['user_id']
+        print('other: ', other_id)
+        q = db.execute("SELECT * FROM users WHERE user_id=:user_id", user_id=other_id)
+        q = query_to_dict(q)
+        
+        #query for follower/following counts and then append them to our main query
+        q[0].update(query_to_dict(db.execute("SELECT COUNT(other_id) as followers FROM follows WHERE self_id=:user_id", user_id=other_id))[0])
+        q[0].update(query_to_dict(db.execute("SELECT COUNT(self_id) as following FROM follows WHERE other_id=:user_id", user_id=other_id))[0])
+        
+        #append an avatar element to the dictionary if the user has an avatar in the directory
+        
+        return jsonify(q[0])
 class UpdateUserData(Resource):
     def post(self):
 

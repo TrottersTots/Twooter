@@ -7,6 +7,7 @@ import Home from './Components/Home';
 import Explore from './Components/Explore';
 import More from './Components/More';
 import Profile from './Components/Profile';
+import OtherProfile from './Components/OtherProfile';
 import Search from './Components/Search';
 //
 import Sidebar from './Components/Sidebar';
@@ -121,7 +122,13 @@ function App() {
                 <Profile {...props} logged_in={logged_in} userData={userData}/>
               )}
           />
-          {/*Profile Page*/}
+          {/*Other Profile Page*/}
+          <Route path='/view'
+              render={(props) => (
+                <OtherProfile/>
+              )}
+          />
+          {/*Search Page*/}
           <Route path='/search'
               render={(props) => (
                 <Search {...props} logged_in={logged_in} userData={userData}/>

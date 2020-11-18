@@ -157,6 +157,19 @@ class GetSelfTwoot(Resource):
             twoots[d['post_id']] = d
 
         return jsonify(twoots)
+    def post(self):
+        other_id = request.get_json();
+        other_id = query_to_dict(db.execute("SELECT user_id FROM users WHERE username=:username",username=other_id))[0]['user_id']
+        q = db.execute("SELECT post_id, message, image, username, displayname, verified, avatar \
+                        FROM posts JOIN users on posts.user_id=users.user_id \
+                        WHERE posts.user_id=:user_id", user_id=other_id)
+        q = query_to_dict(q)
+        q = append_twoot_stats(q)
+        twoots = {}
+        for d in q:
+            twoots[d['post_id']] = d
+
+        return jsonify(twoots)
 
 class GetSelfMediaTwoot(Resource):
     def get(self):
@@ -169,6 +182,18 @@ class GetSelfMediaTwoot(Resource):
         for d in q:
             twoots[d['post_id']] = d
         return jsonify(twoots)
+    def post(self):
+        other_id = request.get_json();
+        other_id = query_to_dict(db.execute("SELECT user_id FROM users WHERE username=:username",username=other_id))[0]['user_id']
+        q = db.execute("SELECT post_id, message, image, username, displayname, verified, avatar \
+                        FROM posts JOIN users on posts.user_id=users.user_id \
+                        WHERE posts.user_id=:user_id AND image!=''", user_id=other_id)
+        q = query_to_dict(q)
+        q = append_twoot_stats(q)
+        twoots = {}
+        for d in q:
+            twoots[d['post_id']] = d
+        return jsonify(twoots)        
 
 class GetLikedTwoot(Resource):
     def get(self):
@@ -180,7 +205,19 @@ class GetLikedTwoot(Resource):
         twoots = {}
         for d in q:
             twoots[d['post_id']] = d
-        return jsonify(twoots)           
+        return jsonify(twoots)
+    def post(self):
+        other_id = request.get_json();
+        other_id = query_to_dict(db.execute("SELECT user_id FROM users WHERE username=:username",username=other_id))[0]['user_id']
+        q = db.execute("SELECT post_id, message, image, username, displayname, verified, avatar \
+                        FROM posts JOIN users on posts.user_id=users.user_id \
+                        WHERE post_id IN (SELECT post_id FROM likes WHERE user_id=:user_id)", user_id=other_id)
+        q = query_to_dict(q)
+        q = append_twoot_stats(q)
+        twoots = {}
+        for d in q:
+            twoots[d['post_id']] = d
+        return jsonify(twoots)                   
 # = jsonify(message = dictionary['message'])
 
 class SearchQuery(Resource):
