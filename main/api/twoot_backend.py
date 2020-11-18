@@ -142,7 +142,6 @@ class GetTwoot(Resource):
         twoots = {}
         for d in q:
             twoots[d['post_id']] = d
-        print(twoots)
         return jsonify(twoots)
 
 #routes for displaying twoot sets on profile
@@ -183,3 +182,99 @@ class GetLikedTwoot(Resource):
             twoots[d['post_id']] = d
         return jsonify(twoots)           
 # = jsonify(message = dictionary['message'])
+
+class SearchQuery(Resource):
+    def get(self):
+        pass
+    def post(self):
+        #appending % means anything that can come before or after the search term. 
+        #this isnt optimal as it will return posts containing 'paint' given the term 'pain' ..except the 2 solutions i tried to resolve this didnt work:
+        #1. using sqlite's REGEXP instead of LIKE - doesnt work bc sqlalchemy doesnt support REGEXP
+        #2. using the wildcards [^a-z]. - doesnt work bc sqlite only supports the % and _ wildcards.
+        try:
+            searchTerm = "'%"+request.get_json()+"%'"
+            
+            #ALERT. ALERT. WEEEEEE WOOOOO. WEEEEE WOOOOOO. SQL INJECTION ATTACK IMMINENT.
+            q = db.execute(f"SELECT post_id, message, image, username, displayname, verified, avatar \
+                            FROM posts JOIN users on posts.user_id=users.user_id \
+                            WHERE message LIKE {searchTerm}")
+                            #idk why but i cant figure out how to use string substitution in sql such that it achieves the same result as this f-string
+                            #anyway. "DROP TABLE users" it is for now i guess. Sadge
+            q = query_to_dict(q)
+            q = append_twoot_stats(q)
+
+            return jsonify(q)
+        except Exception as e:
+            return 'Error when searching for a term', 500 
+          
+class GetTrendingTwoots(Resource):
+    """
+    returns top 'x' amount of trending twoots
+    """
+    def get(self):
+        #change this query to select twoots sorted by most liked, nothing else matters
+        most_liked = db.execute("SELECT post_id\
+                        FROM likes\
+                        GROUP BY post_id\
+                        ORDER BY COUNT(*) DESC")
+        most_liked=[list(row)[0] for row in most_liked.fetchall()]
+        
+        q = []
+        for post in most_liked:
+            q.append(query_to_dict(db.execute("SELECT post_id, message, image, username, displayname, verified, avatar\
+                                                FROM posts JOIN users ON posts.user_id=users.user_id \
+                                                WHERE post_id=:post",post=post))[0])
+
+        #q = query_to_dict(q)
+        q = append_twoot_stats(q)
+
+        twoots = {}
+        for d in q:
+            twoots[d['post_id']] = d
+        return jsonify(twoots)
+
+class GetCuratedTwoots(Resource):
+    """
+    returns twoots of mutual friends ("for you" tab of explore)
+    """
+    def get(self):
+        
+        #change this query to select twoots with hashtags that the user has also used (complex logic?)
+        q = db.execute("SELECT post_id, message, image, username, displayname, verified, avatar \
+                        FROM posts JOIN users ON posts.user_id=users.user_id \
+                        WHERE users.user_id IN ( \
+                            SELECT user_id FROM users \
+                            WHERE user_id IN ( \
+                                SELECT other_id FROM follows \
+	                            WHERE self_id IN ( \
+		                            SELECT other_id FROM follows \
+		                            WHERE self_id=2 \
+	                                ) \
+	                            AND other_id!=2 \
+                                ) \
+                            )", user_id=session['user_id'])
+        q = query_to_dict(q)
+        q = append_twoot_stats(q)
+        twoots = {}
+        for d in q:
+            twoots[d['post_id']] = d
+        return jsonify(twoots)
+
+class GetConnections(Resource):
+    """
+    returns mutual friends ("connect" tab of explore)
+    """
+    def get(self):
+        #select friends of friends user information
+        q = db.execute("SELECT username,displayname,bio,verified,avatar FROM users \
+                        WHERE user_id IN ( \
+                            SELECT other_id FROM follows \
+	                        WHERE self_id IN ( \
+		                        SELECT other_id FROM follows \
+		                        WHERE self_id=:user_id \
+	                            ) \
+	                        AND other_id!=:user_id \
+                        )", user_id=session['user_id'])
+
+        q = query_to_dict(q)
+        return jsonify(q)

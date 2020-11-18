@@ -1,0 +1,32 @@
+.search {
+    flex: 0.4; /* This + 0.3 from sidebar = 70% screen width */
+    border-right: 1px solid var(--highlight);
+    min-width: 614px;    
+    overflow-y: scroll; /*When there is too much content, scroll*/
+}
+
+/* Hide scrollbar on Chrome, Safari, Opera */
+.search::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar on IE, Edge, Firefox */
+.search {
+    -ms-overflow-style: none; /* IE / Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.search__header {
+    position: sticky;
+    top: 0;
+    background-color: var(--highlight);
+    z-index: 100;
+    border: 1px solid var(--highlight);
+    padding: 13px 20px;
+
+}
+
+.search__header > h2 {
+    font-size: 20px;
+    font-weight: 800;
+}

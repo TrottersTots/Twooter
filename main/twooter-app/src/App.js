@@ -5,10 +5,9 @@ import "./styles/App.css";
 //different pages that will show in the center column
 import Home from './Components/Home';
 import Explore from './Components/Explore';
-import Messages from './Components/Messages';
 import More from './Components/More';
 import Profile from './Components/Profile';
-
+import Search from './Components/Search';
 //
 import Sidebar from './Components/Sidebar';
 import Widgets from './Components/Widgets';
@@ -56,8 +55,8 @@ function App() {
       ud.followers = data.followers;
 
       setUD(ud);
-      console.log('ud:',ud);
-      console.log('user data:',userData);
+      //console.log('ud:',ud);
+      //console.log('user data:',userData);
 
     });
   }
@@ -110,12 +109,6 @@ function App() {
                 <Explore {...props} logged_in={logged_in} setLoggedIn={setLoggedIn}/>
               )}
           />
-          {/*Messages Page*/}
-          <Route exact path='/messages'
-              render={(props) => (
-                <Messages {...props} logged_in={logged_in}/>
-              )}
-          />
           {/*More Page*/}
           <Route exact path='/more'
               render={(props) => (
@@ -123,11 +116,17 @@ function App() {
               )}
           />
           {/*Profile Page*/}
-          <Route excat path='/profile'
+          <Route exact path='/profile'
               render={(props) => (
                 <Profile {...props} logged_in={logged_in} userData={userData}/>
               )}
           />
+          {/*Profile Page*/}
+          <Route path='/search'
+              render={(props) => (
+                <Search {...props} logged_in={logged_in} userData={userData}/>
+              )}
+          />          
           {/*leave at bottom 404 Page*/}
           <Route path='/'
               render={(props) => (
