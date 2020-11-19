@@ -160,7 +160,7 @@ function Profile({userData, logged_in}) {
                         <span className="profile__edit" hidden={!selfProfile}>
                                 <span><CakeIcon/>Born {userData.dob}</span>
                                 <Button 
-                                    variant="outlined" 
+                                    className="btn_follow"
                                     onClick= {() => set_editProfile(true)}>
                                     Edit Profile
                                 </Button>

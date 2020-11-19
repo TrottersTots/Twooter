@@ -85,8 +85,8 @@
     padding-right: 2px;
     margin-left: -2px;
 }
-
-.profile__edit > button {
+.btn_follow
+{
     background-color: var(--main-background) !important;
     border: 2px solid var(--blue) !important;
     color: var(--blue) !important;
@@ -94,7 +94,21 @@
     font-weight: 700 !important;
     text-transform: inherit !important;
     border-radius: 30px !important;
-    height: 30px !important;    
+    height: 30px !important;
+    padding: 0 10px 0 10px !important;        
+}
+
+.btn_following
+{
+    background-color: var(--blue) !important;
+    border: none;
+    color: var(--white) !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    text-transform: inherit !important;
+    border-radius: 30px !important;
+    height: 30px !important;
+    padding: 0 10px 0 10px !important;        
 }
 
 .profile__info__details__handle {
@@ -143,3 +157,4 @@
     text-align: center;
     padding-top: 50px;
 }
+

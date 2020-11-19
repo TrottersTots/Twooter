@@ -288,9 +288,9 @@ class GetCuratedTwoots(Resource):
                                 SELECT other_id FROM follows \
 	                            WHERE self_id IN ( \
 		                            SELECT other_id FROM follows \
-		                            WHERE self_id=2 \
+		                            WHERE self_id=:user_id \
 	                                ) \
-	                            AND other_id!=2 \
+	                            AND other_id!=:user_id \
                                 ) \
                             )", user_id=session['user_id'])
         q = query_to_dict(q)

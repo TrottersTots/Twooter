@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Avatar, Button } from '@material-ui/core';
+import { Avatar } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CakeIcon from '@material-ui/icons/Cake';
 import Tab from 'react-bootstrap/Tab';
@@ -111,6 +111,8 @@ function OtherProfile({}) {
     const [selfMediaTwoots, setSelfMediaTwoots] = useState({});
     const [likedTwoots, setLikedTwoots] = useState({});
     
+    const [toFollow, setToFollow] = useState();
+
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const q = urlParams.get('user');
@@ -124,7 +126,8 @@ function OtherProfile({}) {
         };
         fetch('/api/get_userdata/', requestView)
             .then(response => response.json())
-            .then(data => setUserData(data));
+            .then(data => setUserData(data))
+            .then(setToFollow(Boolean(userData.self_following)));
     }
 
     async function get_twoot(route, setFunc) //self, self-media, liked
@@ -141,9 +144,27 @@ function OtherProfile({}) {
             .then(data => setFunc(data));
     }
 
-    function follow_user()
+    async function follow_user()
     {
-        console.log('followed')
+        const username = {'username': userData.username}
+        const response = await fetch('/api/follow_user/',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(username)
+        });
+        switch(response.status)
+        {
+            case 200://follow success
+                setToFollow(true);
+                break;
+            case 201: //unfollow success
+                setToFollow(false);
+                break;
+            default:
+                break;
+        }
     }
 
     function get_twoots(){
@@ -157,7 +178,7 @@ function OtherProfile({}) {
     }, []);
 
     useEffect(() => {  //does this do anything lol
-    }, [userData]);
+    }, [userData, toFollow]);
 
     return (
         <div className='profile' onLoad={() => get_data()}>
@@ -182,11 +203,11 @@ function OtherProfile({}) {
                         
                         <span className="profile__edit">
                                 <span><CakeIcon/>Born {userData.dob}</span>
-                                <Button 
-                                    variant="outlined" 
+                                <button 
+                                    className= {toFollow ? "btn_following" : "btn_follow"} // to follow, or not to follow.
                                     onClick= {() => follow_user()}>
-                                    Follow
-                                </Button>
+                                    {toFollow ? "Following" : "Follow"}
+                                </button>
 
                         </span>
                     </div>
