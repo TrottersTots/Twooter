@@ -28,7 +28,9 @@ def append_twoot_stats(q):
         FROM posts \
         JOIN likes ON likes.post_id=posts.post_id \
         WHERE posts.post_id=:post_id AND likes.user_id=:user_id", post_id=post_id, user_id=session['user_id']))[0].get('likedbyself')
-
+        if post_id == 5:
+            print(f'post: {post_id}\nliked by {session["user_id"]}? ={likedbyself}')
+            
         retwootedbyself = query_to_dict(db.execute("SELECT COUNT(posts.user_id) as retwootedbyself \
         FROM posts \
         JOIN retwoots ON retwoots.post_id=posts.post_id \
@@ -214,6 +216,7 @@ class GetLikedTwoot(Resource):
                         WHERE post_id IN (SELECT post_id FROM likes WHERE user_id=:user_id)", user_id=other_id)
         q = query_to_dict(q)
         q = append_twoot_stats(q)
+        print(q)
         twoots = {}
         for d in q:
             twoots[d['post_id']] = d

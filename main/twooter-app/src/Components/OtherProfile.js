@@ -89,7 +89,7 @@ function ProfileNavBar({selfTwoots, selfMediaTwoots, likedTwoots, displayName}) 
                             likes={likedTwoots[postID].likes}
                             comments={likedTwoots[postID].comments}
                             retwoots={likedTwoots[postID].retwoots}
-                            likedbyself={1}//its given that these will be liked by self
+                            likedbyself={likedTwoots[postID].likedbyself}
                             retwootedbyself = {likedTwoots[postID].retwootedbyself}
                             post_id ={postID}
                         />
