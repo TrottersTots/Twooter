@@ -17,7 +17,11 @@ function ProfilePreview({displayName, username, bio, verified, avatar}) {
                 </div> 
                 <div className="profilePreview__names">
                     <div className="profilePreview__names__content">
-                        <h3>{displayName} <span>{Boolean(verified) && <CheckCircleIcon/>}</span></h3> {/* replace with displayName */}
+                        <form action="/view">
+                            <input name="user" id="user" type="text" value= {username} hidden/>
+                            <button><h3>{displayName} <span>{Boolean(verified) && <CheckCircleIcon/>}</span></h3></button>
+                        </form>
+                        
                         <p>@{username}</p> {/* replace with username */}
                     </div>
                         

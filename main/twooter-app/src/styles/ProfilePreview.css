@@ -32,10 +32,12 @@
     display: flex;
     flex-direction: column;
 }
-.profilePreview__names__content > h3 {
+.profilePreview__names__content > form>button>h3 {
     font-size: large;
     font-weight: bold;
     margin-bottom: 0;
+    color: var(--white);
+    text-decoration: underline;
 }
 
 .profilePreview__names__content > p {
