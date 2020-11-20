@@ -10,6 +10,7 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 import HomeIcon from '@material-ui/icons/Home';
 import SearchIcon from '@material-ui/icons/Search';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import PersonIcon from '@material-ui/icons/Person';
 
 // - - -
 
@@ -63,7 +64,7 @@ function Sidebar({userData, logged_in, setLoggedIn, history, setTwoots, twoots, 
                   <Link to='/profile' onClick={() => {
                   history.push('/profile');
               }}>
-                <SidebarOption Icon={SearchIcon} text="Profile" />
+                <SidebarOption Icon={PersonIcon} text="Profile" />
               </Link>
 
                   <Button 
