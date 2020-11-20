@@ -158,7 +158,7 @@ function Profile({userData, logged_in}) {
                         </div>
                         {/*console.log('=',userData.dob,'=')*/}
                         <span className="profile__edit" hidden={!selfProfile}>
-                                <span><CakeIcon/>Born {userData.dob}</span>
+                                <span hidden={(userData.dob==null) ? true: false }><CakeIcon/>Born {userData.dob}</span>
                                 <Button 
                                     className="btn_follow"
                                     onClick= {() => set_editProfile(true)}>

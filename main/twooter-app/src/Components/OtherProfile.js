@@ -202,7 +202,7 @@ function OtherProfile({}) {
                         </div>
                         
                         <span className="profile__edit">
-                                <span><CakeIcon/>Born {userData.dob}</span>
+                                <span hidden={(userData.dob==null) ? true: false }><CakeIcon/>Born {userData.dob}</span>
                                 <button 
                                     className= {toFollow ? "btn_following" : "btn_follow"} // to follow, or not to follow.
                                     onClick= {() => follow_user()}>

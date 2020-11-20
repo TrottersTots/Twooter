@@ -38,9 +38,9 @@ const SidebarProfiles = ({userData, loggedIn, setLoggedIn, history}) => {
                             <h3>{userData.displayname} {Boolean(userData.verified) && <CheckCircleIcon className="profile__badge"/>} </h3>
                             <p>@{userData.username}</p>
                         </div>
-                            <div className="profile__popOver__buttonContainer">
+                            {/*<div className="profile__popOver__buttonContainer">
                                 <Button className="profile__popOver__button">Add account</Button>
-                            </div>
+                            </div>*/}
                             <div className="profile__popOver__buttonContainer">
                                 <Router>
                                     <Link to='/' onClick={() => {history.push('/');}}>
