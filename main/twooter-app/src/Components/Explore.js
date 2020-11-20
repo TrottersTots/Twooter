@@ -134,9 +134,12 @@ function Explore() {
                 <div className="explore__body__searchContainer">
                     <div className="searchContainer__inputContainer">
                         <SearchIcon />
-                        <input type="text" placeholder="Search Twooter"/> 
+                        <form id="searchform" action="/search">
+                            <input name="q" id="q" placeholder="Search Twooter" type="text" />
+                        </form>
                     </div>
-                    <Button>Search</Button>
+                    <button type="submit" form="searchform">Search</button>
+                    
                 </div>
             </div>
             
