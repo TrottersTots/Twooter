@@ -4,12 +4,15 @@ import PersonIcon from '@material-ui/icons/Person';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import '../styles/ProfilePreview.css';
 
-function ProfilePreview({displayName, username, bio, verified, avatar}) {
+function ProfilePreview({displayName, username, bio, verified, avatar, header}) {
     return (
         <div className="profilePreview">
             <div className="profilePreview__header">
-                <span className="personIcon"><PersonIcon/></span>
-                <p className="profilePreview__header__p">Mutual Friend</p>
+                {header ? (<>
+                    <span className="personIcon"><PersonIcon/></span>
+                    <p className="profilePreview__header__p">Mutual Friend</p>
+                </>) : ('')}
+                
             </div>
             <div className="profilePreview__content">
                 <div className="profilePreview__avatar">
@@ -33,5 +36,7 @@ function ProfilePreview({displayName, username, bio, verified, avatar}) {
         </div>
     )
 }
-
+ProfilePreview.defaultProps = {
+    header : true
+  }
 export default ProfilePreview

@@ -211,6 +211,25 @@ class UpdateUserData(Resource):
 
         return 'something went wrong :(',501
 
+class SearchUsers(Resource):
+    def post(self):
+        #displayName, username, bio, verified, avatar
+        #try:
+        searchTerm = "'%"+request.get_json()+"%'"
+        #ALERT. ALERT. WEEEEEE WOOOOO. WEEEEE WOOOOOO. SQL INJECTION ATTACK IMMINENT.
+        q = db.execute(f"SELECT displayName, username, bio, verified, avatar \
+                        FROM users \
+                        WHERE username LIKE {searchTerm} \
+                        OR displayName LIKE {searchTerm}")
+                        #idk why but i cant figure out how to use string substitution in sql such that it achieves the same result as this f-string
+                        #anyway. "DROP TABLE users" it is for now i guess. Sadge
+        q = query_to_dict(q)
+        print(q);
+        return jsonify(q)
+        #except Exception as e:
+            #return 'Error when searching for a term', 500 
+        
+
 class Main(Resource):
     def get(self):
         if session['user_id'] is not None:  return 'user has a session', 200
