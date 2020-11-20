@@ -53,6 +53,17 @@
     overflow: hidden;
     text-overflow: clip;
 }
+button {
+    padding: 0 !important;
+}
+.post__headerText h3 > form > button > span {
+    display: inline-block;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: clip;
+    color: var(--white) !important;
+    text-decoration: underline !important;
+}
 .post__headerText__displayName:hover {
     text-decoration: underline;
     cursor: pointer;
@@ -60,7 +71,6 @@
 .post__headerText__username {
     font-size: 13px;
     color: var(--grey);
-    padding-left: 5px;
     padding-bottom: 1px;
 }
 .post__badge {

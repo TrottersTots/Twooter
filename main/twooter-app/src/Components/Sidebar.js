@@ -9,8 +9,8 @@ import {BrowserRouter as Router, Link} from "react-router-dom";
 import TwitterIcon from '@material-ui/icons/Twitter';
 import HomeIcon from '@material-ui/icons/Home';
 import SearchIcon from '@material-ui/icons/Search';
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import PersonIcon from '@material-ui/icons/Person';
 
 // - - -
 
@@ -19,24 +19,24 @@ function Sidebar({userData, logged_in, setLoggedIn, history, setTwoots, twoots, 
 
     
 
-    const [toFollow, setToFollow] = useState('');
+    // const [toFollow, setToFollow] = useState('');
 
     //DEBUG 
-    async function follow_user()
-    {
-        const username = {'username': toFollow}
-        const response = await fetch('/api/follow_user/',{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(username)
-        });
-        if(response.ok){
-            console.log('user-followed-successfully');
-            setToFollow('');
-        }
-    }
+    // async function follow_user()
+    // {
+    //     const username = {'username': toFollow}
+    //     const response = await fetch('/api/follow_user/',{
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify(username)
+    //     });
+    //     if(response.ok){
+    //         console.log('user-followed-successfully');
+    //         setToFollow('');
+    //     }
+    // }
     // - - - -
     return (
       <div className="sidebar">
@@ -64,7 +64,7 @@ function Sidebar({userData, logged_in, setLoggedIn, history, setTwoots, twoots, 
                   <Link to='/profile' onClick={() => {
                   history.push('/profile');
               }}>
-                <SidebarOption Icon={SearchIcon} text="Profile" />
+                <SidebarOption Icon={PersonIcon} text="Profile" />
               </Link>
 
                   <Button 

@@ -28,7 +28,9 @@ def append_twoot_stats(q):
         FROM posts \
         JOIN likes ON likes.post_id=posts.post_id \
         WHERE posts.post_id=:post_id AND likes.user_id=:user_id", post_id=post_id, user_id=session['user_id']))[0].get('likedbyself')
-
+        if post_id == 5:
+            print(f'post: {post_id}\nliked by {session["user_id"]}? ={likedbyself}')
+            
         retwootedbyself = query_to_dict(db.execute("SELECT COUNT(posts.user_id) as retwootedbyself \
         FROM posts \
         JOIN retwoots ON retwoots.post_id=posts.post_id \
@@ -157,6 +159,19 @@ class GetSelfTwoot(Resource):
             twoots[d['post_id']] = d
 
         return jsonify(twoots)
+    def post(self):
+        other_id = request.get_json();
+        other_id = query_to_dict(db.execute("SELECT user_id FROM users WHERE username=:username",username=other_id))[0]['user_id']
+        q = db.execute("SELECT post_id, message, image, username, displayname, verified, avatar \
+                        FROM posts JOIN users on posts.user_id=users.user_id \
+                        WHERE posts.user_id=:user_id", user_id=other_id)
+        q = query_to_dict(q)
+        q = append_twoot_stats(q)
+        twoots = {}
+        for d in q:
+            twoots[d['post_id']] = d
+
+        return jsonify(twoots)
 
 class GetSelfMediaTwoot(Resource):
     def get(self):
@@ -169,6 +184,18 @@ class GetSelfMediaTwoot(Resource):
         for d in q:
             twoots[d['post_id']] = d
         return jsonify(twoots)
+    def post(self):
+        other_id = request.get_json();
+        other_id = query_to_dict(db.execute("SELECT user_id FROM users WHERE username=:username",username=other_id))[0]['user_id']
+        q = db.execute("SELECT post_id, message, image, username, displayname, verified, avatar \
+                        FROM posts JOIN users on posts.user_id=users.user_id \
+                        WHERE posts.user_id=:user_id AND image!=''", user_id=other_id)
+        q = query_to_dict(q)
+        q = append_twoot_stats(q)
+        twoots = {}
+        for d in q:
+            twoots[d['post_id']] = d
+        return jsonify(twoots)        
 
 class GetLikedTwoot(Resource):
     def get(self):
@@ -180,7 +207,20 @@ class GetLikedTwoot(Resource):
         twoots = {}
         for d in q:
             twoots[d['post_id']] = d
-        return jsonify(twoots)           
+        return jsonify(twoots)
+    def post(self):
+        other_id = request.get_json();
+        other_id = query_to_dict(db.execute("SELECT user_id FROM users WHERE username=:username",username=other_id))[0]['user_id']
+        q = db.execute("SELECT post_id, message, image, username, displayname, verified, avatar \
+                        FROM posts JOIN users on posts.user_id=users.user_id \
+                        WHERE post_id IN (SELECT post_id FROM likes WHERE user_id=:user_id)", user_id=other_id)
+        q = query_to_dict(q)
+        q = append_twoot_stats(q)
+        print(q)
+        twoots = {}
+        for d in q:
+            twoots[d['post_id']] = d
+        return jsonify(twoots)                   
 # = jsonify(message = dictionary['message'])
 
 class SearchQuery(Resource):
@@ -248,9 +288,9 @@ class GetCuratedTwoots(Resource):
                                 SELECT other_id FROM follows \
 	                            WHERE self_id IN ( \
 		                            SELECT other_id FROM follows \
-		                            WHERE self_id=2 \
+		                            WHERE self_id=:user_id \
 	                                ) \
-	                            AND other_id!=2 \
+	                            AND other_id!=:user_id \
                                 ) \
                             )", user_id=session['user_id'])
         q = query_to_dict(q)

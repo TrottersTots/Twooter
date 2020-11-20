@@ -1,14 +1,13 @@
 import React, {useState, useEffect} from 'react'
-import { Avatar, Button } from '@material-ui/core';
+import { Avatar } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CakeIcon from '@material-ui/icons/Cake';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import EditProfileModal from './EditProfileModal';
 import Post from './Post';
 import '../styles/Profile.css';
 
-function ProfileNavBar({selfTwoots, selfMediaTwoots, likedTwoots}) {
+function ProfileNavBar({selfTwoots, selfMediaTwoots, likedTwoots, displayName}) {
     const [key, setKey] = useState('twoots');
     
     return (
@@ -20,7 +19,7 @@ function ProfileNavBar({selfTwoots, selfMediaTwoots, likedTwoots}) {
         <Tab class="show active" eventKey="twoots" title="Twoots">
             {Object.keys(selfTwoots).length === 0 ? 
                 (
-                    <h4 className="profile__emptyFeed">You haven't twooted anything yet</h4>
+                    <h4 className="profile__emptyFeed">{displayName} hasn't twooted anything yet</h4>
                 ) : 
                 (
 
@@ -48,7 +47,7 @@ function ProfileNavBar({selfTwoots, selfMediaTwoots, likedTwoots}) {
         <Tab eventKey="media" title="Media">
             {Object.keys(selfMediaTwoots).length === 0 ? 
                 (
-                    <h4 className="profile__emptyFeed">You haven't twooted any photos or videos yet</h4>  
+                    <h4 className="profile__emptyFeed">{displayName} hasn't twooted any photos or videos yet</h4>  
                 ) : 
                 (
                     Object.keys(selfMediaTwoots).sort().reverse().map(postID => 
@@ -75,7 +74,7 @@ function ProfileNavBar({selfTwoots, selfMediaTwoots, likedTwoots}) {
 
             {Object.keys(likedTwoots).length === 0 ? 
                 (
-                    <h4 className="profile__emptyFeed">You haven't liked any twoots yet</h4>
+                    <h4 className="profile__emptyFeed">{displayName} hasn't liked any twoots yet</h4>
                 ) : 
                 (
                     Object.keys(likedTwoots).sort().reverse().map(postID => 
@@ -90,7 +89,7 @@ function ProfileNavBar({selfTwoots, selfMediaTwoots, likedTwoots}) {
                             likes={likedTwoots[postID].likes}
                             comments={likedTwoots[postID].comments}
                             retwoots={likedTwoots[postID].retwoots}
-                            likedbyself={1}//its given that these will be liked by self
+                            likedbyself={likedTwoots[postID].likedbyself}
                             retwootedbyself = {likedTwoots[postID].retwootedbyself}
                             post_id ={postID}
                         />
@@ -105,22 +104,67 @@ function ProfileNavBar({selfTwoots, selfMediaTwoots, likedTwoots}) {
   }
 
 
-function Profile({userData, logged_in}) {
+function OtherProfile({}) {
 
+    const [userData, setUserData] = useState({});
     const [selfTwoots, setSelfTwoots] = useState({});
     const [selfMediaTwoots, setSelfMediaTwoots] = useState({});
     const [likedTwoots, setLikedTwoots] = useState({});
+    
+    const [toFollow, setToFollow] = useState();
 
-    const [show_editProfile, set_editProfile] = useState(false);
-    const selfProfile = true;
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const q = urlParams.get('user');
+    
+    async function get_data()
+    {
+        const requestView = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(q)
+        };
+        fetch('/api/get_userdata/', requestView)
+            .then(response => response.json())
+            .then(data => setUserData(data))
+            .then(setToFollow(Boolean(userData.self_following)));
+    }
 
     async function get_twoot(route, setFunc) //self, self-media, liked
     {
         if (route == null) {return;}
 
-        await fetch(route)
-        .then(response => response.json())
-        .then(data => setFunc(data));
+        const requestTwoots = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(q)
+        };
+        fetch(route, requestTwoots)
+            .then(response => response.json())
+            .then(data => setFunc(data));
+    }
+
+    async function follow_user()
+    {
+        const username = {'username': userData.username}
+        const response = await fetch('/api/follow_user/',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(username)
+        });
+        switch(response.status)
+        {
+            case 200://follow success
+                setToFollow(true);
+                break;
+            case 201: //unfollow success
+                setToFollow(false);
+                break;
+            default:
+                break;
+        }
     }
 
     function get_twoots(){
@@ -134,10 +178,10 @@ function Profile({userData, logged_in}) {
     }, []);
 
     useEffect(() => {  //does this do anything lol
-    }, [logged_in]);
+    }, [userData, toFollow]);
 
     return (
-        <div className='profile' >
+        <div className='profile' onLoad={() => get_data()}>
             <div className="profile__header">
                 <h2>Profile</h2>
             </div>
@@ -156,24 +200,20 @@ function Profile({userData, logged_in}) {
                             <p><span>{userData.following}</span> Following</p>
                             <p><span>{userData.followers}</span> Followers</p>
                         </div>
-                        {/*console.log('=',userData.dob,'=')*/}
-                        <span className="profile__edit" hidden={!selfProfile}>
+                        
+                        <span className="profile__edit">
                                 <span hidden={(userData.dob==null) ? true: false }><CakeIcon/>Born {userData.dob}</span>
-                                <Button 
-                                    className="btn_follow"
-                                    onClick= {() => set_editProfile(true)}>
-                                    Edit Profile
-                                </Button>
-                                <EditProfileModal 
-                                    show_editProfile={show_editProfile}
-                                    set_editProfile={set_editProfile}
-                                    userData={userData}
-                                />
+                                <button 
+                                    className= {toFollow ? "btn_following" : "btn_follow"} // to follow, or not to follow.
+                                    onClick= {() => follow_user()}>
+                                    {toFollow ? "Following" : "Follow"}
+                                </button>
+
                         </span>
                     </div>
                 </div>
                 <div className="profile__content">
-                    <ProfileNavBar selfTwoots={selfTwoots} selfMediaTwoots={selfMediaTwoots} likedTwoots={likedTwoots}/>
+                    <ProfileNavBar selfTwoots={selfTwoots} selfMediaTwoots={selfMediaTwoots} likedTwoots={likedTwoots} displayName={userData.displayname}/>
                 </div>
             </div>
 
@@ -182,4 +222,4 @@ function Profile({userData, logged_in}) {
     )
 }
 
-export default Profile
+export default OtherProfile

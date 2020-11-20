@@ -134,11 +134,14 @@ function Post({displayName, username, verified, timestamp, text, image,
                 <div className="post__header">
                     <div className="post__headerText">
                         <h3>
-                            <span className="post__headerText__displayName">{displayName}</span>
+                            <form action="/view">
+                                <input name="user" id="user" type="text" value= {username} hidden/>
+                                <button type="submit"><span className="post__headerText__displayName">{displayName}</span></button>
+                            </form>
                             <span className="post__headerSpecial">
                                 {Boolean(verified) && <CheckCircleIcon className="post__badge" />}
                             </span>
-                            <span className="post__headerText__username">@{username}</span>
+                            <span className="post__headerText__username" name="user">@{username}</span>
                         </h3>
                     </div>
                     <div className="post__headerDescription">
