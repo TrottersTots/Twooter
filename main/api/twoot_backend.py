@@ -106,6 +106,20 @@ class CommentTwoot(Resource):
                     post_id=info['post_id'], user_id=session['user_id'], message=info['message'])
         return 'comment-succesful', 200
 
+class GetComments(Resource):
+    def post(self):
+        # displayName, username, bio, verified, avatar
+
+        post_id = request.get_json()
+        q = db.execute("SELECT u.displayName, u.username, u.bio, u.verified, u.avatar, c.message \
+                        FROM users AS u \
+                        JOIN comments AS c \
+                        ON c.user_id = u.user_id \
+                        WHERE post_id=:post_id", post_id=post_id)
+        q = query_to_dict(q)
+        
+        return jsonify(q)
+
 class Retwoot(Resource):
     """
     Will toggle the 'retweet'd status from a specific user on a specific twoot

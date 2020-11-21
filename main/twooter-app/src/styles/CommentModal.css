@@ -1,0 +1,44 @@
+.comments_container {
+    min-width: 614px;
+    overflow-y: scroll;
+}
+
+/* Hide scrollbar on Chrome, Safari, Opera */
+.comments_container::-webkit-scrollbar {
+    display: none;
+}
+/* Hide scrollbar on IE, Edge, Firefox */
+.comments_container {
+    -ms-overflow-style: none; /* IE / Edge */
+    scrollbar-width: none; /* Firefox */
+}
+.comment_inputContainer {
+    display: flex;
+    flex-direction: column;
+    width: 640px;
+}
+.comment__input {
+    
+    box-sizing: border-box;
+    margin: 10px;
+    background-color: var(--main-background);
+    color: var(--white);
+    border: 1px dashed var(--white);
+    border-radius: 30px;
+    width: 95%;
+}
+
+.comment__button {
+    background-color: var(--blue) !important;
+    border: none !important;
+    color: var(--white) !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    text-transform: inherit !important;
+    border-radius: 30px !important;
+    margin-right: 20px !important;
+    margin-left: auto !important;
+    width: 200px;
+    height: 30px !important;    
+   
+}
