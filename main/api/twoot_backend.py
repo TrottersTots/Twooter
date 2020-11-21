@@ -299,22 +299,3 @@ class GetCuratedTwoots(Resource):
         for d in q:
             twoots[d['post_id']] = d
         return jsonify(twoots)
-
-class GetConnections(Resource):
-    """
-    returns mutual friends ("connect" tab of explore)
-    """
-    def get(self):
-        #select friends of friends user information
-        q = db.execute("SELECT username,displayname,bio,verified,avatar FROM users \
-                        WHERE user_id IN ( \
-                            SELECT other_id FROM follows \
-	                        WHERE self_id IN ( \
-		                        SELECT other_id FROM follows \
-		                        WHERE self_id=:user_id \
-	                            ) \
-	                        AND other_id!=:user_id \
-                        )", user_id=session['user_id'])
-
-        q = query_to_dict(q)
-        return jsonify(q)

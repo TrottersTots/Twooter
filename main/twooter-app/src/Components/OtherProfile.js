@@ -116,7 +116,7 @@ function OtherProfile({}) {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const q = urlParams.get('user');
-    
+    console.log('url params:', q);
     async function get_data()
     {
         const requestView = {
@@ -124,10 +124,11 @@ function OtherProfile({}) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(q)
         };
-        fetch('/api/get_userdata/', requestView)
+        await fetch('/api/get_userdata/', requestView)
             .then(response => response.json())
             .then(data => setUserData(data))
             .then(setToFollow(Boolean(userData.self_following)));
+
     }
 
     async function get_twoot(route, setFunc) //self, self-media, liked
@@ -165,6 +166,7 @@ function OtherProfile({}) {
             default:
                 break;
         }
+        console.log('follow status: ', toFollow);
     }
 
     function get_twoots(){

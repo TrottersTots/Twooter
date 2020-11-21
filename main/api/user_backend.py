@@ -126,7 +126,7 @@ class DeleteUser(Resource):
 class FollowUser(Resource):
     def post(self):
         to_follow = request.get_json() #to_follow['username']
-        
+        print(f'to follow: {to_follow}')
         follow_id = db.execute('SELECT user_id FROM users WHERE username=:username',
                                 username = to_follow['username'])
         follow_id = query_to_dict(follow_id)
@@ -135,10 +135,14 @@ class FollowUser(Resource):
         follow_id = follow_id[0]['user_id']
         
         q = db.execute('SELECT * FROM users JOIN follows ON \
-            follows.other_id=:id\
-            WHERE users.user_id=:user_id AND follows.self_id=:id',
+            follows.other_id=:id    \
+            WHERE users.user_id=:id AND follows.self_id=:user_id',
             id=follow_id, user_id=session['user_id'])
         q = query_to_dict(q)
+        print(f'USER_ID: ', session['user_id'])
+        print(f'FOLLOW_ID: ', follow_id)
+
+        print(f'QUERY: {q}')
         if(not len(q)):# the user does not follw 'to_follow' so set them to follow
             db.execute('INSERT INTO follows (self_id, other_id) VALUES \
                             (:user_id, :id)',
@@ -156,8 +160,8 @@ class UserData(Resource):
         q = query_to_dict(q)
         
         #query for follower/following counts and then append them to our main query
-        q[0].update(query_to_dict(db.execute("SELECT COUNT(other_id) as followers FROM follows WHERE self_id=:user_id", user_id=session['user_id']))[0])
-        q[0].update(query_to_dict(db.execute("SELECT COUNT(self_id) as following FROM follows WHERE other_id=:user_id", user_id=session['user_id']))[0])
+        q[0].update(query_to_dict(db.execute("SELECT COUNT(other_id) as following FROM follows WHERE self_id=:user_id", user_id=session['user_id']))[0])
+        q[0].update(query_to_dict(db.execute("SELECT COUNT(self_id) as followers FROM follows WHERE other_id=:user_id", user_id=session['user_id']))[0])
         
         #append an avatar element to the dictionary if the user has an avatar in the directory
         
@@ -174,14 +178,13 @@ class UserData(Resource):
         q = query_to_dict(q)
         
         #query for follower/following counts and then append them to our main query
-        q[0].update(query_to_dict(db.execute("SELECT COUNT(other_id) AS followers FROM follows WHERE self_id=:user_id", user_id=other))[0])
-        q[0].update(query_to_dict(db.execute("SELECT COUNT(self_id) AS following FROM follows WHERE other_id=:user_id", user_id=other))[0])
+        q[0].update(query_to_dict(db.execute("SELECT COUNT(other_id) AS following FROM follows WHERE self_id=:user_id", user_id=other))[0])
+        q[0].update(query_to_dict(db.execute("SELECT COUNT(self_id) AS followers FROM follows WHERE other_id=:user_id", user_id=other))[0])
         
         q[0].update(query_to_dict(db.execute("SELECT COUNT(other_id) AS self_following \
                                                FROM follows WHERE self_id=:user_id AND other_id=:other",
                                                other=other,user_id=session['user_id']))[0])
         #print(f"me: {session['user_id']} \nother:{other}")
-        print(q[0])
         return jsonify(q[0])
 class UpdateUserData(Resource):
     def post(self):
@@ -229,6 +232,25 @@ class SearchUsers(Resource):
         #except Exception as e:
             #return 'Error when searching for a term', 500 
         
+
+class GetConnections(Resource):
+    """
+    returns mutual friends ("connect" tab of explore)
+    """
+    def get(self):
+        #select friends of friends user information
+        q = db.execute("SELECT username,displayname,bio,verified,avatar FROM users \
+                        WHERE user_id IN ( \
+                            SELECT other_id FROM follows \
+	                        WHERE self_id IN ( \
+		                        SELECT other_id FROM follows \
+		                        WHERE self_id=:user_id \
+	                            ) \
+	                        AND other_id!=:user_id \
+                        )", user_id=session['user_id'])
+
+        q = query_to_dict(q)
+        return jsonify(q)
 
 class Main(Resource):
     def get(self):

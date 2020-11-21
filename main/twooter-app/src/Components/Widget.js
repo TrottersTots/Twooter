@@ -3,7 +3,8 @@ import '../styles/Widget.css';
 import { Avatar, Button } from "@material-ui/core";
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
-function Widget({widgetType, topic, sub_topic, text, thumbnail, flavor_data, displayName, userName, verified, avatar}) {
+function Widget({widgetType, topic, sub_topic, text, thumbnail, flavor_data, displayName, userName, verified, avatar,
+    get_connnections}) {
     if (widgetType === "whatsHappening")
     {
         return (
@@ -21,22 +22,41 @@ function Widget({widgetType, topic, sub_topic, text, thumbnail, flavor_data, dis
             </div>
         )
     }
-
+    
     if (widgetType === "whoToFollow")
     {
+        async function follow_user()
+        {
+            const username = {'username': userName}
+            const response = await fetch('/api/follow_user/',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(username)
+            });
+            switch(response.status)
+            {
+                case 200://follow success
+                    get_connnections();
+                    break;
+                default:
+                    break;
+            }
+        }
         return (
             <div className="widget widget__follow">
-                <div>{/* avatar and names */}
-                    <Avatar src={avatar} />
-                </div>
+                <Avatar src={process.env.PUBLIC_URL+"/avatars/"+ avatar +".jpg"} className="widget__avatar"/>
                 <div className="widget__followText">
                     
-                    <h4>{displayName} {verified && <CheckCircleIcon className="post__badge" />}</h4>
+                    <h4>{displayName} {Boolean(verified) && <CheckCircleIcon className="post__badge" />}</h4>
                         
                     <p>@{userName}</p>
                 </div>
                 <div>
-                    <Button className="widget__followButton">Follow</Button>
+                    <Button 
+                    onClick={follow_user}
+                    className="widget__followButton">Follow</Button>
                 </div>
             </div>
         )
