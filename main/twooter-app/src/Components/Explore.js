@@ -45,7 +45,7 @@ function ExploreNavBar(){
         await fetch('api/get_connections/')
         .then(response => response.json())
         .then(data => setConnections(data));
-    }
+    } 
 
     return (
         <Tabs
@@ -122,7 +122,6 @@ function ExploreNavBar(){
       </Tabs>
     )
 }
-
 
 function Explore() {
     return (

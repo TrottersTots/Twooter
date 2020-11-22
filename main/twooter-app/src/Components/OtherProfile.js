@@ -110,21 +110,20 @@ function OtherProfile({}) {
     const [selfTwoots, setSelfTwoots] = useState({});
     const [selfMediaTwoots, setSelfMediaTwoots] = useState({});
     const [likedTwoots, setLikedTwoots] = useState({});
-    
     const [toFollow, setToFollow] = useState();
+    let q = '';
 
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const q = urlParams.get('user');
-    
     async function get_data()
     {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        q = (urlParams.get('user'));
         const requestView = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(q)
         };
-        fetch('/api/get_userdata/', requestView)
+        await fetch('/api/get_userdata/', requestView)
             .then(response => response.json())
             .then(data => setUserData(data))
             .then(setToFollow(Boolean(userData.self_following)));
@@ -165,6 +164,7 @@ function OtherProfile({}) {
             default:
                 break;
         }
+        console.log('follow status: ', toFollow);
     }
 
     function get_twoots(){
@@ -173,7 +173,8 @@ function OtherProfile({}) {
         get_twoot('/api/get_likedtwoot/', setLikedTwoots);
     }
 
-    useEffect(() => {  
+    useEffect(() => {
+        get_data();
         get_twoots();
     }, []);
 

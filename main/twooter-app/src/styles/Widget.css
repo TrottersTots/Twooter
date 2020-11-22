@@ -50,3 +50,7 @@
     width: 100px;
     height: 35px !important;
 }
+.widget__avatar{
+    display: flex;
+    
+}

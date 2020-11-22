@@ -3,11 +3,11 @@ from flask_session import Session
 from flask_restful import Resource, Api
 
 from user_backend import  CreateUser, LoginUser, DeleteUser,\
-FollowUser, Main, UserData, UpdateUserData, SearchUsers
+FollowUser, Main, UserData, UpdateUserData, SearchUsers, GetConnections
 
 from twoot_backend import PostTwoot, DeleteTwoot, LikeTwoot,\
 Retwoot, GetTwoot, CommentTwoot, GetSelfTwoot, GetSelfMediaTwoot, GetLikedTwoot,\
-GetTrendingTwoots, GetCuratedTwoots, SearchQuery, GetConnections
+GetTrendingTwoots, GetCuratedTwoots, SearchQuery
 
 from tempfile import mkdtemp
 
