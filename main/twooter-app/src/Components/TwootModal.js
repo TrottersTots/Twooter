@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { Modal } from 'react-bootstrap';
-import { Avatar,Button } from "@material-ui/core";
+//import { Avatar,Button } from "@material-ui/core";
 import TweetBox from './TweetBox';
 import '../styles/TwootModal.css';
 

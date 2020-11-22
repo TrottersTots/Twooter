@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import '../styles/Post.css';
 import {Avatar} from '@material-ui/core';
+import CommentModal from './CommentModal';
 //icons
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
@@ -8,6 +9,7 @@ import RepeatIcon from '@material-ui/icons/Repeat';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import PublishIcon from '@material-ui/icons/Publish';
 //
+
 
 function Post({displayName, username, verified, timestamp, text, image, 
     avatar, likes, comments, retwoots, likedbyself, retwootedbyself, post_id, commentedbyself}) {
@@ -31,7 +33,7 @@ function Post({displayName, username, verified, timestamp, text, image,
     if(comments == 0){comments=null}
     if(retwoots == 0){retwoots=null}
 
-    const [showCommentBox, setShowCommentBox] = useState(false);
+    const [show_comment, set_showComment] = useState(false);
     const [commentMessage, setCommentMessage] = useState('');
 
     //front-end display only, not to be used in REST workflow 
@@ -107,23 +109,6 @@ function Post({displayName, username, verified, timestamp, text, image,
 
         }
     }
-    async function comment_post()
-    {
-        const comment = {post_id, 'message': commentMessage}
-        const response = await fetch('/api/comment_twoot/',{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(comment)
-        });
-        if(response.ok){
-            console.log('comment-successful');
-            setCommentMessage('');
-            setDisplayCommentCount(comments + 1);
-            setCommentIconStyle(true);
-        }
-    }
 
     return (
         <div className="post">
@@ -153,7 +138,7 @@ function Post({displayName, username, verified, timestamp, text, image,
                 <div className="post__footer">
                     {/* Comment button */}
                     <div className="post__footer__iconDiv">
-                        <button onClick={() => setShowCommentBox(!showCommentBox)}>
+                        <button onClick={() => set_showComment(!show_comment)}>
                         <ChatBubbleOutlineIcon id="chatIcon" fontSize="small"
                         style={{color: commentIconStyle ? 'var(--blue)' : 'grey'}}/></button>
                         <span>{displayCommentCount}</span>
@@ -183,25 +168,13 @@ function Post({displayName, username, verified, timestamp, text, image,
                     </div>
 
                 </div>
-                {showCommentBox ? (
-                    <div className='comment_box'>
-                        <div className="tweetBox__input">
-                    <Avatar src="" />
-                    <input 
-                        placeholder="What's on your mind? Be kind!" 
-                        value = {commentMessage}
-                        name="comment_message" 
-                        type="text"
-                        onChange={e => setCommentMessage(e.target.value)}>   
-                    </input>
-                    <button 
-                    className="tweetBox__tweetButton" 
-                    onClick={comment_post}
-                    >Reply</button>
+                
+                <CommentModal
+                 post_id = {post_id} 
+                 show_comment = {show_comment}
+                 set_showComment = {set_showComment}
+                />
 
-                        </div>
-                    </div>
-                    ): ('')}
             </div>
         </div>
     );
