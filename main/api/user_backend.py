@@ -247,6 +247,10 @@ class GetConnections(Resource):
 		                        WHERE self_id=:user_id \
 	                            ) \
 	                        AND other_id!=:user_id \
+                            AND other_id NOT IN ( \
+                                SELECT other_id FROM follows \
+                                WHERE self_id=2 \
+                            ) \
                         )", user_id=session['user_id'])
 
         q = query_to_dict(q)
