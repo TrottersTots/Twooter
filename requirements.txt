@@ -5,7 +5,7 @@ Flask-Session
 requests
 SQLAlchemy
 sqlparse
-termcolor
+newsapi-python
 
 npm--
 

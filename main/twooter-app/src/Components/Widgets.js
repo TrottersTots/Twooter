@@ -6,14 +6,25 @@ import Widget from './Widget';
 function Widgets({logged_in}) {  
     const [connections, setConnections] = useState({});
     const [randMutualUser, setRandMutualUser] = useState({});
+    const [news, setNews] = useState([]);
+
     async function get_connnections()
     {
         await fetch('api/get_connections/')
         .then(response => response.json())
         .then(data => setConnections(data));
     }
+
+    async function get_news()
+    {   //max of 100 requests per day with the free plan
+        await fetch('api/get_news/')
+        .then(response => response.json())
+        .then(data => setNews(data));
+    }
+
     useEffect(() => {  
         get_connnections();
+        get_news();
     }, []);//on mount/change
     useEffect(() =>{
         getRandom();
@@ -37,11 +48,12 @@ function Widgets({logged_in}) {
                 <h2>What's Happening</h2>
                 <Widget 
                     widgetType="whatsHappening"
-                    topic="Politics"
+                    topic="News"
                     sub_topic="Trending"
-                    text="Pistol Shrimp 9000 decimates entire Highschool"
-                    thumbnail="https://qph.fs.quoracdn.net/main-qimg-5d695f84719ea6f50f542426a5765cb5.webp"
-                    flavor_data="69,420 Twoots"
+                    text={news.title}
+                    link={news.articleURL}
+                    thumbnail={news.imgURL}
+                    flavor_data={news.author}
                 />
             </div>
             {logged_in ? (

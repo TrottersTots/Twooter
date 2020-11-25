@@ -1,12 +1,18 @@
+from random import randint
 from flask import Flask, jsonify, request, session
 from flask_restful import Resource
 from models import Twoot
 from db import db
 from helpers import query_to_dict
+
+from newsapi import NewsApiClient
+from secret import news_api_key
 """
 twoot_backend.py-
 manages the backend of twoot creation, deletion, and editing
 """
+
+newsapi = NewsApiClient(api_key=news_api_key)
 
 def append_twoot_stats(q):
     for post in q:
@@ -313,3 +319,20 @@ class GetCuratedTwoots(Resource):
         for d in q:
             twoots[d['post_id']] = d
         return jsonify(twoots)
+
+class GetNews(Resource):
+    def get(self):
+        articleData = {}
+
+        #gets top headlines from bbc news
+        srcs = 'bbc-news'
+        news = newsapi.get_top_headlines(sources=srcs)
+        
+        articleSelect = randint(0,news.get('totalResults'))
+        
+        articleData['author'] = news.get('articles')[articleSelect].get("author")
+        articleData['title'] = news.get('articles')[articleSelect].get("title")
+        articleData['articleURL'] = news.get('articles')[articleSelect].get("url")
+        articleData['imgURL'] = news.get('articles')[articleSelect].get("urlToImage")
+        
+        return jsonify(articleData)

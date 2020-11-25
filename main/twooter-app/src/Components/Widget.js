@@ -3,7 +3,7 @@ import '../styles/Widget.css';
 import { Avatar, Button } from "@material-ui/core";
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
-function Widget({widgetType, topic, sub_topic, text, thumbnail, flavor_data, displayName, userName, verified, avatar,
+function Widget({widgetType, topic, sub_topic, text, link, thumbnail, flavor_data, displayName, userName, verified, avatar,
     get_connnections}) {
     if (widgetType === "whatsHappening")
     {
@@ -13,7 +13,7 @@ function Widget({widgetType, topic, sub_topic, text, thumbnail, flavor_data, dis
                     <p>{topic} · {sub_topic}</p>
                 </div>
                 <div className="widget__content">
-                    <p>{text}</p>
+                    <p><a href={link} target="_blank">{text}</a></p>
                     <Avatar src={thumbnail} alt="" variant="rounded" className="widget__content__Avatar"/>
                 </div>
                 <div className="widget__topic">

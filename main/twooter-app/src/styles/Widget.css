@@ -1,3 +1,15 @@
+a:link {
+    color: var(--white);
+}
+a:hover {
+    color: var(--white);
+}
+a:visited {
+    color: var(--white);
+}
+a:active {
+    color: var(--white);
+}
 .widget {
     border-top: 1px solid var(--white);
     border-bottom: 1px solid var(--white);
