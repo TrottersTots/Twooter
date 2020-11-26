@@ -73,6 +73,9 @@ class CreateUser(Resource):
         if q is None:
             return 'user-creation-failed', 500
         
+        session['user_id'] = query_to_dict(db.execute('SELECT * FROM users WHERE username=:username', username=new_user.username))[0]['user_id']
+        #we need a hashed id so we can send it to the front end without worries (for avatar path)
+        session['hashed_id'] = hash(session['user_id']) #<== very intricate hash function :)
         return 'user-created', 200 #return 201 if valid POST request.
 
 class LoginUser(Resource):

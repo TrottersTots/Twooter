@@ -24,6 +24,7 @@ function UserModal({show_condition, setShow, modalTitle, registering, logged_in,
         });
         if(response.ok){
           console.log('user-created-successfuly');
+          window.location.reload()
           setUsername('');
           setPassword('');
           setPasswordConfirm('');
@@ -34,6 +35,7 @@ function UserModal({show_condition, setShow, modalTitle, registering, logged_in,
 
             switch (response.status){
               case (200):
+                
                 break;
               case (459):
                 setErr('form incomplete');

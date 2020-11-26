@@ -18,6 +18,8 @@ function DeleteModal({show_delete, set_showDelete, deleteErr, set_deleteErr}) {
             //log the user out
             //setLoggedIn(false);
             console.log('DELETE SUCCESS')
+            window.location.href = '/';
+            //window.location.reload()
             break;
           case(500):
             set_deleteErr(true);
