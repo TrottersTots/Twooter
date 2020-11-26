@@ -3,7 +3,7 @@ from flask_session import Session
 from flask_restful import Resource, Api
 
 from user_backend import  CreateUser, LoginUser, DeleteUser,\
-FollowUser, Main, UserData, UpdateUserData, SearchUsers, GetConnections
+FollowUser, Main, UserData, UpdateUserData, SearchUsers, GetConnections, DeleteAccount
 
 from twoot_backend import PostTwoot, DeleteTwoot, LikeTwoot,\
 Retwoot, GetTwoot, CommentTwoot, GetSelfTwoot, GetSelfMediaTwoot, GetLikedTwoot,\
@@ -43,6 +43,7 @@ api.add_resource(LoginUser, path + '/login_user/') #methods:['POST']
 api.add_resource(DeleteUser, path +  '/delete_user/') #methods:['POST']
 api.add_resource(FollowUser, path +  '/follow_user/') #methods:['POST']
 api.add_resource(SearchUsers, path + '/search_users/') #methods:['POST']
+api.add_resource(DeleteAccount, path + '/delete_account/') #methods:['GET']
 
 #- Twoot
 api.add_resource(PostTwoot, path +    '/post_twoot/'    ) #methods:['POST']

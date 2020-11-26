@@ -29,3 +29,47 @@
     font-weight: 800;
 }
 /*  end of standard css  */
+.more__element {
+    border-bottom: 1px solid var(--highlight);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+button {
+    color: var(--white);
+}
+button:hover{
+    text-decoration: underline;
+}
+.confirmation {
+    text-align: center;
+}
+.confirmButtons {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.confirmButtons > button {
+    background-color: var(--blue) !important;
+    border: none !important;
+    color: var(--white) !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    text-transform: inherit !important;
+    border-radius: 30px !important;
+    width: 200px;
+    height: 30px !important;    
+}
+
+.delete__error {
+    background-color: var(--red) !important;
+    border: none !important;
+    color: var(--white) !important;
+    border-radius: 30px !important;
+    width: 400px;
+    margin: 10px auto 0 auto;
+}

@@ -269,3 +269,31 @@ class Main(Resource):
             return 'logout-failed', 500
         else:
             return 'logout-success', 200
+
+class DeleteAccount(Resource):
+    def get(self):
+
+        #get this users posts so we can delete other users interaction with them
+        #q = query_to_dict(db.execute("SELECT post_id FROM posts WHERE user_id=:user_id", user_id=session['user_id']))
+        #posts=[]
+        #[posts.append(p.get('post_id')) for p in q]
+        
+        #delete records related to this user
+        db.execute("DELETE FROM likes WHERE post_id IN \
+                    (SELECT post_id from posts WHERE user_id=:user_id) OR user_id=:user_id", user_id=session['user_id']) #Delete all of other users likes on this users posts + this users likes
+        db.execute("DELETE FROM comments WHERE post_id IN \
+                    (SELECT post_id from posts WHERE user_id=:user_id) OR user_id=:user_id", user_id=session['user_id']) #Delete all of other users comments on this users posts + this users comments
+        db.execute("DELETE FROM retwoots WHERE post_id IN \
+                    (SELECT post_id from posts WHERE user_id=:user_id) OR user_id=:user_id", user_id=session['user_id']) #Delete all of other users retwoots on this users posts + this users retwoots
+        
+        db.execute("DELETE FROM follows WHERE self_id=:user_id OR other_id=:user_id", user_id=session['user_id']) #remove this user from others follow lists, remove their follow list
+        
+        db.execute("DELETE FROM posts WHERE user_id=:user_id", user_id=session['user_id']) #remove this users posts
+
+        db.execute("DELETE FROM users WHERE user_id=:user_id", user_id=session['user_id']) #remove this user
+        
+        #clear their session
+        session.pop('user_id')
+        session.pop('hashed_id')
+        
+        return 200

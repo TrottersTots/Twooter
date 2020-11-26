@@ -64,23 +64,23 @@ function CommentModal({post_id, show_comment, set_showComment}) {
                 
                 </div>
             </Modal.Header>
-                    <Modal.Body>
-                        <div className="comments_container">
-                            {Object.keys(comments).sort().reverse().map(postID =>
-                                //displayName, username, bio, verified, avatar, header 
-                                <ProfilePreview
-                                    displayName={comments[postID].displayname}
-                                    username={comments[postID].username}
-                                    verified={comments[postID].verified}
-                                    bio={comments[postID].message}
-                                    avatar={comments[postID].avatar}
-                                    header={false}
+            <Modal.Body>
+                <div className="comments_container">
+                    {Object.keys(comments).sort().reverse().map(postID =>
+                        //displayName, username, bio, verified, avatar, header 
+                        <ProfilePreview
+                            displayName={comments[postID].displayname}
+                            username={comments[postID].username}
+                            verified={comments[postID].verified}
+                            bio={comments[postID].message}
+                            avatar={comments[postID].avatar}
+                            header={false}
 
-                                />
-                           
-                            )}
-                        </div>
-                    </Modal.Body>
+                        />
+                    
+                    )}
+                </div>
+            </Modal.Body>
             </Modal>            
         </>
         )
