@@ -86,6 +86,7 @@ function EditProfileModal ({show_editProfile, set_editProfile, userData}) {
                                     <Avatar className="edit__avatarButton__avatar" src={process.env.PUBLIC_URL+"/avatars/"+ userData.avatar +".jpg"}/>
                                 </Button>
                                 <input type="file"
+                                 accept= "image/png, image/jpg, image/jpeg"
                                  id="image"
                                  onChange={e => setAvatarAsBinaryString(e.target.files[0])}/>
                                 <div className="edit__container__inputContainer">

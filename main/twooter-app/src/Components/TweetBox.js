@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import "../styles/TweetBox.css"
 import { Avatar, Button } from "@material-ui/core";
+import ImageIcon from '@material-ui/icons/Image';
 //import ImageIcon from '@material-ui/icons/Image';
 
 function TweetBox({userData, inModal, twoots, setTwoots, setMakeTwoot}) {
@@ -8,9 +9,9 @@ function TweetBox({userData, inModal, twoots, setTwoots, setMakeTwoot}) {
     const [message, setMessage] = useState('');
     const [image, setImage] = useState('');
 
-    useEffect(() => {  
-        get_twoot();
-    }, []);
+    //useEffect(() => {  
+    //    get_twoot();
+    //}, []);
 
     async function post_twoot()
     {
@@ -30,11 +31,30 @@ function TweetBox({userData, inModal, twoots, setTwoots, setMakeTwoot}) {
         }
     }
 
-    async function get_twoot()
-    {
-        await fetch('api/get_twoot/')
-        .then(response => response.json())
-        .then(data => setTwoots(data));
+    // async function get_twoot()
+    // {
+    //     await fetch('api/get_twoot/')
+    //     .then(response => response.json())
+    //     .then(data => setTwoots(data));
+    // }
+
+    
+    function setImageAsBinaryString(file){
+
+        //console.log('FILE:',file);
+        var reader = new FileReader();
+        reader.readAsBinaryString(file);
+        
+        reader.onload = function() {
+            //console.log('HELLO???');
+            //console.log(btoa(reader.result));
+            setImage(btoa(reader.result));
+        };
+
+        reader.onerror = function() {
+            console.log('error occured converting image to binary string...');
+        };
+
     }
 
     return (
@@ -52,14 +72,22 @@ function TweetBox({userData, inModal, twoots, setTwoots, setMakeTwoot}) {
 
                 </div>
                 <div className="tweetBox__imageDiv">
-                    <input 
+                    {/* <input 
                         className= "tweetBox__imageInput"
                         placeholder="Image URL" 
                         type="text"
                         name="image"
                         value={image}
                         onChange={e => setImage(e.target.value)}>
-                    </input>
+                    </input> */}
+                    <input type="file"
+                     name="image"
+                     accept="image/png, image/jpg, image/jpeg"
+                     id="image"
+                     className="inputFile"
+                     onChange={e => setImageAsBinaryString(e.target.files[0])}
+                    />
+                    <label for="image"><ImageIcon/></label>
                 </div>
                 
                 

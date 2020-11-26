@@ -62,14 +62,15 @@ class PostTwoot(Resource):
         new_twoot = Twoot(session['user_id'],
                           twoot_info_json['message'],
                           twoot_info_json['image'])
-        #insert twoot to db's
-        #...db stuff...
-        
-        # REGEX TO DETECT A URL
-        #if twoot_info_json['image'] :
-        #    return 'invalid-image', 462
 
-        #STORE IMAGE FROM URL IN FILE DIR
+        #since a user can have multiple images, we will need to create a new image with a name that isnt taken, then save it in the database with the image name
+
+        #this needs editing
+        #image_path = path.join(current_dir, f"../twooter-app/public/user_images/{session['hashed_id']}.jpg")
+        #if(  len(new_twoot['image'])  > 3):
+        #    with open(image_path, "wb") as fh:
+        #        fh.write(base64.decodebytes(new_twoot['image'].encode('ascii')))
+
 
         db.execute("INSERT INTO posts (user_id, message, image) VALUES (:user_id, :message, :image)",
                     user_id=new_twoot.owner,
