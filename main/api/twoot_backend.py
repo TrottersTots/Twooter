@@ -4,14 +4,15 @@ from flask_restful import Resource
 from models import Twoot
 from db import db
 from helpers import query_to_dict
-
+from os import path
+import base64
 from newsapi import NewsApiClient
 from secret import news_api_key
 """
 twoot_backend.py-
 manages the backend of twoot creation, deletion, and editing
 """
-
+current_dir = path.dirname(__file__)
 newsapi = NewsApiClient(api_key=news_api_key)
 
 def append_twoot_stats(q):
@@ -62,20 +63,19 @@ class PostTwoot(Resource):
         new_twoot = Twoot(session['user_id'],
                           twoot_info_json['message'],
                           twoot_info_json['image'])
+        
+        #finds what the next posts (this one)'s id will be
+        nextPostID= query_to_dict(db.execute("SELECT seq AS n FROM sqlite_sequence WHERE name='posts'"))[0].get('n')+1
 
-        #since a user can have multiple images, we will need to create a new image with a name that isnt taken, then save it in the database with the image name
-
-        #this needs editing
-        #image_path = path.join(current_dir, f"../twooter-app/public/user_images/{session['hashed_id']}.jpg")
-        #if(  len(new_twoot['image'])  > 3):
-        #    with open(image_path, "wb") as fh:
-        #        fh.write(base64.decodebytes(new_twoot['image'].encode('ascii')))
-
-
+        image_path = path.join(current_dir, f"../twooter-app/public/user_images/{nextPostID}.jpg")
+        if(  len(twoot_info_json['image'])  > 3):
+            with open(image_path, "wb") as fh:
+                fh.write(base64.decodebytes(twoot_info_json['image'].encode('ascii')))
+        
         db.execute("INSERT INTO posts (user_id, message, image) VALUES (:user_id, :message, :image)",
                     user_id=new_twoot.owner,
                     message=new_twoot.message,
-                    image=new_twoot.image)
+                    image=nextPostID) #image is now technically useless since its a duplicate of post id
 
         return 'twoot-created', 200
 

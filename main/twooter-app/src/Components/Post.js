@@ -133,7 +133,7 @@ function Post({displayName, username, verified, timestamp, text, image,
                         <p>{text}</p>
                     </div>
                 </div>
-                <img src={image} alt=""/>
+                <img src={process.env.PUBLIC_URL+"/user_images/"+ image +".jpg"} alt=""/>
                 
                 <div className="post__footer">
                     {/* Comment button */}
