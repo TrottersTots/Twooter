@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import '../styles/Post.css';
 import {Avatar} from '@material-ui/core';
 import CommentModal from './CommentModal';
+import ShareModal from './ShareModal';
 //icons
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
@@ -35,6 +36,8 @@ function Post({displayName, username, verified, timestamp, text, image,
 
     const [show_comment, set_showComment] = useState(false);
     const [commentMessage, setCommentMessage] = useState('');
+    
+    const [show_share, set_showShare] = useState(false);
 
     //front-end display only, not to be used in REST workflow 
     const [displayLikes, setDisplayLikes] = useState(likes);
@@ -163,7 +166,7 @@ function Post({displayName, username, verified, timestamp, text, image,
                     </div>
                     {/* Share Button */}
                     <div className="post__footer_iconDiv">
-                        <button>
+                        <button onClick={() => set_showShare(!show_share)}>
                         <PublishIcon id="publishIcon" fontSize="small" /></button>
                     </div>
 
@@ -174,7 +177,11 @@ function Post({displayName, username, verified, timestamp, text, image,
                  show_comment = {show_comment}
                  set_showComment = {set_showComment}
                 />
-
+                <ShareModal 
+                 username = {username}
+                 show_share = {show_share}
+                 set_showShare = {set_showShare}
+                />
             </div>
         </div>
     );
