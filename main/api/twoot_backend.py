@@ -143,6 +143,12 @@ class Retwoot(Resource):
         if(not len(q)): # if the user has not yet liked the post, add them to db as a like to the post
             db.execute('INSERT INTO retwoots (user_id, post_id) VALUES (:user_id, :post_id)', 
                              user_id = session['user_id'], post_id = info['post_id'])
+
+            post = query_to_dict(db.execute("SELECT message, image FROM posts WHERE post_id=:post_id",post_id=info['post_id']))[0]
+            #duplicate the post
+            db.execute('INSERT INTO posts (user_id, message, image) VALUES (:user_id, :message, :image)',
+                        user_id=session['user_id'], message=post.get('message'), image=post.get('image'))
+
         else: # the user has already liked the post so remove them from the likes on that post
             db.execute('DELETE FROM retwoots WHERE user_id=:user_id AND post_id=:post_id',
                             user_id=session['user_id'], post_id=info['post_id'])

@@ -42,3 +42,10 @@
     height: 30px !important;    
    
 }
+
+.shareText {
+    background-color: var(--secondary-background);
+    text-align: center;
+    border: 1px dashed var(--highlight);
+    border-radius: 30px;
+}
