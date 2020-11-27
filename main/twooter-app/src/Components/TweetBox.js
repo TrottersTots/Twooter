@@ -9,9 +9,9 @@ function TweetBox({userData, inModal, twoots, setTwoots, setMakeTwoot}) {
     const [message, setMessage] = useState('');
     const [image, setImage] = useState('');
 
-    //useEffect(() => {  
-    //    get_twoot();
-    //}, []);
+    useEffect(() => {  
+        get_twoot();
+    }, []);
 
     async function post_twoot()
     {
@@ -31,12 +31,12 @@ function TweetBox({userData, inModal, twoots, setTwoots, setMakeTwoot}) {
         }
     }
 
-    // async function get_twoot()
-    // {
-    //     await fetch('api/get_twoot/')
-    //     .then(response => response.json())
-    //     .then(data => setTwoots(data));
-    // }
+     async function get_twoot()
+     {
+         await fetch('api/get_twoot/')
+         .then(response => response.json())
+         .then(data => setTwoots(data));
+     }
 
     
     function setImageAsBinaryString(file){
