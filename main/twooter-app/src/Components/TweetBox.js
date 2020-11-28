@@ -28,12 +28,13 @@ function TweetBox({userData, inModal, twoots, setTwoots, setMakeTwoot}) {
             setMessage('')
             setImage('')
             setMakeTwoot(false);
+            await get_twoot();
         }
     }
 
      async function get_twoot()
      {
-         await fetch('api/get_twoot/')
+         await fetch('/api/get_twoot/')
          .then(response => response.json())
          .then(data => setTwoots(data));
      }
@@ -59,7 +60,7 @@ function TweetBox({userData, inModal, twoots, setTwoots, setMakeTwoot}) {
 
     return (
         <div className={"tweetBox " + (inModal ? '' : 'notInModal')}>
-            <form action="/api/postTweet">
+            <form action="/api/postTweet/">
                 <div className="tweetBox__input">
                     <Avatar src={process.env.PUBLIC_URL+"/avatars/"+ userData.avatar +".jpg"} />
                     <input 

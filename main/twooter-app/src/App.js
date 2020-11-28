@@ -42,7 +42,7 @@ function App() {
               followers: '',
               following: '',}
 
-    await fetch('api/get_userdata/')
+    await fetch('/api/get_userdata/')
     .then(response => response.json())
     .then(data => {
       ud.displayname = data.displayname;
@@ -73,6 +73,7 @@ function App() {
     {
       case(200):
         setLoggedIn(true);
+        setUserData(); // <-- problem
         break;
       case(500):
         setLoggedIn(false);
@@ -81,7 +82,6 @@ function App() {
         setLoggedIn(false);
         return;
     }
-    setUserData(); // <-- problem
   }
   
   return (

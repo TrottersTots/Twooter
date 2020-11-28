@@ -19,7 +19,7 @@ function SearchNavBar({q}) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(q)
         };
-        fetch('/api/search_query', requestSearch)
+        fetch('/api/search_query/', requestSearch)
             .then(response => response.json())
             .then(data => setSearchContent(data));
     }
