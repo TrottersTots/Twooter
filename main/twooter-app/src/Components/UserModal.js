@@ -59,7 +59,7 @@ function UserModal({show_condition, setShow, modalTitle, registering, logged_in,
     async function submit_login()
     {
       const user_info = {username, password, email};
-      const response = await fetch('api/login_user/',{
+      const response = await fetch('/api/login_user/',{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

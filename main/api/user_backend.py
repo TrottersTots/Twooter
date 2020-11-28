@@ -89,8 +89,9 @@ class LoginUser(Resource):
                     return False
             return True
         try:
-            session.pop('user_id')#clears the user id
-            session.pop('hashed_id')
+            pass
+            #session.pop('user_id')#clears the user id
+            #session.pop('hashed_id')
         except KeyError:
             pass
         user_info_json = request.get_json()
@@ -266,8 +267,9 @@ class Main(Resource):
 
     def post(self):
         try:
-            session.pop('user_id')
-            session.pop('hashed_id')
+            pass
+            #session.pop('user_id')
+            #session.pop('hashed_id')
         except KeyError:
             return 'logout-failed', 500
         else:
@@ -296,7 +298,7 @@ class DeleteAccount(Resource):
         db.execute("DELETE FROM users WHERE user_id=:user_id", user_id=session['user_id']) #remove this user
         
         #clear their session
-        session.pop('user_id')
-        session.pop('hashed_id')
+        #session.pop('user_id')
+        #session.pop('hashed_id')
         
         return 200

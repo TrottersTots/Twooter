@@ -28,21 +28,21 @@ function ExploreNavBar(){
 
     async function get_trending()
     {
-        await fetch('api/get_trending/')
+        await fetch('/api/get_trending/')
         .then(response => response.json())
         .then(data => setTrendingTwoots(data));
     }
 
     async function get_curated()
     {
-        await fetch('api/get_curated/')
+        await fetch('/api/get_curated/')
         .then(response => response.json())
         .then(data => setCuratedTwoots(data));
     }
 
     async function get_connnections()
     {
-        await fetch('api/get_connections/')
+        await fetch('/api/get_connections/')
         .then(response => response.json())
         .then(data => setConnections(data));
     } 

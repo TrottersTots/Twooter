@@ -10,14 +10,14 @@ function Widgets({logged_in}) {
 
     async function get_connnections()
     {
-        await fetch('api/get_connections/')
+        await fetch('/api/get_connections/')
         .then(response => response.json())
         .then(data => setConnections(data));
     }
 
     async function get_news()
     {   //max of 100 requests per day with the free plan
-        await fetch('api/get_news/')
+        await fetch('/api/get_news/')
         .then(response => response.json())
         .then(data => setNews(data));
     }

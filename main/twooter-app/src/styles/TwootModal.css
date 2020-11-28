@@ -7,6 +7,8 @@
 .modal-header > button {
     color: white;
     margin: -1rem;
+    padding-top: 1px !important;
+    padding-right:  10px !important;
 }
 .modal-header > button:hover{
     color: white;
