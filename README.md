@@ -1,11 +1,53 @@
 # Twooter
-A full-stack Twitter clone
+A proof-of-proficiency MVP (Minimally Viable Product), realized as a Twitter clone in React.js
 Developed By Nathan Inbar && Justin Stitt
 
-[Project Writeup](https://docs.google.com/document/d/1-x0CJ0XkVqaihelHrf26Tq9Y-lgkB2f94qzkBu0FE0o/edit?usp=sharing)
+[Project Writeup (Google Docs)](https://docs.google.com/document/d/1-x0CJ0XkVqaihelHrf26Tq9Y-lgkB2f94qzkBu0FE0o/edit?usp=sharing)
+## Main Features
+Sign-Up|
+-----------------------------------|
+![](/media/show_twooter_signup.gif/)
 
-## Features
+Log-In|
+----------------------------------|
+![](/media/show_twooter_login.gif/)
 
+Posting|
+---------------------------------------|
+![](/media/show_twooter_post_img2.gif/)|
+![](/media/POSTFROMSIDEBAR.gif/)
+
+Post Interaction|
+-------------------------------|
+Liking / Commenting
+![](/media/POSTINTERACTION1.gif/)
+Retwooting / Sharing
+![](/media/POSTINTERACTION2.gif/)
+
+Profiles|
+---------------------------|
+![](/media/PROFILETABS.gif/)
+
+Edit Profiles|
+-----------------------------------------|
+![](/media/show_twooter_edit_profile.gif/)
+
+Explore
+---------------------------|
+![](/media/EXPLORETABS.gif/)
+
+Account Deletion
+---------------------------|
+![](/media/ACCOUNTDELETE.gif/)
+
+Widgets|
+-------------------------------------------|
+Searching:
+![](/media/show_twooter_widget_search.gif/)|
+Dynamic News:
+![](/media/show_twooter_news.gif/)|
+Dynamic Follower Suggestions:
+![](/media/show_twooter_widget_follow.gif/)
 
 ## Details
 ![](https://via.placeholder.com/15/5e81ac/000000?text=+) **Front-end:**
@@ -21,10 +63,10 @@ Developed By Nathan Inbar && Justin Stitt
 * Sqlite
 
 Full-Stack Visualization |
---------------------------------------------------------------|
+------------------------------------|
   ![](/media/full-stack_outline.png/)
 
-### Project Mock-up
+### Project Mock-Up
 Model|
-----------------------------------------------|
+-----------------------|
 ![](/media/Twooter.png/)
