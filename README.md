@@ -1,5 +1,6 @@
 # Twooter
 A proof-of-proficiency MVP (Minimally Viable Product), realized as a Twitter clone in React.js
+
 Developed By Nathan Inbar && Justin Stitt
 
 [Project Writeup (Google Docs)](https://docs.google.com/document/d/1-x0CJ0XkVqaihelHrf26Tq9Y-lgkB2f94qzkBu0FE0o/edit?usp=sharing)
