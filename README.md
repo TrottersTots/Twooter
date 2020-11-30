@@ -16,18 +16,17 @@ Log-In|
 Posting|
 ---------------------------------------|
 ![](/media/show_twooter_post_img2.gif/)|
-![](/media/POSTFROMSIDEBAR.gif/)
 
 Post Interaction|
 -------------------------------|
 Liking / Commenting
-![](/media/POSTINTERACTION1.gif/)
+![](/media/twooter_show_comment_like.gif/)
 Retwooting / Sharing
-![](/media/POSTINTERACTION2.gif/)
+![](/media/twooter_show_retwoot_share.gif/)
 
 Profiles|
 ---------------------------|
-![](/media/PROFILETABS.gif/)
+![](/media/twooter_show_profiles.gif/)
 
 Edit Profiles|
 -----------------------------------------|
@@ -35,11 +34,11 @@ Edit Profiles|
 
 Explore
 ---------------------------|
-![](/media/EXPLORETABS.gif/)
+![](/media/twooter_show_explore.gif/)
 
 Account Deletion
 ---------------------------|
-![](/media/ACCOUNTDELETE.gif/)
+![](/media/twooter_show_delete.gif/)
 
 Widgets|
 -------------------------------------------|
